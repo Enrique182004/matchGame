@@ -1734,6 +1734,7 @@
           resultEl.innerHTML = `<div class="result-role"><i class="ti ti-check"></i><strong>${match.role}</strong>${alreadyFound ? '<span class="result-already">(already found)</span>' : ""}</div><div class="result-desc">${match.desc}</div>`;
           playMatchSound();
           launchConfetti();
+          setTimeout(() => clearSelections(), 2000);
         } else {
           streak = 0;
           document.getElementById("streak").textContent = "0";
@@ -1745,7 +1746,7 @@
           setTimeout(() => bar.classList.remove("shaking"), 500);
         }
 
-        document.getElementById("btn-try").classList.add("visible");
+        if (!match) document.getElementById("btn-try").classList.add("visible");
       }
 
       function clearSelections() {
