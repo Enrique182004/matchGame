@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Engineering Career Explorer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --purple-50: #eeedfe;
+        --purple-200: #afa9ec;
+        --purple-400: #7f77dd;
+        --purple-600: #534ab7;
+        --purple-800: #3c3489;
+        --purple-900: #26215c;
+        --teal-50: #e1f5ee;
+        --teal-200: #5dcaa5;
+        --teal-600: #0f6e56;
+        --teal-900: #04342c;
+        --coral-50: #faece7;
+        --coral-200: #f0997b;
+        --coral-600: #993c1d;
+        --gray-50: #f1efe8;
+        --gray-100: #d3d1c7;
+        --gray-400: #888780;
+        --gray-600: #5f5e5a;
+      }
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #f5f4f0;
+        min-height: 100vh;
+        color: #2c2c2a;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background: linear-gradient(
+          135deg,
+          #26215c 0%,
+          #534ab7 60%,
+          #0f6e56 100%
+        );
+        padding: 4rem 1rem 3rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      header::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      header::after {
+        content: "";
+        position: absolute;
+        bottom: -80px;
+        left: -40px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 16px;
+        letter-spacing: 0.04em;
+        position: relative;
+        z-index: 1;
+      }
+      header h1 {
+        font-size: clamp(28px, 6vw, 46px);
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.03em;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+      }
+      header p {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.6;
+        position: relative;
+        z-index: 1;
+      }
+      main {
+        flex: 1;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 3rem 1rem 2rem;
+        width: 100%;
+      }
+      .section-label {
+        text-align: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-400);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+      .hero-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      @media (max-width: 560px) {
+        .hero-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      .hero-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2.5rem 1.5rem 2rem;
+        background: #fff;
+        border: 2px solid #e0dfd8;
+        border-radius: 20px;
+        text-decoration: none;
+        color: inherit;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .hero-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+      }
+      .hero-card.game-card {
+        border-top: 4px solid var(--purple-600);
+      }
+      .hero-card.careers-card {
+        border-top: 4px solid var(--teal-600);
+      }
+      .hero-card.game-card:hover {
+        border-color: var(--purple-400);
+        border-top-color: var(--purple-600);
+      }
+      .hero-card.careers-card:hover {
+        border-color: var(--teal-200);
+        border-top-color: var(--teal-600);
+      }
+      .hero-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        margin-bottom: 1.25rem;
+      }
+      .game-card .hero-icon {
+        background: var(--purple-50);
+        color: var(--purple-600);
+      }
+      .careers-card .hero-icon {
+        background: var(--teal-50);
+        color: var(--teal-600);
+      }
+      .hero-card h2 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .hero-card p {
+        font-size: 14px;
+        color: var(--gray-600);
+        line-height: 1.65;
+        margin-bottom: 1.75rem;
+        flex: 1;
+      }
+      .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 28px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        transition: opacity 0.12s;
+      }
+      .game-card .hero-btn {
+        background: var(--purple-600);
+        color: #fff;
+      }
+      .careers-card .hero-btn {
+        background: var(--teal-600);
+        color: #fff;
+      }
+      .hero-card:hover .hero-btn {
+        opacity: 0.85;
+      }
+      .stats-row {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-num {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--purple-600);
+        line-height: 1;
+      }
+      .stat-lbl {
+        font-size: 12px;
+        color: var(--gray-400);
+        margin-top: 6px;
+      }
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 12px;
+        color: var(--gray-400);
+        border-top: 1px solid var(--gray-100);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-badge">
+        <i class="ti ti-tool"></i> Engineering Outreach
+      </div>
+      <h1>🛠 Engineering Career Explorer</h1>
+      <p>
+        Discover the engineering role that matches your interests and passions
+      </p>
+    </header>
+    <main>
+      <div class="section-label">Choose your experience</div>
+      <div class="hero-cards">
+        <a href="game.html" class="hero-card game-card">
+          <div class="hero-icon"><i class="ti ti-gamepad-2"></i></div>
+          <h2>Play the Game</h2>
+          <p>
+            Make three choices — engineering type, industry, and problem to
+            solve — and discover your career match. Track your score and streak!
+          </p>
+          <span class="hero-btn"
+            ><i class="ti ti-player-play"></i> Let's Play</span
+          >
+        </a>
+        <a href="careers.html" class="hero-card careers-card">
+          <div class="hero-icon"><i class="ti ti-id-badge-2"></i></div>
+          <h2>Explore Careers</h2>
+          <p>
+            Browse all 37 engineering roles with full descriptions, grouped by
+            discipline. See what each role does and what combination reveals it.
+          </p>
+          <span class="hero-btn"><i class="ti ti-book-open"></i> Explore</span>
+        </a>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num">37</div>
+          <div class="stat-lbl">Engineering Roles</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-lbl">Disciplines</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">14</div>
+          <div class="stat-lbl">Industries</div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      Engineering Career Explorer &nbsp;·&nbsp; Industrial, Manufacturing &amp;
+      Systems Engineering
+    </footer>
+  </body>
+</html>
