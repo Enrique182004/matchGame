@@ -1010,7 +1010,15 @@
           c.dataset.id = item.id;
           c.style.animationDelay = `${i * 40}ms`;
           c.innerHTML = `<i class="ti ${item.icon}" aria-hidden="true"></i><span>${item.label}</span>`;
+          c.setAttribute("role", "button");
+          c.setAttribute("tabindex", "0");
           c.addEventListener("click", () => selectCard(type, item, c));
+          c.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              selectCard(type, item, c);
+            }
+          });
           wrap.appendChild(c);
         });
       }
@@ -1152,6 +1160,7 @@
           "#AFA9EC",
         ];
         const container = document.getElementById("confetti-container");
+        container.innerHTML = "";
         for (let i = 0; i < 70; i++) {
           const el = document.createElement("div");
           el.className = "confetti-piece";
@@ -1166,7 +1175,7 @@
       border-radius: ${Math.random() > 0.5 ? "50%" : "3px"};
     `;
           container.appendChild(el);
-          setTimeout(() => el.remove(), 2000);
+          setTimeout(() => el.remove(), 3000);
         }
       }
 
