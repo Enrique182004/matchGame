@@ -1659,13 +1659,44 @@
       // ── GAME LOGIC ────────────────────────────────────────────────────────────────
       function selectCard(type, item, el) {
         if (resultShown) return;
+        // Toggle: clicking the already-selected card deselects it
+        if (sel[type] && sel[type].id === item.id) {
+          sel[type] = null;
+          el.classList.remove(`sel-${type}`);
+          resetMiniSlot(type);
+          clearResultDisplay();
+          return;
+        }
+        // Swap: replace selection in this column, clear stale result
         document.querySelectorAll(`.card-${type}`).forEach((c) => {
           c.classList.remove("sel-eng", "sel-ind", "sel-prod");
         });
         el.classList.add(`sel-${type}`);
         sel[type] = item;
         updateMiniSlot(type, item);
+        clearResultDisplay();
         checkResult();
+      }
+
+      function resetMiniSlot(type) {
+        const defaults = {
+          eng: { icon: "ti-settings", text: "Engineering type…" },
+          ind: { icon: "ti-building-factory", text: "Industry…" },
+          prod: { icon: "ti-bulb", text: "Product / problem…" },
+        };
+        const slot = document.getElementById(`mini-${type}`);
+        const iconEl = document.getElementById(`mini-${type}-icon`);
+        const textEl = document.getElementById(`mini-${type}-text`);
+        slot.className = "mini-slot";
+        iconEl.className = `ti ${defaults[type].icon}`;
+        textEl.textContent = defaults[type].text;
+      }
+
+      function clearResultDisplay() {
+        const resultEl = document.getElementById("inline-result");
+        resultEl.className = "";
+        resultEl.innerHTML = "";
+        document.getElementById("btn-try").classList.remove("visible");
       }
 
       function updateMiniSlot(type, item) {
@@ -1684,13 +1715,13 @@
 
       function checkResult() {
         if (!sel.eng || !sel.ind || !sel.prod) return;
-        resultShown = true;
         const key = `${sel.eng.id}|${sel.ind.id}|${sel.prod.id}`;
         const match = roleMap[key];
         const resultEl = document.getElementById("inline-result");
 
         resultEl.style.display = "";
         if (match) {
+          resultShown = true;
           score++;
           streak++;
           if (streak > bestStreak) bestStreak = streak;
