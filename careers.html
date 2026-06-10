@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Careers — Engineering Career Explorer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --purple-50: #eeedfe;
+        --purple-200: #afa9ec;
+        --purple-400: #7f77dd;
+        --purple-600: #534ab7;
+        --purple-800: #3c3489;
+        --purple-900: #26215c;
+        --teal-50: #e1f5ee;
+        --teal-200: #5dcaa5;
+        --teal-600: #0f6e56;
+        --teal-900: #04342c;
+        --coral-50: #faece7;
+        --coral-200: #f0997b;
+        --coral-600: #993c1d;
+        --coral-900: #4a1b0c;
+        --amber-50: #faeeda;
+        --amber-400: #ba7517;
+        --gray-50: #f1efe8;
+        --gray-100: #d3d1c7;
+        --gray-400: #888780;
+        --gray-600: #5f5e5a;
+        --gray-800: #444441;
+      }
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #f5f4f0;
+        min-height: 100vh;
+        color: #2c2c2a;
+      }
+      .nav-bar {
+        background: rgba(38, 33, 92, 0.97);
+        padding: 10px 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        transition: color 0.12s;
+      }
+      .back-link:hover {
+        color: #fff;
+      }
+      .nav-count {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      header {
+        background: linear-gradient(135deg, #26215c 0%, #0f6e56 100%);
+        padding: 2.5rem 1rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      header::before {
+        content: "";
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 12px;
+        letter-spacing: 0.04em;
+        position: relative;
+        z-index: 1;
+      }
+      header h1 {
+        font-size: clamp(20px, 5vw, 30px);
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+      }
+      header p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.75);
+        position: relative;
+        z-index: 1;
+      }
+      .main {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1rem 3rem;
+      }
+      .search-wrap {
+        position: relative;
+        margin-bottom: 2rem;
+      }
+      .search-wrap i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray-400);
+        font-size: 18px;
+        pointer-events: none;
+      }
+      #search {
+        width: 100%;
+        padding: 12px 14px 12px 44px;
+        border: 2px solid #e0dfd8;
+        border-radius: 12px;
+        font-size: 14px;
+        background: #fff;
+        outline: none;
+        transition: border-color 0.12s;
+        font-family: inherit;
+      }
+      #search:focus {
+        border-color: var(--purple-400);
+      }
+      #no-results {
+        display: none;
+        text-align: center;
+        padding: 3rem;
+        color: var(--gray-400);
+        font-size: 15px;
+      }
+      .discipline-section {
+        margin-bottom: 3rem;
+      }
+      .discipline-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 1.25rem;
+        padding-bottom: 10px;
+        border-bottom: 2px solid;
+      }
+      .discipline-header.ie-header {
+        border-color: var(--purple-200);
+      }
+      .discipline-header.me-header {
+        border-color: var(--teal-200);
+      }
+      .discipline-header.se-header {
+        border-color: var(--coral-200);
+      }
+      .discipline-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+      .ie-header .discipline-icon {
+        background: var(--purple-50);
+        color: var(--purple-600);
+      }
+      .me-header .discipline-icon {
+        background: var(--teal-50);
+        color: var(--teal-600);
+      }
+      .se-header .discipline-icon {
+        background: var(--coral-50);
+        color: var(--coral-600);
+      }
+      .discipline-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .ie-header .discipline-title {
+        color: var(--purple-900);
+      }
+      .me-header .discipline-title {
+        color: var(--teal-900);
+      }
+      .se-header .discipline-title {
+        color: var(--coral-900);
+      }
+      .discipline-count {
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
+      .ie-header .discipline-count {
+        background: var(--purple-50);
+        color: var(--purple-600);
+      }
+      .me-header .discipline-count {
+        background: var(--teal-50);
+        color: var(--teal-600);
+      }
+      .se-header .discipline-count {
+        background: var(--coral-50);
+        color: var(--coral-600);
+      }
+      .roles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+      .role-card {
+        background: #fff;
+        border: 1.5px solid #e0dfd8;
+        border-radius: 14px;
+        padding: 1.25rem;
+        transition:
+          transform 0.12s ease,
+          box-shadow 0.12s ease;
+      }
+      .role-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+      }
+      .role-card.ie-card {
+        border-left: 4px solid var(--purple-400);
+      }
+      .role-card.me-card {
+        border-left: 4px solid var(--teal-200);
+      }
+      .role-card.se-card {
+        border-left: 4px solid var(--coral-200);
+      }
+      .role-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+      .ie-card .role-title {
+        color: var(--purple-900);
+      }
+      .me-card .role-title {
+        color: var(--teal-900);
+      }
+      .se-card .role-title {
+        color: var(--coral-900);
+      }
+      .role-desc {
+        font-size: 13px;
+        color: var(--gray-600);
+        line-height: 1.65;
+        margin-bottom: 12px;
+      }
+      .role-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 9px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+      .tag-eng {
+        background: var(--purple-50);
+        color: var(--purple-800);
+      }
+      .tag-ind {
+        background: var(--teal-50);
+        color: var(--teal-600);
+      }
+      .tag-prod {
+        background: var(--amber-50);
+        color: var(--amber-400);
+      }
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 12px;
+        color: var(--gray-400);
+        border-top: 1px solid var(--gray-100);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav-bar">
+      <a href="index.html" class="back-link"
+        ><i class="ti ti-arrow-left"></i> Home</a
+      >
+      <span class="nav-count" id="nav-count">37 roles</span>
+    </nav>
+
+    <header>
+      <div class="header-badge">
+        <i class="ti ti-book-open"></i> Career Reference
+      </div>
+      <h1>📋 Engineering Careers</h1>
+      <p>
+        Browse all 37 engineering roles — see what each does and how to find it
+        in the game
+      </p>
+    </header>
+
+    <main class="main">
+      <div class="search-wrap">
+        <i class="ti ti-search"></i>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search roles by name or keyword…"
+          oninput="filterRoles(this.value)"
+        />
+      </div>
+
+      <div id="no-results">
+        No roles match your search. Try a different keyword.
+      </div>
+
+      <div id="ie-section" class="discipline-section">
+        <div class="discipline-header ie-header">
+          <div class="discipline-icon"><i class="ti ti-chart-arrows"></i></div>
+          <div class="discipline-title">Industrial Engineering</div>
+          <div class="discipline-count ie-count">18 roles</div>
+        </div>
+        <div class="roles-grid" id="ie-grid"></div>
+      </div>
+
+      <div id="me-section" class="discipline-section">
+        <div class="discipline-header me-header">
+          <div class="discipline-icon"><i class="ti ti-assembly"></i></div>
+          <div class="discipline-title">Manufacturing Engineering</div>
+          <div class="discipline-count me-count">10 roles</div>
+        </div>
+        <div class="roles-grid" id="me-grid"></div>
+      </div>
+
+      <div id="se-section" class="discipline-section">
+        <div class="discipline-header se-header">
+          <div class="discipline-icon"><i class="ti ti-sitemap"></i></div>
+          <div class="discipline-title">Systems Engineering</div>
+          <div class="discipline-count se-count">9 roles</div>
+        </div>
+        <div class="roles-grid" id="se-grid"></div>
+      </div>
+    </main>
+
+    <footer>
+      Engineering Career Explorer &nbsp;·&nbsp; Industrial, Manufacturing &amp;
+      Systems Engineering
+    </footer>
+
+    <script>
+      const engLabels = {
+        IE: "Industrial Engineering",
+        ME: "Manufacturing Engineering",
+        SE: "Systems Engineering",
+      };
+      const indLabels = {
+        hospital: "Hospitals",
+        factory: "Factories",
+        aerospace: "Aerospace",
+        logistics: "Logistics",
+        bizops: "Business Operations",
+        healthcare: "Healthcare",
+        supplychain: "Supply Chain",
+        technology: "Technology",
+        energy: "Energy",
+        automotive: "Automotive",
+        construction: "Construction",
+        warehouse: "Warehouses",
+        airport: "Airports",
+        food: "Food Production",
+      };
+      const prodLabels = {
+        computers: "Computers",
+        floorlayout: "Production Floor Layout",
+        quality: "Quality Control",
+        costs: "Reducing Costs",
+        safety: "Improving Safety",
+        productivity: "Increasing Productivity",
+        data: "Data Analysis",
+        inventory: "Inventory Management",
+        process: "Process Improvement",
+        medical: "Medical Devices",
+        delivery: "Faster Delivery",
+        customer: "Better Customer Service",
+        robotics: "Robotics / Automation",
+        waste: "Waste Reduction",
+        scheduling: "Scheduling Workers",
+        patientflow: "Improving Patient Flow",
+      };
+
+      const roleMap = {
+        "IE|hospital|patientflow": {
+          role: "Healthcare Systems Engineer",
+          desc: "A Healthcare Systems Engineer applies industrial engineering methods to hospitals and clinics — improving patient flow, reducing wait times, and making care delivery safer and more efficient.",
+        },
+        "IE|factory|costs": {
+          role: "Process Improvement Engineer",
+          desc: "A Process Improvement Engineer identifies waste and inefficiencies in manufacturing or business operations and redesigns processes to cut costs and boost performance.",
+        },
+        "ME|factory|floorlayout": {
+          role: "Manufacturing Engineer",
+          desc: "A Manufacturing Engineer designs and optimizes factory floor layouts, production lines, and assembly systems to maximize output and quality.",
+        },
+        "ME|food|quality": {
+          role: "Quality Engineer",
+          desc: "A Quality Engineer ensures products, processes, and systems meet strict standards — reducing defects, minimizing errors, and improving customer satisfaction.",
+        },
+        "SE|aerospace|computers": {
+          role: "Aerospace Systems Engineer",
+          desc: "An Aerospace Systems Engineer integrates avionics, software, and hardware subsystems in aircraft or spacecraft to ensure mission success and system reliability.",
+        },
+        "IE|supplychain|delivery": {
+          role: "Supply Chain Engineer",
+          desc: "A Supply Chain Engineer designs and optimizes the flow of goods, information, and resources across a supply chain to ensure products arrive faster and at lower cost.",
+        },
+        "IE|warehouse|inventory": {
+          role: "Logistics Engineer",
+          desc: "A Logistics Engineer plans and improves warehouse layouts, inventory systems, and distribution networks to move products efficiently and accurately.",
+        },
+        "ME|factory|robotics": {
+          role: "Automation Engineer",
+          desc: "An Automation Engineer designs and implements robotic systems, automated machinery, and smart manufacturing solutions that increase speed, precision, and safety.",
+        },
+        "SE|technology|computers": {
+          role: "Technology Systems Analyst",
+          desc: "A Technology Systems Analyst designs, integrates, and optimizes complex software and hardware systems to meet the evolving needs of tech-driven organizations.",
+        },
+        "IE|bizops|data": {
+          role: "Operations Analyst",
+          desc: "An Operations Analyst uses data analysis, modeling, and optimization techniques to improve business processes, reduce costs, and support strategic decision-making.",
+        },
+        "IE|factory|process": {
+          role: "Process Engineer",
+          desc: "A Process Engineer analyzes and redesigns manufacturing or business workflows to eliminate bottlenecks, reduce variation, and improve overall throughput and quality.",
+        },
+        "IE|factory|safety": {
+          role: "Safety & Industrial Engineer",
+          desc: "A Safety & Industrial Engineer combines ergonomics, process design, and risk analysis to build safer workplaces while maintaining productivity.",
+        },
+        "IE|factory|productivity": {
+          role: "Industrial Engineer",
+          desc: "An Industrial Engineer optimizes systems of people, machines, and materials to maximize productivity and eliminate waste across manufacturing and service environments.",
+        },
+        "ME|automotive|robotics": {
+          role: "Automotive Automation Engineer",
+          desc: "An Automotive Automation Engineer develops robotic assembly lines and smart manufacturing systems for vehicle production, improving speed, precision, and safety.",
+        },
+        "ME|automotive|quality": {
+          role: "Automotive Quality Engineer",
+          desc: "An Automotive Quality Engineer ensures vehicles and components meet rigorous safety and performance standards throughout design, production, and delivery.",
+        },
+        "SE|energy|computers": {
+          role: "Energy Systems Engineer",
+          desc: "An Energy Systems Engineer designs and manages integrated power systems — from smart grids to renewable energy infrastructure — ensuring reliable and efficient energy delivery.",
+        },
+        "IE|hospital|costs": {
+          role: "Healthcare Operations Engineer",
+          desc: "A Healthcare Operations Engineer applies lean and industrial engineering principles to reduce costs in hospitals while maintaining high-quality patient care.",
+        },
+        "IE|logistics|delivery": {
+          role: "Logistics & Distribution Engineer",
+          desc: "A Logistics & Distribution Engineer designs transportation networks and fulfillment systems to ensure goods reach customers faster and at lower operational cost.",
+        },
+        "SE|airport|scheduling": {
+          role: "Airport Systems Engineer",
+          desc: "An Airport Systems Engineer plans and optimizes complex airport operations — from gate scheduling and baggage systems to security flow and control systems integration.",
+        },
+        "IE|factory|scheduling": {
+          role: "Production Planning Engineer",
+          desc: "A Production Planning Engineer schedules workers, machines, and materials on the factory floor to meet demand, reduce downtime, and optimize shift efficiency.",
+        },
+        "ME|food|robotics": {
+          role: "Food Automation Engineer",
+          desc: "A Food Automation Engineer designs automated processing and packaging systems in food manufacturing to improve throughput, hygiene, and consistency.",
+        },
+        "SE|technology|data": {
+          role: "Data Systems Engineer",
+          desc: "A Data Systems Engineer architects and integrates large-scale data platforms, pipelines, and analytics infrastructure to support intelligent decision-making.",
+        },
+        "IE|healthcare|medical": {
+          role: "Biomedical & Industrial Engineer",
+          desc: "This engineer combines industrial engineering methods with healthcare expertise to optimize the deployment, maintenance, and workflow around medical devices and clinical equipment.",
+        },
+        "ME|factory|waste": {
+          role: "Lean Manufacturing Engineer",
+          desc: "A Lean Manufacturing Engineer applies lean and Six Sigma principles to eliminate waste — overproduction, idle time, defects — and create more value with fewer resources.",
+        },
+        "IE|bizops|customer": {
+          role: "Customer Experience & Operations Engineer",
+          desc: "This engineer uses operations research and process improvement methods to redesign service systems, reduce friction, and elevate the customer experience.",
+        },
+        "IE|construction|safety": {
+          role: "Construction Safety Engineer",
+          desc: "This engineer designs safe construction workflows, site layouts, and worker scheduling systems to reduce accidents and keep projects on time and on budget.",
+        },
+        "SE|aerospace|safety": {
+          role: "Systems Safety Engineer",
+          desc: "A Systems Safety Engineer identifies and mitigates risks in complex aerospace and defense systems, ensuring every subsystem meets strict reliability and safety requirements.",
+        },
+        "ME|healthcare|medical": {
+          role: "Medical Device Manufacturing Engineer",
+          desc: "A Medical Device Manufacturing Engineer designs and validates production processes for medical equipment, ensuring devices are safe, effective, and compliant with regulatory standards.",
+        },
+        "SE|energy|data": {
+          role: "Energy Data Systems Engineer",
+          desc: "An Energy Data Systems Engineer builds integrated systems that collect, process, and visualize power grid and energy consumption data to drive smarter energy management decisions.",
+        },
+        "IE|food|quality": {
+          role: "Food Quality & Industrial Engineer",
+          desc: "This engineer applies quality control methods and lean principles to food production lines, ensuring consistent product standards and regulatory compliance.",
+        },
+        "IE|airport|scheduling": {
+          role: "Airport Operations & Industrial Engineer",
+          desc: "This engineer uses industrial engineering tools to optimize staffing, gate assignments, and terminal flow at airports, reducing delays and improving passenger experience.",
+        },
+        "SE|construction|safety": {
+          role: "Construction Systems Engineer",
+          desc: "A Construction Systems Engineer integrates project planning, safety systems, and structural requirements to ensure complex construction projects are delivered safely and on schedule.",
+        },
+        "ME|energy|robotics": {
+          role: "Energy Automation Engineer",
+          desc: "An Energy Automation Engineer designs automated systems for power plants and renewable energy installations, improving efficiency, safety, and uptime.",
+        },
+        "IE|warehouse|scheduling": {
+          role: "Warehouse Operations Engineer",
+          desc: "A Warehouse Operations Engineer optimizes worker schedules, picking routes, and storage layouts to maximize throughput and minimize operational cost.",
+        },
+        "SE|technology|process": {
+          role: "IT Process Systems Engineer",
+          desc: "An IT Process Systems Engineer designs and integrates enterprise software workflows, ensuring that IT systems and business processes are aligned, scalable, and efficient.",
+        },
+        "IE|supplychain|inventory": {
+          role: "Supply Chain & Inventory Engineer",
+          desc: "This engineer develops inventory management strategies and supply chain models that balance stock levels, reduce holding costs, and prevent stockouts across distribution networks.",
+        },
+        "ME|construction|floorlayout": {
+          role: "Construction Manufacturing Engineer",
+          desc: "A Construction Manufacturing Engineer designs prefabrication layouts and modular construction workflows, bringing manufacturing efficiency to building and infrastructure projects.",
+        },
+      };
+
+      const allRoles = Object.entries(roleMap).map(([key, val]) => {
+        const [eng, ind, prod] = key.split("|");
+        return { key, eng, ind, prod, role: val.role, desc: val.desc };
+      });
+
+      function renderRole(r) {
+        const typeClass = r.eng.toLowerCase();
+        return `
+    <div class="role-card ${typeClass}-card" data-search="${r.role.toLowerCase()} ${r.desc.toLowerCase()} ${engLabels[r.eng].toLowerCase()} ${indLabels[r.ind].toLowerCase()} ${prodLabels[r.prod].toLowerCase()}">
+      <div class="role-title">${r.role}</div>
+      <div class="role-desc">${r.desc}</div>
+      <div class="role-tags">
+        <span class="tag tag-eng">${engLabels[r.eng]}</span>
+        <span class="tag tag-ind">${indLabels[r.ind]}</span>
+        <span class="tag tag-prod">${prodLabels[r.prod]}</span>
+      </div>
+    </div>`;
+      }
+
+      function renderAll() {
+        document.getElementById("ie-grid").innerHTML = allRoles
+          .filter((r) => r.eng === "IE")
+          .map(renderRole)
+          .join("");
+        document.getElementById("me-grid").innerHTML = allRoles
+          .filter((r) => r.eng === "ME")
+          .map(renderRole)
+          .join("");
+        document.getElementById("se-grid").innerHTML = allRoles
+          .filter((r) => r.eng === "SE")
+          .map(renderRole)
+          .join("");
+      }
+
+      function filterRoles(query) {
+        const q = query.trim().toLowerCase();
+        const cards = document.querySelectorAll(".role-card");
+        let visible = 0;
+        cards.forEach((card) => {
+          const matches = !q || card.dataset.search.includes(q);
+          card.style.display = matches ? "" : "none";
+          if (matches) visible++;
+        });
+        document.getElementById("nav-count").textContent =
+          visible + " role" + (visible !== 1 ? "s" : "");
+        document.getElementById("no-results").style.display =
+          visible === 0 ? "block" : "none";
+        ["ie", "me", "se"].forEach((t) => {
+          const section = document.getElementById(`${t}-section`);
+          const gridCards = section.querySelectorAll(".role-card");
+          const anyVisible = Array.from(gridCards).some(
+            (c) => c.style.display !== "none",
+          );
+          section.style.display = anyVisible ? "" : "none";
+        });
+      }
+
+      renderAll();
+    </script>
+  </body>
+</html>
