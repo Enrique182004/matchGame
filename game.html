@@ -954,6 +954,64 @@
         background: var(--red-50);
       }
 
+      /* ── Found chip ────────────────────────────────── */
+      .found-chip {
+        background: rgba(5, 150, 105, 0.2);
+        color: #5dcaa5;
+        border: 1px solid rgba(5, 150, 105, 0.3);
+      }
+
+      /* ── Role description in result ─────────────────── */
+      .result-role {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .result-already {
+        font-size: 10px;
+        font-weight: 400;
+        opacity: 0.65;
+      }
+      .result-desc {
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.45;
+        margin-top: 4px;
+        opacity: 0.85;
+      }
+
+      /* ── Best scores in lobby ───────────────────────── */
+      .best-scores {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        padding: 10px 14px;
+        background: var(--gray-50);
+        border-radius: 10px;
+        margin-top: 14px;
+        font-size: 12px;
+        color: var(--gray-600);
+        flex-wrap: wrap;
+      }
+      .best-scores strong {
+        color: var(--purple-600);
+      }
+
+      /* ── New record badge ───────────────────────────── */
+      .new-record-badge {
+        display: inline-block;
+        background: var(--amber-50);
+        color: var(--amber-400);
+        border: 1px solid var(--amber-400);
+        border-radius: 20px;
+        padding: 3px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        letter-spacing: 0.05em;
+      }
+
       /* ── Mobile ─────────────────────────────────────── */
       @media (max-width: 640px) {
         .columns-grid {
@@ -997,6 +1055,9 @@
           <i class="ti ti-trophy"></i> <span id="score">0</span>
         </div>
         <div class="stat-chip streak-chip">🔥 <span id="streak">0</span></div>
+        <div class="stat-chip found-chip">
+          <i class="ti ti-check"></i> <span id="found-count">0</span> found
+        </div>
         <button class="history-btn" onclick="openHistory()">
           <i class="ti ti-history"></i> History
         </button>
@@ -1047,6 +1108,14 @@
         >
           <i class="ti ti-history"></i> View History
         </a>
+        <div class="best-scores" id="best-scores-display" style="display: none">
+          <span
+            >🏆 Best: <strong id="best-matches-display">0</strong> matches</span
+          >
+          <span
+            >🔥 Best streak: <strong id="best-streak-display">0</strong></span
+          >
+        </div>
       </div>
     </div>
 
@@ -1121,6 +1190,13 @@
     <!-- END OVERLAY -->
     <div id="end-overlay">
       <div class="end-modal">
+        <div
+          id="new-record-badge"
+          class="new-record-badge"
+          style="display: none"
+        >
+          🎉 NEW RECORD!
+        </div>
         <div class="end-icon">⏰</div>
         <div class="end-title">Time's Up!</div>
         <div class="end-subtitle" id="end-subtitle">
@@ -1399,6 +1475,101 @@
       let resultShown = false;
 
       const HISTORY_KEY = "engineeringCareerHistory";
+      const BEST_KEY = "engineeringCareerBest";
+
+      let foundRoles = new Set();
+      let _audioCtx = null;
+
+      // ── AUDIO ─────────────────────────────────────────────────────────────────────
+      function getAudioCtx() {
+        if (!_audioCtx)
+          _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        return _audioCtx;
+      }
+      function playMatchSound() {
+        try {
+          const ctx = getAudioCtx();
+          [523, 659, 784].forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = "sine";
+            osc.frequency.value = freq;
+            const t = ctx.currentTime + i * 0.12;
+            gain.gain.setValueAtTime(0.25, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+            osc.start(t);
+            osc.stop(t + 0.22);
+          });
+        } catch {}
+      }
+      function playNoMatchSound() {
+        try {
+          const ctx = getAudioCtx();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(220, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.3);
+        } catch {}
+      }
+      function playTickSound() {
+        try {
+          const ctx = getAudioCtx();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = "square";
+          osc.frequency.value = 800;
+          gain.gain.setValueAtTime(0.06, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.04);
+        } catch {}
+      }
+
+      // ── BEST SCORES ───────────────────────────────────────────────────────────────
+      function loadBest() {
+        try {
+          return (
+            JSON.parse(localStorage.getItem(BEST_KEY)) || {
+              bestMatches: 0,
+              bestStreak: 0,
+            }
+          );
+        } catch {
+          return { bestMatches: 0, bestStreak: 0 };
+        }
+      }
+      function saveBest(matches, streak) {
+        const best = loadBest();
+        const isNew = matches > best.bestMatches || streak > best.bestStreak;
+        if (matches > best.bestMatches) best.bestMatches = matches;
+        if (streak > best.bestStreak) best.bestStreak = streak;
+        localStorage.setItem(BEST_KEY, JSON.stringify(best));
+        return isNew;
+      }
+      function updateBestDisplay() {
+        const best = loadBest();
+        const el = document.getElementById("best-scores-display");
+        if (best.bestMatches > 0 || best.bestStreak > 0) {
+          document.getElementById("best-matches-display").textContent =
+            best.bestMatches;
+          document.getElementById("best-streak-display").textContent =
+            best.bestStreak;
+          el.style.display = "flex";
+        } else {
+          el.style.display = "none";
+        }
+      }
 
       // ── LOBBY ─────────────────────────────────────────────────────────────────────
       function selectDuration(mins) {
@@ -1419,14 +1590,18 @@
         score = 0;
         streak = 0;
         bestStreak = 0;
+        foundRoles = new Set();
         document.getElementById("score").textContent = "0";
         document.getElementById("streak").textContent = "0";
+        document.getElementById("found-count").textContent = "0";
+        document.getElementById("new-record-badge").style.display = "none";
         clearSelections();
         document.getElementById("lobby").classList.remove("hidden");
         document.getElementById("game").classList.remove("active");
         document.getElementById("bottom-bar").classList.remove("active");
         document.getElementById("countdown").style.display = "none";
         document.getElementById("end-overlay").classList.remove("active");
+        updateBestDisplay();
       }
 
       function startGame() {
@@ -1444,6 +1619,7 @@
       function tickTimer() {
         timeRemaining--;
         updateCountdownDisplay();
+        if (timeRemaining > 0 && timeRemaining <= 15) playTickSound();
         if (timeRemaining <= 0) {
           clearInterval(timerInterval);
           timerInterval = null;
@@ -1468,6 +1644,10 @@
           .querySelectorAll(".card")
           .forEach((c) => c.classList.add("disabled"));
         saveRound(selectedDuration, score, bestStreak);
+        const isNewRecord = saveBest(score, bestStreak);
+        document.getElementById("new-record-badge").style.display = isNewRecord
+          ? "inline-block"
+          : "none";
         document.getElementById("end-subtitle").textContent =
           `${selectedDuration} minute round complete`;
         document.getElementById("end-matches").textContent = score;
@@ -1509,20 +1689,26 @@
         const match = roleMap[key];
         const resultEl = document.getElementById("inline-result");
 
+        resultEl.style.display = "";
         if (match) {
           score++;
           streak++;
           if (streak > bestStreak) bestStreak = streak;
+          const alreadyFound = foundRoles.has(key);
+          foundRoles.add(key);
           document.getElementById("score").textContent = score;
           document.getElementById("streak").textContent = streak;
+          document.getElementById("found-count").textContent = foundRoles.size;
           resultEl.className = "match";
-          resultEl.innerHTML = `<i class="ti ti-check"></i><strong>${match.role}</strong>`;
+          resultEl.innerHTML = `<div class="result-role"><i class="ti ti-check"></i><strong>${match.role}</strong>${alreadyFound ? '<span class="result-already">(already found)</span>' : ""}</div><div class="result-desc">${match.desc}</div>`;
+          playMatchSound();
           launchConfetti();
         } else {
           streak = 0;
           document.getElementById("streak").textContent = "0";
           resultEl.className = "no-match";
           resultEl.innerHTML = `<i class="ti ti-x"></i> No match — try a different combination`;
+          playNoMatchSound();
           const bar = document.getElementById("bottom-bar");
           bar.classList.add("shaking");
           setTimeout(() => bar.classList.remove("shaking"), 500);
@@ -1553,7 +1739,6 @@
         const resultEl = document.getElementById("inline-result");
         resultEl.className = "";
         resultEl.innerHTML = "";
-        resultEl.style.display = "none";
         document.getElementById("btn-try").classList.remove("visible");
       }
 
