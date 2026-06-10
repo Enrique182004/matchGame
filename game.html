@@ -45,6 +45,11 @@
         --green-50: #ecfdf5;
         --green-600: #059669;
       }
+
+      /* ── Layout shell ───────────────────────────────── */
+      html {
+        height: 100%;
+      }
       body {
         font-family:
           "Segoe UI",
@@ -52,10 +57,14 @@
           -apple-system,
           sans-serif;
         background: #f5f4f0;
-        min-height: 100vh;
         color: #2c2c2a;
+        display: flex;
+        flex-direction: column;
+        height: 100dvh;
+        overflow: hidden;
       }
-      /* Confetti */
+
+      /* ── Confetti ───────────────────────────────────── */
       #confetti-container {
         position: fixed;
         top: 0;
@@ -84,18 +93,32 @@
           opacity: 0;
         }
       }
-      /* Nav bar */
+
+      /* ── Nav bar ────────────────────────────────────── */
       .nav-bar {
         background: rgba(38, 33, 92, 0.97);
-        padding: 10px 1.5rem;
+        padding: 8px 1.25rem;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        z-index: 100;
+      }
+      .nav-left {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .nav-center {
+        display: flex;
+        justify-content: center;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
         gap: 8px;
-        position: sticky;
-        top: 0;
-        z-index: 100;
+        justify-content: flex-end;
       }
       .back-link {
         display: inline-flex;
@@ -110,17 +133,36 @@
       .back-link:hover {
         color: #fff;
       }
-      .game-stats {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
+      #countdown {
+        font-size: 24px;
+        font-weight: 800;
+        color: #5dcaa5;
+        letter-spacing: -0.02em;
+        min-width: 64px;
+        text-align: center;
+        display: none;
+      }
+      #countdown.amber {
+        color: #f5c67a;
+      }
+      #countdown.red {
+        color: #f09595;
+        animation: pulse 0.8s ease infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.45;
+        }
       }
       .stat-chip {
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        padding: 5px 12px;
+        padding: 4px 10px;
         border-radius: 20px;
         font-size: 12px;
         font-weight: 600;
@@ -136,12 +178,26 @@
         color: #f5c67a;
         border: 1px solid rgba(186, 117, 23, 0.4);
       }
-      .timer-chip {
-        background: rgba(15, 110, 86, 0.25);
-        color: #5dcaa5;
-        border: 1px solid rgba(15, 110, 86, 0.4);
+      .history-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.75);
+        border-radius: 20px;
+        padding: 4px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.12s;
+        font-family: inherit;
       }
-      /* Header */
+      .history-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+
+      /* ── Header ─────────────────────────────────────── */
       header {
         background: linear-gradient(
           135deg,
@@ -149,18 +205,19 @@
           #534ab7 60%,
           #0f6e56 100%
         );
-        padding: 2rem 1rem 2.5rem;
+        padding: 1.25rem 1rem;
         text-align: center;
         position: relative;
         overflow: hidden;
+        flex-shrink: 0;
       }
       header::before {
         content: "";
         position: absolute;
         top: -40px;
         right: -40px;
-        width: 200px;
-        height: 200px;
+        width: 160px;
+        height: 160px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.05);
       }
@@ -171,121 +228,247 @@
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 20px;
-        padding: 4px 14px;
-        font-size: 12px;
+        padding: 3px 12px;
+        font-size: 11px;
         font-weight: 500;
         color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         letter-spacing: 0.04em;
         position: relative;
         z-index: 1;
       }
       header h1 {
-        font-size: clamp(20px, 5vw, 30px);
+        font-size: clamp(16px, 4vw, 24px);
         font-weight: 700;
         color: #fff;
         letter-spacing: -0.02em;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
         position: relative;
         z-index: 1;
       }
       header p {
-        font-size: 14px;
+        font-size: 13px;
         color: rgba(255, 255, 255, 0.75);
         position: relative;
         z-index: 1;
       }
-      /* Main */
-      .main {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 1.5rem 1rem 3rem;
-      }
-      /* Progress */
-      .counter {
-        text-align: right;
-        font-size: 12px;
-        color: var(--gray-400);
-        margin-bottom: 4px;
-      }
-      .progress-bar {
-        height: 5px;
-        border-radius: 4px;
-        background: var(--gray-100);
-        overflow: hidden;
-        margin-bottom: 1.5rem;
-      }
-      .progress-fill {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(
-          90deg,
-          var(--purple-600),
-          var(--teal-600),
-          var(--coral-600)
-        );
-        border-radius: 4px;
-        transition: width 0.35s ease;
-      }
-      /* Step headers */
-      .step-header {
+
+      /* ── LOBBY ──────────────────────────────────────── */
+      #lobby {
+        flex: 1;
         display: flex;
         align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        overflow-y: auto;
+      }
+      #lobby.hidden {
+        display: none;
+      }
+      .lobby-card {
+        background: #fff;
+        border-radius: 20px;
+        border: 2px solid #e0dfd8;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        max-width: 440px;
+        width: 100%;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+      }
+      .lobby-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2c2c2a;
+        margin-bottom: 6px;
+      }
+      .lobby-sub {
+        font-size: 14px;
+        color: var(--gray-600);
+        margin-bottom: 2rem;
+      }
+      .timer-options {
+        display: flex;
         gap: 10px;
-        margin-bottom: 12px;
-        margin-top: 2rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+      .timer-opt {
+        flex: 1;
+        max-width: 120px;
+        padding: 14px 8px;
+        border: 2px solid #e0dfd8;
+        border-radius: 14px;
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-family: inherit;
+      }
+      .timer-opt .opt-mins {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--purple-600);
+        display: block;
+      }
+      .timer-opt .opt-label {
+        font-size: 12px;
+        color: var(--gray-400);
+        margin-top: 4px;
+        display: block;
+      }
+      .timer-opt.selected {
+        background: var(--purple-50);
+        border-color: var(--purple-400);
+      }
+      .timer-opt.selected .opt-label {
+        color: var(--purple-600);
+      }
+      .timer-opt:hover:not(.selected) {
+        background: var(--gray-50);
+        border-color: var(--gray-100);
+      }
+      #start-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--purple-600);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.12s;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      #start-btn:hover {
+        background: var(--purple-800);
+      }
+      #history-link {
+        font-size: 13px;
+        color: var(--gray-400);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: color 0.12s;
+      }
+      #history-link:hover {
+        color: var(--purple-600);
+      }
+
+      /* ── GAME area ──────────────────────────────────── */
+      #game {
+        flex: 1;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        min-height: 0;
+      }
+      #game.active {
+        display: flex;
+      }
+
+      .columns-grid {
+        display: grid;
+        grid-template-columns: minmax(150px, 1fr) minmax(190px, 2fr) minmax(
+            190px,
+            2fr
+          );
+        flex: 1;
+        overflow: hidden;
+        min-height: 0;
+      }
+      .col {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-right: 1px solid var(--gray-100);
+      }
+      .col:last-child {
+        border-right: none;
+      }
+      .col-header {
+        padding: 10px 12px;
+        background: #f5f4f0;
+        border-bottom: 2px solid;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .col-eng .col-header {
+        border-bottom-color: var(--purple-200);
+      }
+      .col-ind .col-header {
+        border-bottom-color: var(--teal-200);
+      }
+      .col-prod .col-header {
+        border-bottom-color: var(--coral-200);
+      }
+      .col-header h2 {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c2c2a;
+      }
+      .col-header span {
+        font-size: 11px;
+        color: var(--gray-400);
+        display: block;
+        margin-top: 1px;
       }
       .step-num {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         flex-shrink: 0;
       }
-      .step-eng .step-num {
+      .step-num-eng {
         background: var(--purple-600);
         color: #fff;
       }
-      .step-ind .step-num {
+      .step-num-ind {
         background: var(--teal-600);
         color: #fff;
       }
-      .step-prod .step-num {
+      .step-num-prod {
         background: var(--coral-600);
         color: #fff;
       }
-      .step-header h2 {
-        font-size: 16px;
-        font-weight: 600;
-        color: #2c2c2a;
+      .col-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px;
+        min-height: 0;
       }
-      .step-header span {
-        font-size: 13px;
-        color: var(--gray-600);
-        font-weight: 400;
-      }
-      /* Cards */
       .cards-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
+        align-content: flex-start;
       }
+
+      /* ── Cards ──────────────────────────────────────── */
       .card {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 7px;
-        padding: 12px 8px;
-        width: 104px;
-        min-height: 88px;
+        gap: 5px;
+        padding: 10px 6px;
+        width: calc(50% - 3px);
+        min-height: 70px;
         background: #fff;
         border: 1.5px solid #e0dfd8;
-        border-radius: 12px;
+        border-radius: 10px;
         cursor: pointer;
         transition:
           transform 0.12s ease,
@@ -294,12 +477,15 @@
           box-shadow 0.12s ease;
         user-select: none;
         opacity: 0;
-        animation: cardIn 0.35s ease forwards;
+        animation: cardIn 0.3s ease forwards;
+      }
+      .col-eng .card {
+        width: 100%;
       }
       @keyframes cardIn {
         from {
           opacity: 0;
-          transform: translateY(10px);
+          transform: translateY(8px);
         }
         to {
           opacity: 1;
@@ -307,29 +493,29 @@
         }
       }
       .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .card:active {
+        transform: translateY(0);
       }
       .card:focus-visible {
         outline: 2px solid var(--purple-600);
         outline-offset: 2px;
         box-shadow: 0 0 0 4px var(--purple-50);
       }
-      .card:active {
-        transform: translateY(0);
-      }
       .card i {
-        font-size: 24px;
+        font-size: 20px;
         transition: transform 0.15s;
       }
       .card:hover i {
-        transform: scale(1.12);
+        transform: scale(1.1);
       }
       .card span {
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 500;
         text-align: center;
-        line-height: 1.35;
+        line-height: 1.3;
         color: #444441;
       }
       .card-eng i {
@@ -365,29 +551,24 @@
       .card.sel-prod span {
         color: var(--coral-600);
       }
-      /* Divider */
-      .divider {
-        height: 1px;
-        background: var(--gray-100);
-        margin: 2rem 0;
+      .card.disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
       }
-      /* Slots */
-      .selection-label {
-        text-align: center;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--gray-600);
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
+
+      /* ── Bottom bar ─────────────────────────────────── */
+      #bottom-bar {
+        display: none;
+        background: #fff;
+        border-top: 1.5px solid var(--gray-100);
+        padding: 8px 14px;
+        flex-shrink: 0;
+        flex-direction: column;
+        gap: 6px;
       }
-      .slots-row {
+      #bottom-bar.active {
         display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: center;
-        transition: transform 0.1s;
       }
       @keyframes shake {
         0%,
@@ -395,16 +576,16 @@
           transform: translateX(0);
         }
         15% {
-          transform: translateX(-8px);
+          transform: translateX(-7px);
         }
         30% {
-          transform: translateX(8px);
+          transform: translateX(7px);
         }
         45% {
-          transform: translateX(-6px);
+          transform: translateX(-5px);
         }
         60% {
-          transform: translateX(6px);
+          transform: translateX(5px);
         }
         75% {
           transform: translateX(-3px);
@@ -413,265 +594,388 @@
           transform: translateX(3px);
         }
       }
-      .slots-row.shaking {
+      #bottom-bar.shaking {
         animation: shake 0.45s ease;
       }
-      .slot {
-        flex: 1;
-        min-width: 200px;
-        max-width: 260px;
-        border: 2px dashed var(--gray-100);
-        border-radius: 14px;
-        padding: 16px 12px;
+      .bar-top {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .mini-slot {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
         gap: 6px;
-        min-height: 100px;
+        padding: 6px 10px;
+        border: 1.5px dashed var(--gray-100);
+        border-radius: 8px;
         background: #faf9f7;
-        transition: all 0.2s ease;
+        transition: all 0.2s;
       }
-      .slot-lbl {
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+      .mini-slot i {
+        font-size: 15px;
+        flex-shrink: 0;
         color: var(--gray-400);
       }
-      .slot i {
-        font-size: 26px;
-      }
-      .slot-eng-color i {
-        color: var(--purple-400);
-      }
-      .slot-ind-color i {
-        color: var(--teal-200);
-      }
-      .slot-prod-color i {
-        color: var(--coral-200);
-      }
-      .slot-name {
-        font-size: 12px;
-        font-weight: 500;
-        text-align: center;
-        color: var(--gray-600);
-      }
-      .slot-empty {
-        font-size: 12px;
+      .mini-slot-lbl {
+        font-size: 11px;
         color: var(--gray-400);
-        font-style: italic;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      .slot.filled-eng {
+      .mini-slot.filled-eng {
         background: var(--purple-50);
         border-style: solid;
         border-color: var(--purple-400);
       }
-      .slot.filled-eng .slot-lbl {
+      .mini-slot.filled-eng i {
         color: var(--purple-600);
       }
-      .slot.filled-eng .slot-name {
+      .mini-slot.filled-eng .mini-slot-lbl {
         color: var(--purple-800);
+        font-weight: 500;
       }
-      .slot.filled-eng i {
-        color: var(--purple-600);
-      }
-      .slot.filled-ind {
+      .mini-slot.filled-ind {
         background: var(--teal-50);
         border-style: solid;
         border-color: var(--teal-200);
       }
-      .slot.filled-ind .slot-lbl {
+      .mini-slot.filled-ind i {
         color: var(--teal-600);
       }
-      .slot.filled-ind .slot-name {
+      .mini-slot.filled-ind .mini-slot-lbl {
         color: var(--teal-600);
+        font-weight: 500;
       }
-      .slot.filled-ind i {
-        color: var(--teal-600);
-      }
-      .slot.filled-prod {
+      .mini-slot.filled-prod {
         background: var(--coral-50);
         border-style: solid;
         border-color: var(--coral-200);
       }
-      .slot.filled-prod .slot-lbl {
+      .mini-slot.filled-prod i {
         color: var(--coral-600);
       }
-      .slot.filled-prod .slot-name {
+      .mini-slot.filled-prod .mini-slot-lbl {
         color: var(--coral-600);
+        font-weight: 500;
       }
-      .slot.filled-prod i {
-        color: var(--coral-600);
-      }
-      .plus {
-        font-size: 22px;
-        color: var(--gray-400);
-        flex-shrink: 0;
-        font-weight: 300;
-      }
-      /* Result */
-      .result-area {
-        display: none;
-        margin-top: 1.5rem;
-        border-radius: 16px;
-        overflow: hidden;
-      }
-      .result-success {
-        background: linear-gradient(
-          135deg,
-          var(--purple-50) 0%,
-          var(--teal-50) 100%
-        );
-        border: 2px solid var(--purple-200);
-        padding: 2rem 1.5rem;
-        text-align: center;
-        animation: popIn 0.3s ease;
-      }
-      .result-fail {
-        background: var(--red-50);
-        border: 2px solid var(--red-200);
-        padding: 2rem 1.5rem;
-        text-align: center;
-        animation: popIn 0.3s ease;
-      }
-      @keyframes popIn {
-        from {
-          opacity: 0;
-          transform: scale(0.96) translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-        }
-      }
-      .result-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: var(--purple-600);
-        color: #fff;
-        border-radius: 20px;
-        padding: 5px 16px;
+      #btn-try {
+        padding: 7px 16px;
         font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        margin-bottom: 14px;
-      }
-      .result-time-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: var(--green-50);
-        color: var(--green-600);
-        border: 1px solid var(--green-600);
-        border-radius: 20px;
-        padding: 3px 12px;
-        font-size: 11px;
-        font-weight: 600;
-        margin-left: 8px;
-      }
-      .result-role-label {
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--purple-400);
-        margin-bottom: 8px;
-      }
-      .result-role {
-        font-size: clamp(18px, 4vw, 24px);
-        font-weight: 700;
-        color: var(--purple-900);
-        margin-bottom: 12px;
-      }
-      .result-desc {
-        font-size: 14px;
-        color: var(--purple-800);
-        line-height: 1.7;
-        max-width: 540px;
-        margin: 0 auto;
-      }
-      .result-x {
-        font-size: 52px;
-        line-height: 1;
-        color: #e24b4a;
-        margin-bottom: 10px;
-        font-weight: 700;
-      }
-      .result-fail-msg {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--red-800);
-        margin-bottom: 6px;
-      }
-      .result-fail-sub {
-        font-size: 13px;
-        color: var(--red-600);
-      }
-      /* Actions */
-      .actions {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        margin-top: 1.5rem;
-        flex-wrap: wrap;
-      }
-      .btn-try {
-        padding: 10px 22px;
-        font-size: 13px;
         font-weight: 600;
         border-radius: 8px;
         border: none;
         background: var(--purple-600);
         color: #fff;
         cursor: pointer;
-        transition: all 0.12s;
-        display: flex;
+        transition: background 0.12s;
+        display: none;
         align-items: center;
-        gap: 6px;
+        gap: 5px;
+        font-family: inherit;
+        flex-shrink: 0;
       }
-      .btn-try:hover {
+      #btn-try.visible {
+        display: inline-flex;
+      }
+      #btn-try:hover {
         background: var(--purple-800);
       }
-      .btn-reset {
-        padding: 10px 22px;
-        font-size: 13px;
-        font-weight: 500;
-        border-radius: 8px;
-        border: 1.5px solid var(--gray-100);
-        background: #fff;
-        color: var(--gray-600);
-        cursor: pointer;
-        transition: all 0.12s;
-        display: flex;
+      #inline-result {
+        display: none;
         align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        animation: popIn 0.25s ease;
+      }
+      #inline-result.match {
+        background: var(--green-50);
+        color: var(--green-600);
+        display: flex;
+      }
+      #inline-result.no-match {
+        background: var(--red-50);
+        color: var(--red-800);
+        display: flex;
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.97) translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      /* ── END OVERLAY ────────────────────────────────── */
+      #end-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.72);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+      #end-overlay.active {
+        display: flex;
+      }
+      .end-modal {
+        background: #fff;
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        animation: popIn 0.3s ease;
+      }
+      .end-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
+      .end-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--purple-900);
+        margin-bottom: 6px;
+      }
+      .end-subtitle {
+        font-size: 14px;
+        color: var(--gray-600);
+        margin-bottom: 1.5rem;
+      }
+      .end-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 1.75rem;
+      }
+      .end-stat {
+        background: var(--gray-50);
+        border-radius: 12px;
+        padding: 12px 8px;
+      }
+      .end-stat-num {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--purple-600);
+        line-height: 1;
+      }
+      .end-stat-lbl {
+        font-size: 11px;
+        color: var(--gray-400);
+        margin-top: 4px;
+      }
+      .end-actions {
+        display: flex;
+        gap: 10px;
+      }
+      #play-again {
+        flex: 1;
+        padding: 12px;
+        background: var(--purple-600);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.12s;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         gap: 6px;
       }
-      .btn-reset:hover {
+      #play-again:hover {
+        background: var(--purple-800);
+      }
+      #view-history-btn {
+        flex: 1;
+        padding: 12px;
+        background: #fff;
+        color: var(--gray-600);
+        border: 1.5px solid var(--gray-100);
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.12s;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      #view-history-btn:hover {
         background: var(--gray-50);
       }
-      footer {
+
+      /* ── HISTORY DRAWER ─────────────────────────────── */
+      #history-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 300;
+      }
+      #history-backdrop.active {
+        display: block;
+      }
+      #history-drawer {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 360px;
+        max-width: 100vw;
+        background: #fff;
+        z-index: 301;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+      }
+      #history-drawer.open {
+        transform: translateX(0);
+      }
+      .drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--gray-100);
+        flex-shrink: 0;
+      }
+      .drawer-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      #close-drawer {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--gray-400);
+        font-size: 20px;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        transition: color 0.12s;
+      }
+      #close-drawer:hover {
+        color: var(--gray-800);
+      }
+      #history-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 20px;
+      }
+      .history-empty {
         text-align: center;
-        padding: 1.5rem;
+        padding: 3rem 1rem;
+        color: var(--gray-400);
+        font-size: 14px;
+      }
+      .history-entry {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--gray-100);
+      }
+      .history-entry:last-child {
+        border-bottom: none;
+      }
+      .history-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--purple-50);
+        color: var(--purple-600);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .history-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .history-date {
         font-size: 12px;
         color: var(--gray-400);
-        border-top: 1px solid var(--gray-100);
       }
-      @media (max-width: 560px) {
-        .card {
-          width: 88px;
-          min-height: 80px;
+      .history-duration {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gray-800);
+        margin-top: 2px;
+      }
+      .history-scores {
+        display: flex;
+        gap: 12px;
+        margin-top: 4px;
+      }
+      .history-score {
+        font-size: 12px;
+        color: var(--gray-600);
+      }
+      .drawer-footer {
+        padding: 14px 20px;
+        border-top: 1px solid var(--gray-100);
+        flex-shrink: 0;
+      }
+      #clear-history {
+        width: 100%;
+        padding: 10px;
+        background: none;
+        border: 1.5px solid var(--red-200);
+        color: var(--red-600);
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.12s;
+        font-family: inherit;
+      }
+      #clear-history:hover {
+        background: var(--red-50);
+      }
+
+      /* ── Mobile ─────────────────────────────────────── */
+      @media (max-width: 640px) {
+        .columns-grid {
+          grid-template-columns: 1fr;
+          overflow-y: auto;
         }
-        .slot {
-          min-width: 160px;
+        .col {
+          border-right: none;
+          border-bottom: 1px solid var(--gray-100);
+          max-height: 36vh;
         }
-        .plus {
-          display: none;
+        .col:last-child {
+          border-bottom: none;
+        }
+        #history-drawer {
+          width: 100%;
+        }
+        .end-stats {
+          grid-template-columns: 1fr 1fr 1fr;
         }
         .nav-bar {
-          flex-direction: column;
-          align-items: flex-start;
+          grid-template-columns: auto 1fr auto;
         }
       }
     </style>
@@ -680,19 +984,22 @@
     <div id="confetti-container"></div>
 
     <nav class="nav-bar">
-      <a href="index.html" class="back-link"
-        ><i class="ti ti-arrow-left"></i> Home</a
-      >
-      <div class="game-stats">
+      <div class="nav-left">
+        <a href="index.html" class="back-link"
+          ><i class="ti ti-arrow-left"></i> Home</a
+        >
+      </div>
+      <div class="nav-center">
+        <div id="countdown">3:00</div>
+      </div>
+      <div class="nav-right">
         <div class="stat-chip score-chip">
-          <i class="ti ti-trophy"></i> <span id="score">0</span> matches
+          <i class="ti ti-trophy"></i> <span id="score">0</span>
         </div>
-        <div class="stat-chip streak-chip">
-          🔥 <span id="streak">0</span> streak
-        </div>
-        <div class="stat-chip timer-chip">
-          <i class="ti ti-clock"></i> Best: <span id="best-time">--</span>
-        </div>
+        <div class="stat-chip streak-chip">🔥 <span id="streak">0</span></div>
+        <button class="history-btn" onclick="openHistory()">
+          <i class="ti ti-history"></i> History
+        </button>
       </div>
     </nav>
 
@@ -704,86 +1011,170 @@
       <p>Select one card from each section to discover your engineering role</p>
     </header>
 
-    <main class="main">
-      <div class="counter" id="counter">0 of 3 selected</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress"></div>
-      </div>
-
-      <div class="step-header step-eng">
-        <div class="step-num">1</div>
-        <h2>Type of Engineering <span>— Choose one</span></h2>
-      </div>
-      <div class="cards-grid" id="eng-cards"></div>
-
-      <div class="divider"></div>
-
-      <div class="step-header step-ind">
-        <div class="step-num">2</div>
-        <h2>Workforce / Industry <span>— Choose one</span></h2>
-      </div>
-      <div class="cards-grid" id="ind-cards"></div>
-
-      <div class="divider"></div>
-
-      <div class="step-header step-prod">
-        <div class="step-num">3</div>
-        <h2>Product / Problem to Solve <span>— Choose one</span></h2>
-      </div>
-      <div class="cards-grid" id="prod-cards"></div>
-
-      <div class="divider"></div>
-
-      <div class="selection-label">Your Selections</div>
-      <div class="slots-row" id="slots-row">
-        <div class="slot slot-eng-color" id="slot-eng">
-          <div class="slot-lbl">Engineering Type</div>
-          <i class="ti ti-settings" id="slot-eng-icon"></i>
-          <div class="slot-empty" id="slot-eng-text">Select above ↑</div>
+    <!-- LOBBY -->
+    <div id="lobby">
+      <div class="lobby-card">
+        <h2 class="lobby-title">Choose your time limit</h2>
+        <p class="lobby-sub">How long do you want to play?</p>
+        <div class="timer-options">
+          <button class="timer-opt" data-mins="1" onclick="selectDuration(1)">
+            <span class="opt-mins">1 min</span>
+            <span class="opt-label">Quick</span>
+          </button>
+          <button
+            class="timer-opt selected"
+            data-mins="3"
+            onclick="selectDuration(3)"
+          >
+            <span class="opt-mins">3 min</span>
+            <span class="opt-label">Standard</span>
+          </button>
+          <button class="timer-opt" data-mins="5" onclick="selectDuration(5)">
+            <span class="opt-mins">5 min</span>
+            <span class="opt-label">Extended</span>
+          </button>
         </div>
-        <div class="plus">+</div>
-        <div class="slot slot-ind-color" id="slot-ind">
-          <div class="slot-lbl">Industry</div>
-          <i class="ti ti-building-factory" id="slot-ind-icon"></i>
-          <div class="slot-empty" id="slot-ind-text">Select above ↑</div>
-        </div>
-        <div class="plus">+</div>
-        <div class="slot slot-prod-color" id="slot-prod">
-          <div class="slot-lbl">Product / Problem</div>
-          <i class="ti ti-bulb" id="slot-prod-icon"></i>
-          <div class="slot-empty" id="slot-prod-text">Select above ↑</div>
-        </div>
-      </div>
-
-      <div class="result-area" id="result-area"></div>
-
-      <div class="actions">
-        <button
-          class="btn-try"
-          id="btn-try"
-          onclick="clearSelections()"
-          style="display: none"
+        <button id="start-btn" onclick="startGame()">
+          <i class="ti ti-player-play"></i> Start Game
+        </button>
+        <a
+          href="#"
+          id="history-link"
+          onclick="
+            openHistory();
+            return false;
+          "
         >
-          <i class="ti ti-refresh"></i> Try Another Combo
-        </button>
-        <button class="btn-reset" onclick="resetAll()">
-          <i class="ti ti-trash"></i> Reset All
+          <i class="ti ti-history"></i> View History
+        </a>
+      </div>
+    </div>
+
+    <!-- GAME -->
+    <div id="game">
+      <div class="columns-grid">
+        <div class="col col-eng">
+          <div class="col-header">
+            <div class="step-num step-num-eng">1</div>
+            <div>
+              <h2>Engineering Type</h2>
+              <span>Choose one</span>
+            </div>
+          </div>
+          <div class="col-body">
+            <div class="cards-grid" id="eng-cards"></div>
+          </div>
+        </div>
+        <div class="col col-ind">
+          <div class="col-header">
+            <div class="step-num step-num-ind">2</div>
+            <div>
+              <h2>Industry</h2>
+              <span>Choose one</span>
+            </div>
+          </div>
+          <div class="col-body">
+            <div class="cards-grid" id="ind-cards"></div>
+          </div>
+        </div>
+        <div class="col col-prod">
+          <div class="col-header">
+            <div class="step-num step-num-prod">3</div>
+            <div>
+              <h2>Product / Problem</h2>
+              <span>Choose one</span>
+            </div>
+          </div>
+          <div class="col-body">
+            <div class="cards-grid" id="prod-cards"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div id="bottom-bar">
+      <div class="bar-top">
+        <div class="mini-slot" id="mini-eng">
+          <i class="ti ti-settings" id="mini-eng-icon"></i>
+          <span class="mini-slot-lbl" id="mini-eng-text"
+            >Engineering type…</span
+          >
+        </div>
+        <div class="mini-slot" id="mini-ind">
+          <i class="ti ti-building-factory" id="mini-ind-icon"></i>
+          <span class="mini-slot-lbl" id="mini-ind-text">Industry…</span>
+        </div>
+        <div class="mini-slot" id="mini-prod">
+          <i class="ti ti-bulb" id="mini-prod-icon"></i>
+          <span class="mini-slot-lbl" id="mini-prod-text"
+            >Product / problem…</span
+          >
+        </div>
+        <button id="btn-try" onclick="clearSelections()">
+          <i class="ti ti-refresh"></i> Try Another
         </button>
       </div>
-    </main>
+      <div id="inline-result"></div>
+    </div>
 
-    <footer>
-      Engineering Career Explorer &nbsp;·&nbsp; Industrial, Manufacturing &amp;
-      Systems Engineering
-    </footer>
+    <!-- END OVERLAY -->
+    <div id="end-overlay">
+      <div class="end-modal">
+        <div class="end-icon">⏰</div>
+        <div class="end-title">Time's Up!</div>
+        <div class="end-subtitle" id="end-subtitle">
+          3 minute round complete
+        </div>
+        <div class="end-stats">
+          <div class="end-stat">
+            <div class="end-stat-num" id="end-matches">0</div>
+            <div class="end-stat-lbl">Matches</div>
+          </div>
+          <div class="end-stat">
+            <div class="end-stat-num" id="end-streak">0</div>
+            <div class="end-stat-lbl">Best Streak</div>
+          </div>
+          <div class="end-stat">
+            <div class="end-stat-num" id="end-duration">3</div>
+            <div class="end-stat-lbl">Minutes</div>
+          </div>
+        </div>
+        <div class="end-actions">
+          <button id="play-again" onclick="showLobby()">
+            <i class="ti ti-refresh"></i> Play Again
+          </button>
+          <button id="view-history-btn" onclick="openHistory()">
+            <i class="ti ti-history"></i> History
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY DRAWER -->
+    <div id="history-backdrop" onclick="closeHistory()"></div>
+    <div id="history-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">Game History</div>
+        <button id="close-drawer" onclick="closeHistory()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div id="history-list"></div>
+      <div class="drawer-footer">
+        <button id="clear-history" onclick="clearHistory()">
+          Clear All History
+        </button>
+      </div>
+    </div>
 
     <script>
+      // ── DATA ─────────────────────────────────────────────────────────────────────
       const engData = [
         { id: "IE", label: "Industrial Engineering", icon: "ti-chart-arrows" },
         { id: "ME", label: "Manufacturing Engineering", icon: "ti-assembly" },
         { id: "SE", label: "Systems Engineering", icon: "ti-sitemap" },
       ];
-
       const indData = [
         { id: "hospital", label: "Hospitals", icon: "ti-building-hospital" },
         { id: "factory", label: "Factories", icon: "ti-building-factory" },
@@ -808,7 +1199,6 @@
         { id: "airport", label: "Airports", icon: "ti-plane" },
         { id: "food", label: "Food Production", icon: "ti-salad" },
       ];
-
       const prodData = [
         { id: "computers", label: "Computers", icon: "ti-device-desktop" },
         {
@@ -847,7 +1237,6 @@
           icon: "ti-activity",
         },
       ];
-
       const roleMap = {
         "IE|hospital|patientflow": {
           role: "Healthcare Systems Engineer",
@@ -999,69 +1388,118 @@
         },
       };
 
-      // Game state
+      // ── STATE ─────────────────────────────────────────────────────────────────────
+      let selectedDuration = 3;
+      let timeRemaining = 0;
+      let timerInterval = null;
       let sel = { eng: null, ind: null, prod: null };
       let score = 0;
       let streak = 0;
-      let bestTime = null;
-      let roundStart = null;
+      let bestStreak = 0;
       let resultShown = false;
 
-      function renderCards(data, containerId, type) {
-        const wrap = document.getElementById(containerId);
-        data.forEach((item, i) => {
-          const c = document.createElement("div");
-          c.className = `card card-${type}`;
-          c.dataset.id = item.id;
-          c.style.animationDelay = `${i * 40}ms`;
-          c.innerHTML = `<i class="ti ${item.icon}" aria-hidden="true"></i><span>${item.label}</span>`;
-          c.setAttribute("role", "button");
-          c.setAttribute("tabindex", "0");
-          c.addEventListener("click", () => selectCard(type, item, c));
-          c.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              selectCard(type, item, c);
-            }
-          });
-          wrap.appendChild(c);
-        });
+      const HISTORY_KEY = "engineeringCareerHistory";
+
+      // ── LOBBY ─────────────────────────────────────────────────────────────────────
+      function selectDuration(mins) {
+        selectedDuration = mins;
+        document
+          .querySelectorAll(".timer-opt")
+          .forEach((b) => b.classList.remove("selected"));
+        document
+          .querySelector(`.timer-opt[data-mins="${mins}"]`)
+          .classList.add("selected");
       }
 
+      function showLobby() {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        score = 0;
+        streak = 0;
+        bestStreak = 0;
+        document.getElementById("score").textContent = "0";
+        document.getElementById("streak").textContent = "0";
+        clearSelections();
+        document.getElementById("lobby").classList.remove("hidden");
+        document.getElementById("game").classList.remove("active");
+        document.getElementById("bottom-bar").classList.remove("active");
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("end-overlay").classList.remove("active");
+      }
+
+      function startGame() {
+        document.getElementById("lobby").classList.add("hidden");
+        document.getElementById("game").classList.add("active");
+        document.getElementById("bottom-bar").classList.add("active");
+        const cd = document.getElementById("countdown");
+        cd.style.display = "block";
+        timeRemaining = selectedDuration * 60;
+        updateCountdownDisplay();
+        timerInterval = setInterval(tickTimer, 1000);
+      }
+
+      // ── TIMER ─────────────────────────────────────────────────────────────────────
+      function tickTimer() {
+        timeRemaining--;
+        updateCountdownDisplay();
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          endGame();
+        }
+      }
+
+      function updateCountdownDisplay() {
+        const el = document.getElementById("countdown");
+        const mins = Math.floor(timeRemaining / 60);
+        const secs = timeRemaining % 60;
+        el.textContent = `${mins}:${secs.toString().padStart(2, "0")}`;
+        el.className = "";
+        if (timeRemaining <= 15) el.classList.add("red");
+        else if (timeRemaining <= 30) el.classList.add("amber");
+      }
+
+      // ── END GAME ──────────────────────────────────────────────────────────────────
+      function endGame() {
+        resultShown = true;
+        document
+          .querySelectorAll(".card")
+          .forEach((c) => c.classList.add("disabled"));
+        saveRound(selectedDuration, score, bestStreak);
+        document.getElementById("end-subtitle").textContent =
+          `${selectedDuration} minute round complete`;
+        document.getElementById("end-matches").textContent = score;
+        document.getElementById("end-streak").textContent = bestStreak;
+        document.getElementById("end-duration").textContent = selectedDuration;
+        document.getElementById("end-overlay").classList.add("active");
+      }
+
+      // ── GAME LOGIC ────────────────────────────────────────────────────────────────
       function selectCard(type, item, el) {
         if (resultShown) return;
-        if (roundStart === null) roundStart = Date.now();
         document.querySelectorAll(`.card-${type}`).forEach((c) => {
           c.classList.remove("sel-eng", "sel-ind", "sel-prod");
         });
         el.classList.add(`sel-${type}`);
         sel[type] = item;
-        updateSlot(type, item);
-        updateProgress();
+        updateMiniSlot(type, item);
         checkResult();
       }
 
-      function updateSlot(type, item) {
-        const slot = document.getElementById(`slot-${type}`);
-        const iconEl = document.getElementById(`slot-${type}-icon`);
-        const textEl = document.getElementById(`slot-${type}-text`);
-        const classes = {
+      function updateMiniSlot(type, item) {
+        const slot = document.getElementById(`mini-${type}`);
+        const iconEl = document.getElementById(`mini-${type}-icon`);
+        const textEl = document.getElementById(`mini-${type}-text`);
+        const filled = {
           eng: "filled-eng",
           ind: "filled-ind",
           prod: "filled-prod",
         };
-        slot.className = `slot ${classes[type]}`;
+        slot.className = `mini-slot ${filled[type]}`;
         iconEl.className = `ti ${item.icon}`;
-        textEl.className = "slot-name";
         textEl.textContent = item.label;
-      }
-
-      function updateProgress() {
-        const count = [sel.eng, sel.ind, sel.prod].filter(Boolean).length;
-        document.getElementById("progress").style.width =
-          (count / 3) * 100 + "%";
-        document.getElementById("counter").textContent =
-          `${count} of 3 selected`;
       }
 
       function checkResult() {
@@ -1069,90 +1507,127 @@
         resultShown = true;
         const key = `${sel.eng.id}|${sel.ind.id}|${sel.prod.id}`;
         const match = roleMap[key];
-        const area = document.getElementById("result-area");
-        area.style.display = "block";
+        const resultEl = document.getElementById("inline-result");
 
         if (match) {
-          const elapsed = Math.round((Date.now() - roundStart) / 1000);
-          const isBest = bestTime === null || elapsed < bestTime;
-          if (isBest) {
-            bestTime = elapsed;
-            document.getElementById("best-time").textContent = `${bestTime}s`;
-          }
           score++;
           streak++;
+          if (streak > bestStreak) bestStreak = streak;
           document.getElementById("score").textContent = score;
           document.getElementById("streak").textContent = streak;
-          area.className = "result-area result-success";
-          area.innerHTML = `
-      <div>
-        <div class="result-badge"><i class="ti ti-trophy"></i> Match found!</div>
-        ${isBest ? '<span class="result-time-badge">⚡ New best: ' + elapsed + "s</span>" : '<span class="result-time-badge">⏱ ' + elapsed + "s</span>"}
-      </div>
-      <div class="result-role-label" style="margin-top:14px">Your Engineering Role Is</div>
-      <div class="result-role">${match.role}</div>
-      <div class="result-desc">${match.desc}</div>`;
+          resultEl.className = "match";
+          resultEl.innerHTML = `<i class="ti ti-check"></i><strong>${match.role}</strong>`;
           launchConfetti();
         } else {
           streak = 0;
-          document.getElementById("streak").textContent = streak;
-          area.className = "result-area result-fail";
-          area.innerHTML = `
-      <div class="result-x">✗</div>
-      <div class="result-fail-msg">This combination doesn't match a real engineering role.</div>
-      <div class="result-fail-sub">Try a different combination — there are many paths to discover!</div>`;
-          const row = document.getElementById("slots-row");
-          row.classList.add("shaking");
-          setTimeout(() => row.classList.remove("shaking"), 500);
+          document.getElementById("streak").textContent = "0";
+          resultEl.className = "no-match";
+          resultEl.innerHTML = `<i class="ti ti-x"></i> No match — try a different combination`;
+          const bar = document.getElementById("bottom-bar");
+          bar.classList.add("shaking");
+          setTimeout(() => bar.classList.remove("shaking"), 500);
         }
 
-        document.getElementById("btn-try").style.display = "inline-flex";
-        area.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        document.getElementById("btn-try").classList.add("visible");
       }
 
       function clearSelections() {
         sel = { eng: null, ind: null, prod: null };
         resultShown = false;
-        roundStart = null;
         document.querySelectorAll(".card").forEach((c) => {
-          c.classList.remove("sel-eng", "sel-ind", "sel-prod");
+          c.classList.remove("sel-eng", "sel-ind", "sel-prod", "disabled");
         });
+        const defaults = {
+          eng: { icon: "ti-settings", text: "Engineering type…" },
+          ind: { icon: "ti-building-factory", text: "Industry…" },
+          prod: { icon: "ti-bulb", text: "Product / problem…" },
+        };
         ["eng", "ind", "prod"].forEach((type) => {
-          const slot = document.getElementById(`slot-${type}`);
-          const icons = {
-            eng: "ti-settings",
-            ind: "ti-building-factory",
-            prod: "ti-bulb",
-          };
-          const colorClass = {
-            eng: "slot-eng-color",
-            ind: "slot-ind-color",
-            prod: "slot-prod-color",
-          };
-          slot.className = `slot ${colorClass[type]}`;
-          document.getElementById(`slot-${type}-icon`).className =
-            `ti ${icons[type]}`;
-          const textEl = document.getElementById(`slot-${type}-text`);
-          textEl.className = "slot-empty";
-          textEl.textContent = "Select above ↑";
+          const slot = document.getElementById(`mini-${type}`);
+          const iconEl = document.getElementById(`mini-${type}-icon`);
+          const textEl = document.getElementById(`mini-${type}-text`);
+          slot.className = "mini-slot";
+          iconEl.className = `ti ${defaults[type].icon}`;
+          textEl.textContent = defaults[type].text;
         });
-        const area = document.getElementById("result-area");
-        area.style.display = "none";
-        area.innerHTML = "";
-        document.getElementById("btn-try").style.display = "none";
-        updateProgress();
+        const resultEl = document.getElementById("inline-result");
+        resultEl.className = "";
+        resultEl.innerHTML = "";
+        resultEl.style.display = "none";
+        document.getElementById("btn-try").classList.remove("visible");
       }
 
-      function resetAll() {
-        score = 0;
-        streak = 0;
-        bestTime = null;
-        document.getElementById("score").textContent = "0";
-        document.getElementById("streak").textContent = "0";
-        document.getElementById("best-time").textContent = "--";
-        clearSelections();
+      // ── HISTORY ───────────────────────────────────────────────────────────────────
+      function loadHistory() {
+        try {
+          return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+        } catch {
+          return [];
+        }
       }
 
+      function saveRound(duration, matches, streak) {
+        const history = loadHistory();
+        history.unshift({
+          date: new Date().toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          }),
+          duration,
+          matches,
+          streak,
+          timestamp: Date.now(),
+        });
+        if (history.length > 20) history.pop();
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      }
+
+      function openHistory() {
+        renderHistory();
+        document.getElementById("history-backdrop").classList.add("active");
+        document.getElementById("history-drawer").classList.add("open");
+      }
+
+      function closeHistory() {
+        document.getElementById("history-backdrop").classList.remove("active");
+        document.getElementById("history-drawer").classList.remove("open");
+      }
+
+      function renderHistory() {
+        const history = loadHistory();
+        const list = document.getElementById("history-list");
+        if (history.length === 0) {
+          list.innerHTML =
+            '<div class="history-empty">No games played yet. Start a round!</div>';
+          return;
+        }
+        list.innerHTML = history
+          .map(
+            (e) => `
+    <div class="history-entry">
+      <div class="history-icon"><i class="ti ti-trophy"></i></div>
+      <div class="history-info">
+        <div class="history-date">${e.date}</div>
+        <div class="history-duration">${e.duration} min round</div>
+        <div class="history-scores">
+          <span class="history-score"><i class="ti ti-target"></i> ${e.matches} matches</span>
+          <span class="history-score">🔥 ${e.streak} best streak</span>
+        </div>
+      </div>
+    </div>`,
+          )
+          .join("");
+      }
+
+      function clearHistory() {
+        if (confirm("Clear all game history? This cannot be undone.")) {
+          localStorage.removeItem(HISTORY_KEY);
+          renderHistory();
+        }
+      }
+
+      // ── CONFETTI ──────────────────────────────────────────────────────────────────
       function launchConfetti() {
         const colors = [
           "#534AB7",
@@ -1175,8 +1650,7 @@
       background: ${colors[Math.floor(Math.random() * colors.length)]};
       animation-delay: ${Math.random() * 0.6}s;
       animation-duration: ${0.9 + Math.random() * 0.8}s;
-      width: ${size}px;
-      height: ${size}px;
+      width: ${size}px; height: ${size}px;
       border-radius: ${Math.random() > 0.5 ? "50%" : "3px"};
     `;
           container.appendChild(el);
@@ -1184,9 +1658,33 @@
         }
       }
 
+      // ── RENDER ────────────────────────────────────────────────────────────────────
+      function renderCards(data, containerId, type) {
+        const wrap = document.getElementById(containerId);
+        data.forEach((item, i) => {
+          const c = document.createElement("div");
+          c.className = `card card-${type}`;
+          c.dataset.id = item.id;
+          c.style.animationDelay = `${i * 40}ms`;
+          c.innerHTML = `<i class="ti ${item.icon}" aria-hidden="true"></i><span>${item.label}</span>`;
+          c.setAttribute("role", "button");
+          c.setAttribute("tabindex", "0");
+          c.addEventListener("click", () => selectCard(type, item, c));
+          c.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              selectCard(type, item, c);
+            }
+          });
+          wrap.appendChild(c);
+        });
+      }
+
+      // ── INIT ──────────────────────────────────────────────────────────────────────
       renderCards(engData, "eng-cards", "eng");
       renderCards(indData, "ind-cards", "ind");
       renderCards(prodData, "prod-cards", "prod");
+      showLobby();
     </script>
   </body>
 </html>
