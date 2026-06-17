@@ -178,6 +178,11 @@
         color: #f5c67a;
         border: 1px solid rgba(186, 117, 23, 0.4);
       }
+      .found-chip {
+        background: rgba(5, 150, 105, 0.2);
+        color: #5dcaa5;
+        border: 1px solid rgba(5, 150, 105, 0.3);
+      }
       .history-btn {
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -359,6 +364,33 @@
       #history-link:hover {
         color: var(--purple-600);
       }
+      .best-scores {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        padding: 10px 14px;
+        background: var(--gray-50);
+        border-radius: 10px;
+        margin-top: 14px;
+        font-size: 12px;
+        color: var(--gray-600);
+        flex-wrap: wrap;
+      }
+      .best-scores strong {
+        color: var(--purple-600);
+      }
+      .new-record-badge {
+        display: inline-block;
+        background: var(--amber-50);
+        color: var(--amber-400);
+        border: 1px solid var(--amber-400);
+        border-radius: 20px;
+        padding: 3px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        letter-spacing: 0.05em;
+      }
 
       /* ── GAME area ──────────────────────────────────── */
       #game {
@@ -374,10 +406,7 @@
 
       .columns-grid {
         display: grid;
-        grid-template-columns: minmax(150px, 1fr) minmax(190px, 2fr) minmax(
-            190px,
-            2fr
-          );
+        grid-template-columns: minmax(180px, 1fr) minmax(220px, 1.5fr);
         flex: 1;
         overflow: hidden;
         min-height: 0;
@@ -400,14 +429,11 @@
         gap: 8px;
         flex-shrink: 0;
       }
-      .col-eng .col-header {
+      .col-spec .col-header {
         border-bottom-color: var(--purple-200);
       }
       .col-ind .col-header {
         border-bottom-color: var(--teal-200);
-      }
-      .col-prod .col-header {
-        border-bottom-color: var(--coral-200);
       }
       .col-header h2 {
         font-size: 13px;
@@ -431,16 +457,12 @@
         font-weight: 700;
         flex-shrink: 0;
       }
-      .step-num-eng {
+      .step-num-spec {
         background: var(--purple-600);
         color: #fff;
       }
       .step-num-ind {
         background: var(--teal-600);
-        color: #fff;
-      }
-      .step-num-prod {
-        background: var(--coral-600);
         color: #fff;
       }
       .col-body {
@@ -479,7 +501,7 @@
         opacity: 0;
         animation: cardIn 0.3s ease forwards;
       }
-      .col-eng .card {
+      .col-spec .card {
         width: 100%;
       }
       @keyframes cardIn {
@@ -518,21 +540,18 @@
         line-height: 1.3;
         color: #444441;
       }
-      .card-eng i {
+      .card-spec i {
         color: var(--purple-600);
       }
       .card-ind i {
         color: var(--teal-600);
       }
-      .card-prod i {
-        color: var(--coral-600);
-      }
-      .card.sel-eng {
+      .card.sel-spec {
         background: var(--purple-50);
         border-color: var(--purple-400);
         border-width: 2px;
       }
-      .card.sel-eng span {
+      .card.sel-spec span {
         color: var(--purple-800);
       }
       .card.sel-ind {
@@ -542,14 +561,6 @@
       }
       .card.sel-ind span {
         color: var(--teal-600);
-      }
-      .card.sel-prod {
-        background: var(--coral-50);
-        border-color: var(--coral-200);
-        border-width: 2px;
-      }
-      .card.sel-prod span {
-        color: var(--coral-600);
       }
       .card.disabled {
         opacity: 0.45;
@@ -569,33 +580,6 @@
       }
       #bottom-bar.active {
         display: flex;
-      }
-      @keyframes shake {
-        0%,
-        100% {
-          transform: translateX(0);
-        }
-        15% {
-          transform: translateX(-7px);
-        }
-        30% {
-          transform: translateX(7px);
-        }
-        45% {
-          transform: translateX(-5px);
-        }
-        60% {
-          transform: translateX(5px);
-        }
-        75% {
-          transform: translateX(-3px);
-        }
-        90% {
-          transform: translateX(3px);
-        }
-      }
-      #bottom-bar.shaking {
-        animation: shake 0.45s ease;
       }
       .bar-top {
         display: flex;
@@ -627,15 +611,15 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      .mini-slot.filled-eng {
+      .mini-slot.filled-spec {
         background: var(--purple-50);
         border-style: solid;
         border-color: var(--purple-400);
       }
-      .mini-slot.filled-eng i {
+      .mini-slot.filled-spec i {
         color: var(--purple-600);
       }
-      .mini-slot.filled-eng .mini-slot-lbl {
+      .mini-slot.filled-spec .mini-slot-lbl {
         color: var(--purple-800);
         font-weight: 500;
       }
@@ -650,40 +634,6 @@
       .mini-slot.filled-ind .mini-slot-lbl {
         color: var(--teal-600);
         font-weight: 500;
-      }
-      .mini-slot.filled-prod {
-        background: var(--coral-50);
-        border-style: solid;
-        border-color: var(--coral-200);
-      }
-      .mini-slot.filled-prod i {
-        color: var(--coral-600);
-      }
-      .mini-slot.filled-prod .mini-slot-lbl {
-        color: var(--coral-600);
-        font-weight: 500;
-      }
-      #btn-try {
-        padding: 7px 16px;
-        font-size: 12px;
-        font-weight: 600;
-        border-radius: 8px;
-        border: none;
-        background: var(--purple-600);
-        color: #fff;
-        cursor: pointer;
-        transition: background 0.12s;
-        display: none;
-        align-items: center;
-        gap: 5px;
-        font-family: inherit;
-        flex-shrink: 0;
-      }
-      #btn-try.visible {
-        display: inline-flex;
-      }
-      #btn-try:hover {
-        background: var(--purple-800);
       }
       #inline-result {
         display: none;
@@ -700,11 +650,6 @@
         color: var(--green-600);
         display: flex;
       }
-      #inline-result.no-match {
-        background: var(--red-50);
-        color: var(--red-800);
-        display: flex;
-      }
       @keyframes popIn {
         from {
           opacity: 0;
@@ -714,6 +659,24 @@
           opacity: 1;
           transform: scale(1) translateY(0);
         }
+      }
+      .result-role {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .result-already {
+        font-size: 10px;
+        font-weight: 400;
+        opacity: 0.65;
+      }
+      .result-desc {
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.45;
+        margin-top: 4px;
+        opacity: 0.85;
       }
 
       /* ── END OVERLAY ────────────────────────────────── */
@@ -954,64 +917,6 @@
         background: var(--red-50);
       }
 
-      /* ── Found chip ────────────────────────────────── */
-      .found-chip {
-        background: rgba(5, 150, 105, 0.2);
-        color: #5dcaa5;
-        border: 1px solid rgba(5, 150, 105, 0.3);
-      }
-
-      /* ── Role description in result ─────────────────── */
-      .result-role {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-wrap: wrap;
-      }
-      .result-already {
-        font-size: 10px;
-        font-weight: 400;
-        opacity: 0.65;
-      }
-      .result-desc {
-        font-size: 11px;
-        font-weight: 400;
-        line-height: 1.45;
-        margin-top: 4px;
-        opacity: 0.85;
-      }
-
-      /* ── Best scores in lobby ───────────────────────── */
-      .best-scores {
-        display: flex;
-        gap: 16px;
-        justify-content: center;
-        padding: 10px 14px;
-        background: var(--gray-50);
-        border-radius: 10px;
-        margin-top: 14px;
-        font-size: 12px;
-        color: var(--gray-600);
-        flex-wrap: wrap;
-      }
-      .best-scores strong {
-        color: var(--purple-600);
-      }
-
-      /* ── New record badge ───────────────────────────── */
-      .new-record-badge {
-        display: inline-block;
-        background: var(--amber-50);
-        color: var(--amber-400);
-        border: 1px solid var(--amber-400);
-        border-radius: 20px;
-        padding: 3px 12px;
-        font-size: 11px;
-        font-weight: 700;
-        margin-bottom: 10px;
-        letter-spacing: 0.05em;
-      }
-
       /* ── Mobile ─────────────────────────────────────── */
       @media (max-width: 640px) {
         .columns-grid {
@@ -1021,16 +926,13 @@
         .col {
           border-right: none;
           border-bottom: 1px solid var(--gray-100);
-          max-height: 36vh;
+          max-height: 40vh;
         }
         .col:last-child {
           border-bottom: none;
         }
         #history-drawer {
           width: 100%;
-        }
-        .end-stats {
-          grid-template-columns: 1fr 1fr 1fr;
         }
         .nav-bar {
           grid-template-columns: auto 1fr auto;
@@ -1069,7 +971,9 @@
         <i class="ti ti-tool"></i> Engineering Outreach
       </div>
       <h1>🛠 Engineering Career Explorer</h1>
-      <p>Select one card from each section to discover your engineering role</p>
+      <p>
+        Pick a specialization and industry to discover your engineering career
+      </p>
     </header>
 
     <!-- LOBBY -->
@@ -1079,20 +983,20 @@
         <p class="lobby-sub">How long do you want to play?</p>
         <div class="timer-options">
           <button class="timer-opt" data-mins="1" onclick="selectDuration(1)">
-            <span class="opt-mins">1 min</span>
-            <span class="opt-label">Quick</span>
+            <span class="opt-mins">1 min</span
+            ><span class="opt-label">Quick</span>
           </button>
           <button
             class="timer-opt selected"
             data-mins="3"
             onclick="selectDuration(3)"
           >
-            <span class="opt-mins">3 min</span>
-            <span class="opt-label">Standard</span>
+            <span class="opt-mins">3 min</span
+            ><span class="opt-label">Standard</span>
           </button>
           <button class="timer-opt" data-mins="5" onclick="selectDuration(5)">
-            <span class="opt-mins">5 min</span>
-            <span class="opt-label">Extended</span>
+            <span class="opt-mins">5 min</span
+            ><span class="opt-label">Extended</span>
           </button>
         </div>
         <button id="start-btn" onclick="startGame()">
@@ -1122,40 +1026,28 @@
     <!-- GAME -->
     <div id="game">
       <div class="columns-grid">
-        <div class="col col-eng">
+        <div class="col col-spec">
           <div class="col-header">
-            <div class="step-num step-num-eng">1</div>
+            <div class="step-num step-num-spec">1</div>
             <div>
-              <h2>Engineering Type</h2>
+              <h2>Specialization Area</h2>
               <span>Choose one</span>
             </div>
           </div>
           <div class="col-body">
-            <div class="cards-grid" id="eng-cards"></div>
+            <div class="cards-grid" id="spec-cards"></div>
           </div>
         </div>
         <div class="col col-ind">
           <div class="col-header">
             <div class="step-num step-num-ind">2</div>
             <div>
-              <h2>Industry</h2>
+              <h2>Industry / Career Field</h2>
               <span>Choose one</span>
             </div>
           </div>
           <div class="col-body">
             <div class="cards-grid" id="ind-cards"></div>
-          </div>
-        </div>
-        <div class="col col-prod">
-          <div class="col-header">
-            <div class="step-num step-num-prod">3</div>
-            <div>
-              <h2>Product / Problem</h2>
-              <span>Choose one</span>
-            </div>
-          </div>
-          <div class="col-body">
-            <div class="cards-grid" id="prod-cards"></div>
           </div>
         </div>
       </div>
@@ -1164,25 +1056,14 @@
     <!-- BOTTOM BAR -->
     <div id="bottom-bar">
       <div class="bar-top">
-        <div class="mini-slot" id="mini-eng">
-          <i class="ti ti-settings" id="mini-eng-icon"></i>
-          <span class="mini-slot-lbl" id="mini-eng-text"
-            >Engineering type…</span
-          >
+        <div class="mini-slot" id="mini-spec">
+          <i class="ti ti-adjustments-horizontal" id="mini-spec-icon"></i>
+          <span class="mini-slot-lbl" id="mini-spec-text">Specialization…</span>
         </div>
         <div class="mini-slot" id="mini-ind">
           <i class="ti ti-building-factory" id="mini-ind-icon"></i>
           <span class="mini-slot-lbl" id="mini-ind-text">Industry…</span>
         </div>
-        <div class="mini-slot" id="mini-prod">
-          <i class="ti ti-bulb" id="mini-prod-icon"></i>
-          <span class="mini-slot-lbl" id="mini-prod-text"
-            >Product / problem…</span
-          >
-        </div>
-        <button id="btn-try" onclick="clearSelections()">
-          <i class="ti ti-refresh"></i> Try Another
-        </button>
       </div>
       <div id="inline-result"></div>
     </div>
@@ -1246,221 +1127,288 @@
 
     <script>
       // ── DATA ─────────────────────────────────────────────────────────────────────
-      const engData = [
-        { id: "IE", label: "Industrial Engineering", icon: "ti-chart-arrows" },
-        { id: "ME", label: "Manufacturing Engineering", icon: "ti-assembly" },
-        { id: "SE", label: "Systems Engineering", icon: "ti-sitemap" },
+      const specData = [
+        { id: "proc", label: "Process Improvement", icon: "ti-refresh" },
+        { id: "supply", label: "Supply Chain", icon: "ti-arrows-exchange-2" },
+        { id: "data", label: "Data Analytics", icon: "ti-chart-dots-3" },
+        {
+          id: "quality",
+          label: "Quality Engineering",
+          icon: "ti-rosette-discount-check",
+        },
+        {
+          id: "sysopt",
+          label: "Systems Optimization",
+          icon: "ti-adjustments-horizontal",
+        },
+        { id: "pm", label: "Project Management", icon: "ti-clipboard-list" },
       ];
+
       const indData = [
-        { id: "hospital", label: "Hospitals", icon: "ti-building-hospital" },
-        { id: "factory", label: "Factories", icon: "ti-building-factory" },
-        { id: "aerospace", label: "Aerospace", icon: "ti-rocket" },
-        { id: "logistics", label: "Logistics", icon: "ti-truck" },
-        { id: "bizops", label: "Business Operations", icon: "ti-briefcase" },
-        {
-          id: "healthcare",
-          label: "Healthcare",
-          icon: "ti-heart-rate-monitor",
-        },
-        {
-          id: "supplychain",
-          label: "Supply Chain",
-          icon: "ti-arrows-exchange",
-        },
-        { id: "technology", label: "Technology", icon: "ti-cpu" },
+        { id: "mfg", label: "Manufacturing", icon: "ti-building-factory" },
+        { id: "health", label: "Healthcare", icon: "ti-building-hospital" },
+        { id: "log", label: "Logistics", icon: "ti-truck" },
+        { id: "auto", label: "Automotive", icon: "ti-car" },
+        { id: "aero", label: "Aerospace & Defense", icon: "ti-rocket" },
+        { id: "semi", label: "Electronics & Semiconductors", icon: "ti-cpu" },
+        { id: "tech", label: "Tech / E-commerce", icon: "ti-device-laptop" },
+        { id: "consult", label: "Consulting", icon: "ti-briefcase" },
         { id: "energy", label: "Energy", icon: "ti-bolt" },
-        { id: "automotive", label: "Automotive", icon: "ti-car" },
-        { id: "construction", label: "Construction", icon: "ti-crane" },
-        { id: "warehouse", label: "Warehouses", icon: "ti-building-warehouse" },
-        { id: "airport", label: "Airports", icon: "ti-plane" },
-        { id: "food", label: "Food Production", icon: "ti-salad" },
+        { id: "gov", label: "Government", icon: "ti-building-bank" },
       ];
-      const prodData = [
-        { id: "computers", label: "Computers", icon: "ti-device-desktop" },
-        {
-          id: "floorlayout",
-          label: "Production Floor Layout",
-          icon: "ti-layout-dashboard",
-        },
-        { id: "quality", label: "Quality Control", icon: "ti-certificate" },
-        { id: "costs", label: "Reducing Costs", icon: "ti-coins" },
-        { id: "safety", label: "Improving Safety", icon: "ti-shield-check" },
-        {
-          id: "productivity",
-          label: "Increasing Productivity",
-          icon: "ti-trending-up",
-        },
-        { id: "data", label: "Data Analysis", icon: "ti-chart-bar" },
-        { id: "inventory", label: "Inventory Management", icon: "ti-package" },
-        { id: "process", label: "Process Improvement", icon: "ti-refresh" },
-        { id: "medical", label: "Medical Devices", icon: "ti-stethoscope" },
-        { id: "delivery", label: "Faster Delivery", icon: "ti-clock-bolt" },
-        {
-          id: "customer",
-          label: "Better Customer Service",
-          icon: "ti-mood-happy",
-        },
-        { id: "robotics", label: "Robotics / Automation", icon: "ti-robot" },
-        { id: "waste", label: "Waste Reduction", icon: "ti-recycle" },
-        {
-          id: "scheduling",
-          label: "Scheduling Workers",
-          icon: "ti-calendar-time",
-        },
-        {
-          id: "patientflow",
-          label: "Improving Patient Flow",
-          icon: "ti-activity",
-        },
-      ];
+
+      // All 60 combinations — every pair is valid
       const roleMap = {
-        "IE|hospital|patientflow": {
-          role: "Healthcare Systems Engineer",
-          desc: "A Healthcare Systems Engineer applies industrial engineering methods to hospitals and clinics — improving patient flow, reducing wait times, and making care delivery safer and more efficient.",
+        // Process Improvement
+        "proc|mfg": {
+          role: "Manufacturing Process Improvement Engineer",
+          desc: "Identifies and eliminates waste on production lines using Lean and Six Sigma methods to increase output and reduce costs.",
         },
-        "IE|factory|costs": {
-          role: "Process Improvement Engineer",
-          desc: "A Process Improvement Engineer identifies waste and inefficiencies in manufacturing or business operations and redesigns processes to cut costs and boost performance.",
+        "proc|health": {
+          role: "Healthcare Process Improvement Engineer",
+          desc: "Applies industrial engineering methods to streamline clinical workflows, reduce patient wait times, and improve care quality.",
         },
-        "ME|factory|floorlayout": {
-          role: "Manufacturing Engineer",
-          desc: "A Manufacturing Engineer designs and optimizes factory floor layouts, production lines, and assembly systems to maximize output and quality.",
+        "proc|log": {
+          role: "Logistics Process Improvement Engineer",
+          desc: "Redesigns distribution and warehouse workflows to reduce delays, cut costs, and improve delivery reliability.",
         },
-        "ME|food|quality": {
-          role: "Quality Engineer",
-          desc: "A Quality Engineer ensures products, processes, and systems meet strict standards — reducing defects, minimizing errors, and improving customer satisfaction.",
+        "proc|auto": {
+          role: "Automotive Process Improvement Engineer",
+          desc: "Optimizes vehicle assembly and production processes to increase throughput and reduce defects across manufacturing lines.",
         },
-        "SE|aerospace|computers": {
-          role: "Aerospace Systems Engineer",
-          desc: "An Aerospace Systems Engineer integrates avionics, software, and hardware subsystems in aircraft or spacecraft to ensure mission success and system reliability.",
+        "proc|aero": {
+          role: "Aerospace Process Improvement Engineer",
+          desc: "Applies lean principles to aircraft manufacturing and maintenance operations to improve efficiency and safety compliance.",
         },
-        "IE|supplychain|delivery": {
-          role: "Supply Chain Engineer",
-          desc: "A Supply Chain Engineer designs and optimizes the flow of goods, information, and resources across a supply chain to ensure products arrive faster and at lower cost.",
+        "proc|semi": {
+          role: "Semiconductor Process Engineer",
+          desc: "Optimizes chip fabrication processes to improve yield, reduce cycle time, and ensure consistent device quality.",
         },
-        "IE|warehouse|inventory": {
-          role: "Logistics Engineer",
-          desc: "A Logistics Engineer plans and improves warehouse layouts, inventory systems, and distribution networks to move products efficiently and accurately.",
+        "proc|tech": {
+          role: "Digital Process Improvement Engineer",
+          desc: "Streamlines online operations — from order fulfillment to customer support workflows — using data-driven methods.",
         },
-        "ME|factory|robotics": {
-          role: "Automation Engineer",
-          desc: "An Automation Engineer designs and implements robotic systems, automated machinery, and smart manufacturing solutions that increase speed, precision, and safety.",
+        "proc|consult": {
+          role: "Operational Excellence Consultant",
+          desc: "Helps organizations across industries identify inefficiencies and implement process improvements to achieve strategic goals.",
         },
-        "SE|technology|computers": {
-          role: "Technology Systems Analyst",
-          desc: "A Technology Systems Analyst designs, integrates, and optimizes complex software and hardware systems to meet the evolving needs of tech-driven organizations.",
+        "proc|energy": {
+          role: "Energy Process Improvement Engineer",
+          desc: "Optimizes power plant and utility operations to increase efficiency, reduce downtime, and lower operational costs.",
         },
-        "IE|bizops|data": {
-          role: "Operations Analyst",
-          desc: "An Operations Analyst uses data analysis, modeling, and optimization techniques to improve business processes, reduce costs, and support strategic decision-making.",
+        "proc|gov": {
+          role: "Public Systems Process Improvement Engineer",
+          desc: "Applies lean and process analysis to government agencies to improve service delivery and reduce taxpayer waste.",
         },
-        "IE|factory|process": {
-          role: "Process Engineer",
-          desc: "A Process Engineer analyzes and redesigns manufacturing or business workflows to eliminate bottlenecks, reduce variation, and improve overall throughput and quality.",
+
+        // Supply Chain
+        "supply|mfg": {
+          role: "Manufacturing Supply Chain Engineer",
+          desc: "Designs and optimizes raw material flow and supplier networks to support lean, just-in-time production.",
         },
-        "IE|factory|safety": {
-          role: "Safety & Industrial Engineer",
-          desc: "A Safety & Industrial Engineer combines ergonomics, process design, and risk analysis to build safer workplaces while maintaining productivity.",
+        "supply|health": {
+          role: "Healthcare Supply Chain Engineer",
+          desc: "Manages procurement and distribution of medical supplies and pharmaceuticals to ensure hospital operations run smoothly.",
         },
-        "IE|factory|productivity": {
-          role: "Industrial Engineer",
-          desc: "An Industrial Engineer optimizes systems of people, machines, and materials to maximize productivity and eliminate waste across manufacturing and service environments.",
+        "supply|log": {
+          role: "Logistics Optimization Engineer",
+          desc: "Designs transportation networks and warehouse systems to move goods efficiently and cost-effectively at scale.",
         },
-        "ME|automotive|robotics": {
-          role: "Automotive Automation Engineer",
-          desc: "An Automotive Automation Engineer develops robotic assembly lines and smart manufacturing systems for vehicle production, improving speed, precision, and safety.",
+        "supply|auto": {
+          role: "Automotive Supply Chain Engineer",
+          desc: "Coordinates global supplier networks and parts delivery to keep vehicle assembly lines running on schedule.",
         },
-        "ME|automotive|quality": {
+        "supply|aero": {
+          role: "Aerospace Supply Chain Engineer",
+          desc: "Manages complex, high-precision component sourcing and delivery timelines critical to aircraft and defense production.",
+        },
+        "supply|semi": {
+          role: "Semiconductor Supply Chain Engineer",
+          desc: "Manages procurement of rare materials and component delivery for chip manufacturing at global scale.",
+        },
+        "supply|tech": {
+          role: "E-commerce Supply Chain Engineer",
+          desc: "Builds fulfillment systems that ensure fast, accurate order delivery for millions of customers at massive scale.",
+        },
+        "supply|consult": {
+          role: "Supply Chain Optimization Consultant",
+          desc: "Advises businesses on restructuring supply chain networks to reduce costs, mitigate risks, and shorten lead times.",
+        },
+        "supply|energy": {
+          role: "Energy Supply Chain Engineer",
+          desc: "Manages sourcing and logistics of fuel, equipment, and parts for large-scale energy infrastructure projects.",
+        },
+        "supply|gov": {
+          role: "Public Sector Supply Chain Engineer",
+          desc: "Oversees government procurement and distribution systems to ensure efficient, transparent use of public resources.",
+        },
+
+        // Data Analytics
+        "data|mfg": {
+          role: "Manufacturing Data Analytics Engineer",
+          desc: "Uses sensor data and statistical analysis to identify production inefficiencies and predict equipment failures before they occur.",
+        },
+        "data|health": {
+          role: "Healthcare Operations Analytics Engineer",
+          desc: "Analyzes patient flow, resource utilization, and clinical outcomes data to improve hospital efficiency and care quality.",
+        },
+        "data|log": {
+          role: "Logistics Analytics Engineer",
+          desc: "Builds predictive models and dashboards to optimize routing, inventory levels, and delivery performance.",
+        },
+        "data|auto": {
+          role: "Automotive Data Analytics Engineer",
+          desc: "Mines vehicle and production data to identify quality trends, optimize maintenance schedules, and inform design decisions.",
+        },
+        "data|aero": {
+          role: "Aerospace Data Systems Engineer",
+          desc: "Develops data pipelines and analytics platforms to support mission planning, maintenance, and systems performance monitoring.",
+        },
+        "data|semi": {
+          role: "Semiconductor Data Analytics Engineer",
+          desc: "Analyzes yield data and process variables to improve chip quality and increase manufacturing throughput.",
+        },
+        "data|tech": {
+          role: "E-commerce Operations Analytics Engineer",
+          desc: "Analyzes user behavior, inventory, and fulfillment data to optimize platform performance and customer experience.",
+        },
+        "data|consult": {
+          role: "Operations Analytics Consultant",
+          desc: "Leverages data science and analytics to help clients uncover operational inefficiencies and make evidence-based decisions.",
+        },
+        "data|energy": {
+          role: "Energy Analytics Engineer",
+          desc: "Analyzes grid performance, consumption patterns, and equipment data to improve energy reliability and efficiency.",
+        },
+        "data|gov": {
+          role: "Public Systems Data Analyst Engineer",
+          desc: "Uses data analysis to evaluate government program performance, allocate public resources, and improve policy outcomes.",
+        },
+
+        // Quality Engineering
+        "quality|mfg": {
+          role: "Manufacturing Quality Engineer",
+          desc: "Designs inspection systems, statistical process controls, and testing protocols to ensure products meet specifications.",
+        },
+        "quality|health": {
+          role: "Healthcare Quality Engineer",
+          desc: "Implements quality management systems and compliance frameworks in healthcare settings to improve patient safety.",
+        },
+        "quality|log": {
+          role: "Logistics Quality Engineer",
+          desc: "Audits distribution processes, delivery accuracy, and damage rates to maintain consistent service quality standards.",
+        },
+        "quality|auto": {
           role: "Automotive Quality Engineer",
-          desc: "An Automotive Quality Engineer ensures vehicles and components meet rigorous safety and performance standards throughout design, production, and delivery.",
+          desc: "Applies APQP, FMEA, and control plans to ensure vehicles and components meet stringent safety and performance standards.",
         },
-        "SE|energy|computers": {
-          role: "Energy Systems Engineer",
-          desc: "An Energy Systems Engineer designs and manages integrated power systems — from smart grids to renewable energy infrastructure — ensuring reliable and efficient energy delivery.",
+        "quality|aero": {
+          role: "Aerospace Quality Engineer",
+          desc: "Enforces rigorous testing and inspection standards to ensure aircraft and defense systems perform reliably under extreme conditions.",
         },
-        "IE|hospital|costs": {
-          role: "Healthcare Operations Engineer",
-          desc: "A Healthcare Operations Engineer applies lean and industrial engineering principles to reduce costs in hospitals while maintaining high-quality patient care.",
+        "quality|semi": {
+          role: "Semiconductor Quality Engineer",
+          desc: "Develops test protocols and defect detection methods to ensure integrated circuits meet performance and reliability specifications.",
         },
-        "IE|logistics|delivery": {
-          role: "Logistics & Distribution Engineer",
-          desc: "A Logistics & Distribution Engineer designs transportation networks and fulfillment systems to ensure goods reach customers faster and at lower operational cost.",
+        "quality|tech": {
+          role: "Digital Quality Systems Engineer",
+          desc: "Designs automated testing and monitoring frameworks to ensure software platforms perform reliably and meet user expectations.",
         },
-        "SE|airport|scheduling": {
-          role: "Airport Systems Engineer",
-          desc: "An Airport Systems Engineer plans and optimizes complex airport operations — from gate scheduling and baggage systems to security flow and control systems integration.",
+        "quality|consult": {
+          role: "Quality Improvement Consultant",
+          desc: "Helps organizations design and implement quality management systems, training programs, and continuous improvement cultures.",
         },
-        "IE|factory|scheduling": {
-          role: "Production Planning Engineer",
-          desc: "A Production Planning Engineer schedules workers, machines, and materials on the factory floor to meet demand, reduce downtime, and optimize shift efficiency.",
+        "quality|energy": {
+          role: "Energy Reliability Quality Engineer",
+          desc: "Ensures power generation and distribution equipment meets safety and performance standards through rigorous inspection regimes.",
         },
-        "ME|food|robotics": {
-          role: "Food Automation Engineer",
-          desc: "A Food Automation Engineer designs automated processing and packaging systems in food manufacturing to improve throughput, hygiene, and consistency.",
+        "quality|gov": {
+          role: "Public Systems Quality Engineer",
+          desc: "Implements quality assurance processes for government services and infrastructure to ensure compliance and citizen satisfaction.",
         },
-        "SE|technology|data": {
-          role: "Data Systems Engineer",
-          desc: "A Data Systems Engineer architects and integrates large-scale data platforms, pipelines, and analytics infrastructure to support intelligent decision-making.",
+
+        // Systems Optimization
+        "sysopt|mfg": {
+          role: "Manufacturing Systems Optimization Engineer",
+          desc: "Models and optimizes the entire production system — machines, workers, and materials — to maximize efficiency and throughput.",
         },
-        "IE|healthcare|medical": {
-          role: "Biomedical & Industrial Engineer",
-          desc: "This engineer combines industrial engineering methods with healthcare expertise to optimize the deployment, maintenance, and workflow around medical devices and clinical equipment.",
+        "sysopt|health": {
+          role: "Healthcare Systems Optimization Engineer",
+          desc: "Uses simulation and modeling to redesign patient care pathways, staffing models, and facility layouts for peak performance.",
         },
-        "ME|factory|waste": {
-          role: "Lean Manufacturing Engineer",
-          desc: "A Lean Manufacturing Engineer applies lean and Six Sigma principles to eliminate waste — overproduction, idle time, defects — and create more value with fewer resources.",
+        "sysopt|log": {
+          role: "Logistics Systems Optimization Engineer",
+          desc: "Applies operations research to design optimal routing, scheduling, and network configurations for distribution systems.",
         },
-        "IE|bizops|customer": {
-          role: "Customer Experience & Operations Engineer",
-          desc: "This engineer uses operations research and process improvement methods to redesign service systems, reduce friction, and elevate the customer experience.",
+        "sysopt|auto": {
+          role: "Automotive Systems Optimization Engineer",
+          desc: "Integrates and optimizes interconnected vehicle subsystems and production systems to maximize performance and reduce complexity.",
         },
-        "IE|construction|safety": {
-          role: "Construction Safety Engineer",
-          desc: "This engineer designs safe construction workflows, site layouts, and worker scheduling systems to reduce accidents and keep projects on time and on budget.",
+        "sysopt|aero": {
+          role: "Aerospace Systems Optimization Engineer",
+          desc: "Applies mathematical modeling to optimize the design and operation of complex aerospace systems under real-world constraints.",
         },
-        "SE|aerospace|safety": {
-          role: "Systems Safety Engineer",
-          desc: "A Systems Safety Engineer identifies and mitigates risks in complex aerospace and defense systems, ensuring every subsystem meets strict reliability and safety requirements.",
+        "sysopt|semi": {
+          role: "Semiconductor Systems Optimization Engineer",
+          desc: "Optimizes fab operations, equipment scheduling, and resource allocation using advanced simulation and modeling techniques.",
         },
-        "ME|healthcare|medical": {
-          role: "Medical Device Manufacturing Engineer",
-          desc: "A Medical Device Manufacturing Engineer designs and validates production processes for medical equipment, ensuring devices are safe, effective, and compliant with regulatory standards.",
+        "sysopt|tech": {
+          role: "Technology Systems Optimization Engineer",
+          desc: "Uses algorithmic methods to improve platform scalability, server utilization, and response performance in tech environments.",
         },
-        "SE|energy|data": {
-          role: "Energy Data Systems Engineer",
-          desc: "An Energy Data Systems Engineer builds integrated systems that collect, process, and visualize power grid and energy consumption data to drive smarter energy management decisions.",
+        "sysopt|consult": {
+          role: "Systems Optimization Consultant",
+          desc: "Applies OR methods and simulation to help clients redesign complex operational systems for peak efficiency and resilience.",
         },
-        "IE|food|quality": {
-          role: "Food Quality & Industrial Engineer",
-          desc: "This engineer applies quality control methods and lean principles to food production lines, ensuring consistent product standards and regulatory compliance.",
+        "sysopt|energy": {
+          role: "Energy Systems Optimization Engineer",
+          desc: "Models and optimizes power generation, transmission, and distribution systems to maximize reliability and minimize cost.",
         },
-        "IE|airport|scheduling": {
-          role: "Airport Operations & Industrial Engineer",
-          desc: "This engineer uses industrial engineering tools to optimize staffing, gate assignments, and terminal flow at airports, reducing delays and improving passenger experience.",
+        "sysopt|gov": {
+          role: "Public Systems Optimization Engineer",
+          desc: "Uses modeling and data analysis to optimize the allocation of public resources and the delivery of government services.",
         },
-        "SE|construction|safety": {
-          role: "Construction Systems Engineer",
-          desc: "A Construction Systems Engineer integrates project planning, safety systems, and structural requirements to ensure complex construction projects are delivered safely and on schedule.",
+
+        // Project Management
+        "pm|mfg": {
+          role: "Manufacturing Project Engineer",
+          desc: "Plans and manages capital projects — new lines, equipment upgrades, and facility expansions — on time and within budget.",
         },
-        "ME|energy|robotics": {
-          role: "Energy Automation Engineer",
-          desc: "An Energy Automation Engineer designs automated systems for power plants and renewable energy installations, improving efficiency, safety, and uptime.",
+        "pm|health": {
+          role: "Healthcare Project Engineer",
+          desc: "Leads clinical facility projects, technology implementations, and process improvement initiatives in hospital environments.",
         },
-        "IE|warehouse|scheduling": {
-          role: "Warehouse Operations Engineer",
-          desc: "A Warehouse Operations Engineer optimizes worker schedules, picking routes, and storage layouts to maximize throughput and minimize operational cost.",
+        "pm|log": {
+          role: "Logistics Project Engineer",
+          desc: "Manages design and deployment of new distribution centers, fleet systems, and logistics technology platforms.",
         },
-        "SE|technology|process": {
-          role: "IT Process Systems Engineer",
-          desc: "An IT Process Systems Engineer designs and integrates enterprise software workflows, ensuring that IT systems and business processes are aligned, scalable, and efficient.",
+        "pm|auto": {
+          role: "Automotive Project Engineer",
+          desc: "Coordinates complex vehicle development programs, managing cross-functional teams from concept through production launch.",
         },
-        "IE|supplychain|inventory": {
-          role: "Supply Chain & Inventory Engineer",
-          desc: "This engineer develops inventory management strategies and supply chain models that balance stock levels, reduce holding costs, and prevent stockouts across distribution networks.",
+        "pm|aero": {
+          role: "Aerospace Project Engineer",
+          desc: "Oversees planning, scheduling, and risk management of complex aircraft or defense system development programs.",
         },
-        "ME|construction|floorlayout": {
-          role: "Construction Manufacturing Engineer",
-          desc: "A Construction Manufacturing Engineer designs prefabrication layouts and modular construction workflows, bringing manufacturing efficiency to building and infrastructure projects.",
+        "pm|semi": {
+          role: "Semiconductor Project Engineer",
+          desc: "Manages fab construction, equipment qualification, and technology node transition projects in the semiconductor industry.",
+        },
+        "pm|tech": {
+          role: "Technology Project Engineer",
+          desc: "Leads delivery of digital products, platform migrations, and infrastructure projects in fast-paced tech environments.",
+        },
+        "pm|consult": {
+          role: "Engineering Project Consultant",
+          desc: "Manages complex client engagements, coordinating multi-disciplinary teams and stakeholders to deliver transformation projects.",
+        },
+        "pm|energy": {
+          role: "Energy Project Engineer",
+          desc: "Plans and oversees construction and commissioning of power generation and energy infrastructure projects.",
+        },
+        "pm|gov": {
+          role: "Public Systems Project Engineer",
+          desc: "Manages government infrastructure and technology projects within regulatory, budget, and timeline constraints.",
         },
       };
 
@@ -1468,7 +1416,7 @@
       let selectedDuration = 3;
       let timeRemaining = 0;
       let timerInterval = null;
-      let sel = { eng: null, ind: null, prod: null };
+      let sel = { spec: null, ind: null };
       let score = 0;
       let streak = 0;
       let bestStreak = 0;
@@ -1490,8 +1438,8 @@
         try {
           const ctx = getAudioCtx();
           [523, 659, 784].forEach((freq, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
+            const osc = ctx.createOscillator(),
+              gain = ctx.createGain();
             osc.connect(gain);
             gain.connect(ctx.destination);
             osc.type = "sine";
@@ -1504,27 +1452,11 @@
           });
         } catch {}
       }
-      function playNoMatchSound() {
-        try {
-          const ctx = getAudioCtx();
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.type = "sawtooth";
-          osc.frequency.setValueAtTime(220, ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.3);
-          gain.gain.setValueAtTime(0.15, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.3);
-        } catch {}
-      }
       function playTickSound() {
         try {
           const ctx = getAudioCtx();
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
+          const osc = ctx.createOscillator(),
+            gain = ctx.createGain();
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.type = "square";
@@ -1659,7 +1591,6 @@
       // ── GAME LOGIC ────────────────────────────────────────────────────────────────
       function selectCard(type, item, el) {
         if (resultShown) return;
-        // Toggle: clicking the already-selected card deselects it
         if (sel[type] && sel[type].id === item.id) {
           sel[type] = null;
           el.classList.remove(`sel-${type}`);
@@ -1667,10 +1598,9 @@
           clearResultDisplay();
           return;
         }
-        // Swap: replace selection in this column, clear stale result
-        document.querySelectorAll(`.card-${type}`).forEach((c) => {
-          c.classList.remove("sel-eng", "sel-ind", "sel-prod");
-        });
+        document
+          .querySelectorAll(`.card-${type}`)
+          .forEach((c) => c.classList.remove("sel-spec", "sel-ind"));
         el.classList.add(`sel-${type}`);
         sel[type] = item;
         updateMiniSlot(type, item);
@@ -1680,98 +1610,74 @@
 
       function resetMiniSlot(type) {
         const defaults = {
-          eng: { icon: "ti-settings", text: "Engineering type…" },
+          spec: { icon: "ti-adjustments-horizontal", text: "Specialization…" },
           ind: { icon: "ti-building-factory", text: "Industry…" },
-          prod: { icon: "ti-bulb", text: "Product / problem…" },
         };
-        const slot = document.getElementById(`mini-${type}`);
-        const iconEl = document.getElementById(`mini-${type}-icon`);
-        const textEl = document.getElementById(`mini-${type}-text`);
-        slot.className = "mini-slot";
-        iconEl.className = `ti ${defaults[type].icon}`;
-        textEl.textContent = defaults[type].text;
+        document.getElementById(`mini-${type}`).className = "mini-slot";
+        document.getElementById(`mini-${type}-icon`).className =
+          `ti ${defaults[type].icon}`;
+        document.getElementById(`mini-${type}-text`).textContent =
+          defaults[type].text;
       }
 
       function clearResultDisplay() {
         const resultEl = document.getElementById("inline-result");
         resultEl.className = "";
         resultEl.innerHTML = "";
-        document.getElementById("btn-try").classList.remove("visible");
       }
 
       function updateMiniSlot(type, item) {
-        const slot = document.getElementById(`mini-${type}`);
-        const iconEl = document.getElementById(`mini-${type}-icon`);
-        const textEl = document.getElementById(`mini-${type}-text`);
-        const filled = {
-          eng: "filled-eng",
-          ind: "filled-ind",
-          prod: "filled-prod",
-        };
-        slot.className = `mini-slot ${filled[type]}`;
-        iconEl.className = `ti ${item.icon}`;
-        textEl.textContent = item.label;
+        const filled = { spec: "filled-spec", ind: "filled-ind" };
+        document.getElementById(`mini-${type}`).className =
+          `mini-slot ${filled[type]}`;
+        document.getElementById(`mini-${type}-icon`).className =
+          `ti ${item.icon}`;
+        document.getElementById(`mini-${type}-text`).textContent = item.label;
       }
 
       function checkResult() {
-        if (!sel.eng || !sel.ind || !sel.prod) return;
-        const key = `${sel.eng.id}|${sel.ind.id}|${sel.prod.id}`;
+        if (!sel.spec || !sel.ind) return;
+        const key = `${sel.spec.id}|${sel.ind.id}`;
         const match = roleMap[key];
+        if (!match) return; // shouldn't happen — all 60 combos are valid
+
+        resultShown = true;
+        score++;
+        streak++;
+        if (streak > bestStreak) bestStreak = streak;
+        const alreadyFound = foundRoles.has(key);
+        foundRoles.add(key);
+        document.getElementById("score").textContent = score;
+        document.getElementById("streak").textContent = streak;
+        document.getElementById("found-count").textContent = foundRoles.size;
+
         const resultEl = document.getElementById("inline-result");
-
-        resultEl.style.display = "";
-        if (match) {
-          resultShown = true;
-          score++;
-          streak++;
-          if (streak > bestStreak) bestStreak = streak;
-          const alreadyFound = foundRoles.has(key);
-          foundRoles.add(key);
-          document.getElementById("score").textContent = score;
-          document.getElementById("streak").textContent = streak;
-          document.getElementById("found-count").textContent = foundRoles.size;
-          resultEl.className = "match";
-          resultEl.innerHTML = `<div class="result-role"><i class="ti ti-check"></i><strong>${match.role}</strong>${alreadyFound ? '<span class="result-already">(already found)</span>' : ""}</div><div class="result-desc">${match.desc}</div>`;
-          playMatchSound();
-          launchConfetti();
-          setTimeout(() => clearSelections(), 2000);
-        } else {
-          streak = 0;
-          document.getElementById("streak").textContent = "0";
-          resultEl.className = "no-match";
-          resultEl.innerHTML = `<i class="ti ti-x"></i> No match — try a different combination`;
-          playNoMatchSound();
-          const bar = document.getElementById("bottom-bar");
-          bar.classList.add("shaking");
-          setTimeout(() => bar.classList.remove("shaking"), 500);
-        }
-
-        if (!match) document.getElementById("btn-try").classList.add("visible");
+        resultEl.className = "match";
+        resultEl.innerHTML = `
+          <div>
+            <div class="result-role">
+              <i class="ti ti-check"></i>
+              <strong>${match.role}</strong>
+              ${alreadyFound ? '<span class="result-already">(already found)</span>' : ""}
+            </div>
+            <div class="result-desc">${match.desc}</div>
+          </div>`;
+        playMatchSound();
+        launchConfetti();
+        setTimeout(() => clearSelections(), 2000);
       }
 
       function clearSelections() {
-        sel = { eng: null, ind: null, prod: null };
+        sel = { spec: null, ind: null };
         resultShown = false;
-        document.querySelectorAll(".card").forEach((c) => {
-          c.classList.remove("sel-eng", "sel-ind", "sel-prod", "disabled");
-        });
-        const defaults = {
-          eng: { icon: "ti-settings", text: "Engineering type…" },
-          ind: { icon: "ti-building-factory", text: "Industry…" },
-          prod: { icon: "ti-bulb", text: "Product / problem…" },
-        };
-        ["eng", "ind", "prod"].forEach((type) => {
-          const slot = document.getElementById(`mini-${type}`);
-          const iconEl = document.getElementById(`mini-${type}-icon`);
-          const textEl = document.getElementById(`mini-${type}-text`);
-          slot.className = "mini-slot";
-          iconEl.className = `ti ${defaults[type].icon}`;
-          textEl.textContent = defaults[type].text;
-        });
-        const resultEl = document.getElementById("inline-result");
-        resultEl.className = "";
-        resultEl.innerHTML = "";
-        document.getElementById("btn-try").classList.remove("visible");
+        document
+          .querySelectorAll(".card")
+          .forEach((c) =>
+            c.classList.remove("sel-spec", "sel-ind", "disabled"),
+          );
+        resetMiniSlot("spec");
+        resetMiniSlot("ind");
+        clearResultDisplay();
       }
 
       // ── HISTORY ───────────────────────────────────────────────────────────────────
@@ -1822,17 +1728,17 @@
         list.innerHTML = history
           .map(
             (e) => `
-    <div class="history-entry">
-      <div class="history-icon"><i class="ti ti-trophy"></i></div>
-      <div class="history-info">
-        <div class="history-date">${e.date}</div>
-        <div class="history-duration">${e.duration} min round</div>
-        <div class="history-scores">
-          <span class="history-score"><i class="ti ti-target"></i> ${e.matches} matches</span>
-          <span class="history-score">🔥 ${e.streak} best streak</span>
-        </div>
-      </div>
-    </div>`,
+          <div class="history-entry">
+            <div class="history-icon"><i class="ti ti-trophy"></i></div>
+            <div class="history-info">
+              <div class="history-date">${e.date}</div>
+              <div class="history-duration">${e.duration} min round</div>
+              <div class="history-scores">
+                <span class="history-score"><i class="ti ti-target"></i> ${e.matches} matches</span>
+                <span class="history-score">🔥 ${e.streak} best streak</span>
+              </div>
+            </div>
+          </div>`,
           )
           .join("");
       }
@@ -1863,13 +1769,13 @@
           el.className = "confetti-piece";
           const size = 6 + Math.random() * 8;
           el.style.cssText = `
-      left: ${10 + Math.random() * 80}%;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      animation-delay: ${Math.random() * 0.6}s;
-      animation-duration: ${0.9 + Math.random() * 0.8}s;
-      width: ${size}px; height: ${size}px;
-      border-radius: ${Math.random() > 0.5 ? "50%" : "3px"};
-    `;
+            left: ${10 + Math.random() * 80}%;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            animation-delay: ${Math.random() * 0.6}s;
+            animation-duration: ${0.9 + Math.random() * 0.8}s;
+            width: ${size}px; height: ${size}px;
+            border-radius: ${Math.random() > 0.5 ? "50%" : "3px"};
+          `;
           container.appendChild(el);
           setTimeout(() => el.remove(), 3000);
         }
@@ -1898,9 +1804,8 @@
       }
 
       // ── INIT ──────────────────────────────────────────────────────────────────────
-      renderCards(engData, "eng-cards", "eng");
+      renderCards(specData, "spec-cards", "spec");
       renderCards(indData, "ind-cards", "ind");
-      renderCards(prodData, "prod-cards", "prod");
       showLobby();
     </script>
   </body>
