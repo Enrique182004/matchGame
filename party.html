@@ -1133,27 +1133,27 @@
 
     <!-- HOST GAME (projected leaderboard) -->
     <div id="screen-game-host" class="screen">
-      <div class="host-header">
+      <div class="host-topbar">
         <div>
-          <div
-            style="
-              font-size: 12px;
-              color: rgba(255, 255, 255, 0.5);
-              margin-bottom: 4px;
-            "
-          >
-            Time left
-          </div>
+          <div class="host-meta-lbl">Time left</div>
           <div class="host-timer" id="host-timer">3:00</div>
         </div>
-        <div class="host-meta">
-          <div class="host-meta-lbl">Total matches found</div>
+        <div style="text-align: center">
+          <div class="host-meta-lbl">Party Mode</div>
+          <div style="font-size: 15px; font-weight: 700; color: #fff">
+            👑 Host View
+          </div>
+        </div>
+        <div style="text-align: right">
+          <div class="host-meta-lbl">Matches found</div>
           <div class="host-meta-val" id="host-total-matches">0</div>
         </div>
       </div>
-      <div class="host-lb">
-        <div class="host-lb-title">Live Leaderboard</div>
-        <div id="host-lb-rows"></div>
+      <div class="screen-body">
+        <div style="width: 100%; max-width: 640px">
+          <div class="host-lb-title">Live Leaderboard</div>
+          <div id="host-lb-rows"></div>
+        </div>
       </div>
     </div>
 
@@ -1237,12 +1237,23 @@
 
     <!-- FINAL -->
     <div id="screen-final" class="screen">
-      <div class="final-ttl">🏆 Final Results</div>
-      <div class="podium" id="podium"></div>
-      <div class="full-lb" id="full-lb"></div>
-      <button class="btn btn-ghost" onclick="goHome()" style="max-width: 280px">
-        Play Again
-      </button>
+      <header class="party-header">
+        <div class="header-badge">
+          <i class="ti ti-trophy"></i> Final Results
+        </div>
+        <div class="final-ttl">🏆 Game Over!</div>
+      </header>
+      <div class="screen-body">
+        <div class="podium" id="podium"></div>
+        <div class="full-lb" id="full-lb"></div>
+        <button
+          class="btn btn-purple"
+          onclick="goHome()"
+          style="max-width: 280px"
+        >
+          <i class="ti ti-refresh"></i> Play Again
+        </button>
+      </div>
     </div>
 
     <script>
