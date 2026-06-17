@@ -1,0 +1,1429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Engineering Careers — Party Mode</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --purple: #534ab7;
+        --purple-dk: #3c3489;
+        --purple-lt: #eeedfe;
+        --bg: #0f0e1a;
+        --card: rgba(255, 255, 255, 0.06);
+        --red: #e23670;
+        --blue: #1368ce;
+        --yellow: #ffa602;
+        --green: #2d9e3a;
+      }
+      html,
+      body {
+        height: 100%;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: #fff;
+      }
+      .screen {
+        display: none;
+        min-height: 100dvh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.25rem;
+      }
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── HOME ── */
+      .home-wrap {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+      }
+      .logo {
+        font-size: 52px;
+        margin-bottom: 12px;
+      }
+      .home-wrap h1 {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 2px;
+      }
+      .home-wrap h2 {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 1.75rem;
+      }
+      .field {
+        width: 100%;
+        padding: 13px 16px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1.5px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        color: #fff;
+        font-size: 16px;
+        font-family: inherit;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .field::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .field:focus {
+        outline: none;
+        border-color: var(--purple);
+      }
+      #code-input {
+        letter-spacing: 0.2em;
+        font-weight: 700;
+        font-size: 22px;
+        text-transform: uppercase;
+      }
+      .btn {
+        width: 100%;
+        padding: 13px 20px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        transition:
+          filter 0.12s,
+          transform 0.1s;
+      }
+      .btn:hover:not(:disabled) {
+        filter: brightness(1.12);
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .btn-purple {
+        background: var(--purple);
+        color: #fff;
+      }
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .btn-lg {
+        padding: 16px 20px;
+        font-size: 18px;
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 12px;
+        margin: 6px 0 14px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .toast {
+        background: var(--red);
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 10px;
+        display: none;
+      }
+      .back-lnk {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 12px;
+        text-decoration: none;
+        margin-top: 14px;
+        display: block;
+      }
+      .back-lnk:hover {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* ── HOST LOBBY ── */
+      #screen-host-lobby {
+        justify-content: flex-start;
+        padding-top: 2.5rem;
+        gap: 1.25rem;
+      }
+      .code-banner {
+        background: linear-gradient(135deg, #26215c, var(--purple));
+        border-radius: 20px;
+        padding: 1.75rem 2rem;
+        text-align: center;
+        width: 100%;
+        max-width: 640px;
+      }
+      .code-label {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        color: rgba(255, 255, 255, 0.65);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .code-big {
+        font-size: 58px;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        line-height: 1;
+      }
+      .code-hint {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 8px;
+      }
+      .section-lbl {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: center;
+      }
+      .chip-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        max-width: 640px;
+        width: 100%;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 14px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .q-row {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+      .q-btn {
+        padding: 8px 18px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.12s;
+      }
+      .q-btn.on {
+        border-color: var(--purple);
+        background: var(--purple);
+        color: #fff;
+      }
+
+      /* ── PLAYER LOBBY ── */
+      .wait-wrap {
+        text-align: center;
+      }
+      .wait-icon {
+        font-size: 64px;
+        margin-bottom: 14px;
+      }
+      .wait-name {
+        font-size: 26px;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .wait-msg {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 15px;
+        margin-bottom: 1.5rem;
+      }
+      .dot {
+        display: inline-block;
+        animation: blink 1.4s infinite;
+      }
+      .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes blink {
+        0%,
+        80%,
+        100% {
+          opacity: 0;
+        }
+        40% {
+          opacity: 1;
+        }
+      }
+
+      /* ── TIMER BAR ── */
+      .tbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        z-index: 200;
+      }
+      .tfill {
+        height: 100%;
+        background: linear-gradient(90deg, #5dcaa5, var(--purple));
+        transition: width 1s linear;
+      }
+
+      /* ── QUESTION ── */
+      #screen-question-host,
+      #screen-question-player {
+        justify-content: flex-start;
+        padding-top: 1.25rem;
+        gap: 1rem;
+      }
+      .q-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 13px;
+      }
+      .q-timer-num {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+      }
+      .role-card {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 1.75rem 1.5rem;
+        text-align: center;
+        max-width: 800px;
+        width: 100%;
+      }
+      .role-lbl {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.45);
+        margin-bottom: 10px;
+      }
+      .role-name {
+        font-size: clamp(18px, 3.5vw, 30px);
+        font-weight: 800;
+        line-height: 1.25;
+      }
+      .ans-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        max-width: 800px;
+        width: 100%;
+      }
+      .ans-btn {
+        padding: 1.1rem 1rem;
+        border: none;
+        border-radius: 14px;
+        color: #fff;
+        font-size: clamp(12px, 2vw, 15px);
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+        min-height: 76px;
+        transition:
+          transform 0.1s,
+          filter 0.1s;
+        position: relative;
+      }
+      .ans-btn:hover:not(:disabled) {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+      }
+      .ans-btn:disabled {
+        cursor: default;
+      }
+      .ans-icon {
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+      .ans-red {
+        background: var(--red);
+      }
+      .ans-blue {
+        background: var(--blue);
+      }
+      .ans-yellow {
+        background: var(--yellow);
+        color: #111;
+      }
+      .ans-green {
+        background: var(--green);
+      }
+      .ans-btn.correct {
+        outline: 4px solid #fff;
+        transform: scale(1.02);
+      }
+      .ans-btn.wrong {
+        opacity: 0.3;
+      }
+      .ans-btn.picked::after {
+        content: "✓";
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        font-size: 14px;
+      }
+      .submitted-msg {
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        padding: 1rem;
+        animation: pop 0.3s ease;
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: scale(0.88);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* ── REVEAL ── */
+      #screen-reveal {
+        gap: 1rem;
+      }
+      .reveal-sub {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+        text-align: center;
+      }
+      .reveal-ans {
+        font-size: clamp(18px, 3vw, 26px);
+        font-weight: 800;
+        text-align: center;
+        max-width: 600px;
+      }
+      .res-banner {
+        border-radius: 16px;
+        padding: 1.25rem 2rem;
+        text-align: center;
+        max-width: 480px;
+        width: 100%;
+        animation: pop 0.35s ease;
+      }
+      .res-banner h2 {
+        font-size: 26px;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+      .res-banner p {
+        font-size: 14px;
+        opacity: 0.85;
+      }
+      .res-correct {
+        background: var(--green);
+      }
+      .res-wrong {
+        background: var(--red);
+      }
+      .res-timeout {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .lb-wrap {
+        width: 100%;
+        max-width: 480px;
+      }
+      .lb-ttl {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      .lb-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 14px;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 10px;
+        margin-bottom: 5px;
+      }
+      .lb-rank {
+        font-size: 16px;
+        font-weight: 800;
+        width: 28px;
+        text-align: center;
+      }
+      .lb-name {
+        flex: 1;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .lb-pts {
+        font-weight: 700;
+        color: #5dcaa5;
+        font-size: 14px;
+      }
+
+      /* ── FINAL ── */
+      #screen-final {
+        gap: 1.25rem;
+      }
+      .final-ttl {
+        font-size: 32px;
+        font-weight: 900;
+        text-align: center;
+      }
+      .podium {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 10px;
+      }
+      .pod-col {
+        text-align: center;
+      }
+      .pod-name {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        max-width: 80px;
+        word-break: break-word;
+      }
+      .pod-blk {
+        border-radius: 12px 12px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        width: 80px;
+      }
+      .pod-1 {
+        background: #ffd700;
+        height: 100px;
+      }
+      .pod-2 {
+        background: #c0c0c0;
+        height: 70px;
+      }
+      .pod-3 {
+        background: #cd7f32;
+        height: 50px;
+      }
+      .pod-score {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 4px;
+      }
+      .full-lb {
+        width: 100%;
+        max-width: 480px;
+      }
+
+      @media (max-width: 500px) {
+        .ans-grid {
+          grid-template-columns: 1fr;
+        }
+        .code-big {
+          font-size: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HOME -->
+    <div id="screen-home" class="screen active">
+      <div class="home-wrap">
+        <div class="logo">🛠</div>
+        <h1>Engineering Career Explorer</h1>
+        <h2>Party Mode</h2>
+        <input
+          class="field"
+          id="player-name"
+          placeholder="Your name"
+          maxlength="20"
+        />
+        <button class="btn btn-purple btn-lg" onclick="createGame()">
+          <i class="ti ti-plus"></i> Create Game
+        </button>
+        <div class="divider">or join with a code</div>
+        <input
+          class="field"
+          id="code-input"
+          placeholder="ROOM CODE"
+          maxlength="6"
+        />
+        <button class="btn btn-ghost" onclick="joinGame()">
+          <i class="ti ti-door-enter"></i> Join Game
+        </button>
+        <div class="toast" id="home-err"></div>
+        <a class="back-lnk" href="index.html">← Back to solo mode</a>
+      </div>
+    </div>
+
+    <!-- HOST LOBBY -->
+    <div id="screen-host-lobby" class="screen">
+      <div class="code-banner">
+        <div class="code-label">Room Code</div>
+        <div class="code-big" id="disp-code">XXXXXX</div>
+        <div class="code-hint">
+          Players open this page and enter the code above
+        </div>
+      </div>
+      <div class="section-lbl">
+        Players joined (<span id="p-count">0</span>)
+      </div>
+      <div class="chip-grid" id="p-grid"></div>
+      <div class="section-lbl">Questions per game</div>
+      <div class="q-row">
+        <button class="q-btn" onclick="setQ(5, this)">5</button>
+        <button class="q-btn on" onclick="setQ(10, this)">10</button>
+        <button class="q-btn" onclick="setQ(15, this)">15</button>
+        <button class="q-btn" onclick="setQ(20, this)">20</button>
+      </div>
+      <button
+        class="btn btn-purple btn-lg"
+        id="start-btn"
+        onclick="hostStart()"
+        disabled
+        style="max-width: 400px"
+      >
+        <i class="ti ti-player-play"></i> Start Game
+      </button>
+    </div>
+
+    <!-- PLAYER LOBBY -->
+    <div id="screen-player-lobby" class="screen">
+      <div class="wait-wrap">
+        <div class="wait-icon">🎮</div>
+        <div class="wait-name" id="wait-name">Player</div>
+        <div class="wait-msg">
+          Waiting for host to start<span class="dot">.</span
+          ><span class="dot">.</span><span class="dot">.</span>
+        </div>
+        <div
+          class="chip-grid"
+          id="fellow-grid"
+          style="justify-content: center; margin-top: 1rem"
+        ></div>
+      </div>
+    </div>
+
+    <!-- QUESTION — HOST -->
+    <div id="screen-question-host" class="screen">
+      <div class="tbar">
+        <div class="tfill" id="h-fill" style="width: 100%"></div>
+      </div>
+      <div class="q-meta" style="margin-top: 0.5rem">
+        <span id="h-prog">Question 1 of 10</span>
+        <span class="q-timer-num" id="h-num">20</span>
+        <span id="h-ans-count">0 answered</span>
+      </div>
+      <div class="role-card">
+        <div class="role-lbl">What role does this combination create?</div>
+        <div class="role-name" id="h-role"></div>
+      </div>
+      <div class="ans-grid" id="h-grid"></div>
+    </div>
+
+    <!-- QUESTION — PLAYER -->
+    <div id="screen-question-player" class="screen">
+      <div class="tbar">
+        <div class="tfill" id="p-fill" style="width: 100%"></div>
+      </div>
+      <div class="q-meta" style="margin-top: 0.5rem">
+        <span id="p-prog">Question 1 of 10</span>
+        <span class="q-timer-num" id="p-num">20</span>
+      </div>
+      <div class="role-card">
+        <div class="role-lbl">Pick the correct Specialization + Industry</div>
+        <div class="role-name" id="p-role"></div>
+      </div>
+      <div class="ans-grid" id="p-grid-ans"></div>
+      <div class="submitted-msg" id="p-submitted" style="display: none"></div>
+    </div>
+
+    <!-- REVEAL -->
+    <div id="screen-reveal" class="screen">
+      <div class="reveal-sub">The correct answer was</div>
+      <div class="reveal-ans" id="rev-ans"></div>
+      <div id="res-banner"></div>
+      <div class="lb-wrap">
+        <div class="lb-ttl">Leaderboard</div>
+        <div id="rev-lb"></div>
+      </div>
+      <button
+        class="btn btn-purple"
+        id="next-btn"
+        onclick="hostNext()"
+        style="display: none; max-width: 300px"
+      >
+        Next Question →
+      </button>
+    </div>
+
+    <!-- FINAL -->
+    <div id="screen-final" class="screen">
+      <div class="final-ttl">🏆 Final Results</div>
+      <div class="podium" id="podium"></div>
+      <div class="full-lb" id="full-lb"></div>
+      <button class="btn btn-ghost" onclick="goHome()" style="max-width: 280px">
+        Play Again
+      </button>
+    </div>
+
+    <script>
+      // ── FIREBASE CONFIG ──────────────────────────────────────────────────────────
+      // Setup (free, ~5 min):
+      // 1. https://console.firebase.google.com → New Project
+      // 2. Build → Realtime Database → Create database → Start in test mode
+      // 3. Project Settings → Add web app → copy config values below
+      const FB = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID",
+      };
+
+      // ── ROLES (60 from Excel) ────────────────────────────────────────────────────
+      const ROLES = [
+        [
+          "Process Improvement",
+          "Manufacturing",
+          "Manufacturing Process Improvement Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Healthcare",
+          "Healthcare Process Improvement Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Logistics",
+          "Logistics Process Improvement Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Automotive",
+          "Automotive Process Improvement Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Aerospace & Defense",
+          "Aerospace Process Improvement Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Electronics & Semiconductors",
+          "Semiconductor Process Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Tech / E-commerce",
+          "Digital Process Improvement Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Consulting",
+          "Operational Excellence Consultant",
+        ],
+        [
+          "Process Improvement",
+          "Energy",
+          "Energy Process Improvement Engineer",
+        ],
+        [
+          "Process Improvement",
+          "Government",
+          "Public Systems Process Improvement Engineer",
+        ],
+        [
+          "Supply Chain",
+          "Manufacturing",
+          "Manufacturing Supply Chain Engineer",
+        ],
+        ["Supply Chain", "Healthcare", "Healthcare Supply Chain Engineer"],
+        ["Supply Chain", "Logistics", "Logistics Optimization Engineer"],
+        ["Supply Chain", "Automotive", "Automotive Supply Chain Engineer"],
+        [
+          "Supply Chain",
+          "Aerospace & Defense",
+          "Aerospace Supply Chain Engineer",
+        ],
+        [
+          "Supply Chain",
+          "Electronics & Semiconductors",
+          "Semiconductor Supply Chain Engineer",
+        ],
+        [
+          "Supply Chain",
+          "Tech / E-commerce",
+          "E-commerce Supply Chain Engineer",
+        ],
+        ["Supply Chain", "Consulting", "Supply Chain Optimization Consultant"],
+        ["Supply Chain", "Energy", "Energy Supply Chain Engineer"],
+        ["Supply Chain", "Government", "Public Sector Supply Chain Engineer"],
+        [
+          "Data Analytics",
+          "Manufacturing",
+          "Manufacturing Data Analytics Engineer",
+        ],
+        [
+          "Data Analytics",
+          "Healthcare",
+          "Healthcare Operations Analytics Engineer",
+        ],
+        ["Data Analytics", "Logistics", "Logistics Analytics Engineer"],
+        ["Data Analytics", "Automotive", "Automotive Data Analytics Engineer"],
+        [
+          "Data Analytics",
+          "Aerospace & Defense",
+          "Aerospace Data Systems Engineer",
+        ],
+        [
+          "Data Analytics",
+          "Electronics & Semiconductors",
+          "Semiconductor Data Analytics Engineer",
+        ],
+        [
+          "Data Analytics",
+          "Tech / E-commerce",
+          "E-commerce Operations Analytics Engineer",
+        ],
+        ["Data Analytics", "Consulting", "Operations Analytics Consultant"],
+        ["Data Analytics", "Energy", "Energy Analytics Engineer"],
+        [
+          "Data Analytics",
+          "Government",
+          "Public Systems Data Analyst Engineer",
+        ],
+        [
+          "Quality Engineering",
+          "Manufacturing",
+          "Manufacturing Quality Engineer",
+        ],
+        ["Quality Engineering", "Healthcare", "Healthcare Quality Engineer"],
+        ["Quality Engineering", "Logistics", "Logistics Quality Engineer"],
+        ["Quality Engineering", "Automotive", "Automotive Quality Engineer"],
+        [
+          "Quality Engineering",
+          "Aerospace & Defense",
+          "Aerospace Quality Engineer",
+        ],
+        [
+          "Quality Engineering",
+          "Electronics & Semiconductors",
+          "Semiconductor Quality Engineer",
+        ],
+        [
+          "Quality Engineering",
+          "Tech / E-commerce",
+          "Digital Quality Systems Engineer",
+        ],
+        ["Quality Engineering", "Consulting", "Quality Improvement Consultant"],
+        [
+          "Quality Engineering",
+          "Energy",
+          "Energy Reliability Quality Engineer",
+        ],
+        [
+          "Quality Engineering",
+          "Government",
+          "Public Systems Quality Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Manufacturing",
+          "Manufacturing Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Healthcare",
+          "Healthcare Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Logistics",
+          "Logistics Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Automotive",
+          "Automotive Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Aerospace & Defense",
+          "Aerospace Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Electronics & Semiconductors",
+          "Semiconductor Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Tech / E-commerce",
+          "Technology Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Consulting",
+          "Systems Optimization Consultant",
+        ],
+        [
+          "Systems Optimization",
+          "Energy",
+          "Energy Systems Optimization Engineer",
+        ],
+        [
+          "Systems Optimization",
+          "Government",
+          "Public Systems Optimization Engineer",
+        ],
+        [
+          "Project Management",
+          "Manufacturing",
+          "Manufacturing Project Engineer",
+        ],
+        ["Project Management", "Healthcare", "Healthcare Project Engineer"],
+        ["Project Management", "Logistics", "Logistics Project Engineer"],
+        ["Project Management", "Automotive", "Automotive Project Engineer"],
+        [
+          "Project Management",
+          "Aerospace & Defense",
+          "Aerospace Project Engineer",
+        ],
+        [
+          "Project Management",
+          "Electronics & Semiconductors",
+          "Semiconductor Project Engineer",
+        ],
+        [
+          "Project Management",
+          "Tech / E-commerce",
+          "Technology Project Engineer",
+        ],
+        ["Project Management", "Consulting", "Engineering Project Consultant"],
+        ["Project Management", "Energy", "Energy Project Engineer"],
+        ["Project Management", "Government", "Public Systems Project Engineer"],
+      ];
+
+      // ── CONSTANTS ────────────────────────────────────────────────────────────────
+      const Q_SECS = 20;
+      const COLORS = ["ans-red", "ans-blue", "ans-yellow", "ans-green"];
+      const ICONS = ["▲", "◆", "●", "■"];
+      const AVATARS = [
+        "🎮",
+        "🚀",
+        "⚙️",
+        "🔬",
+        "📊",
+        "🏗️",
+        "💡",
+        "🔧",
+        "🌱",
+        "🎯",
+        "🤖",
+        "🦾",
+      ];
+      const MEDALS = ["🥇", "🥈", "🥉"];
+
+      // ── STATE ────────────────────────────────────────────────────────────────────
+      let myRole = null,
+        roomCode = null,
+        myId = uid(),
+        myName = "";
+      let questions = [],
+        qCount = 10,
+        curQ = -1,
+        curStatus = "";
+      let myAnswer = null,
+        qStartTime = 0;
+      let timerInt = null;
+      let db = null,
+        roomRef = null;
+
+      function uid() {
+        return Math.random().toString(36).slice(2, 10);
+      }
+
+      function shuffle(a) {
+        const b = [...a];
+        for (let i = b.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [b[i], b[j]] = [b[j], b[i]];
+        }
+        return b;
+      }
+
+      function show(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+
+      function err(id, msg) {
+        const el = document.getElementById(id);
+        el.textContent = msg;
+        el.style.display = "block";
+        setTimeout(() => (el.style.display = "none"), 3500);
+      }
+
+      // ── FIREBASE ─────────────────────────────────────────────────────────────────
+      function initFB() {
+        if (FB.apiKey === "YOUR_API_KEY") {
+          alert(
+            "Firebase not configured.\n\nOpen party.html in a code editor and fill in the firebaseConfig values.\n\nGo to console.firebase.google.com → New Project → Realtime Database → copy config.",
+          );
+          return false;
+        }
+        if (!firebase.apps.length) firebase.initializeApp(FB);
+        db = firebase.database();
+        return true;
+      }
+
+      // ── QUESTION GENERATION ───────────────────────────────────────────────────────
+      function genQuestions(n) {
+        return shuffle(ROLES)
+          .slice(0, n)
+          .map(([spec, ind, role]) => {
+            const sameSpec = ROLES.filter((r) => r[0] === spec && r[1] !== ind);
+            const sameInd = ROLES.filter((r) => r[1] === ind && r[0] !== spec);
+            const other = ROLES.filter((r) => r[0] !== spec && r[1] !== ind);
+            const wrong = shuffle([
+              ...shuffle(sameSpec).slice(0, 1),
+              ...shuffle(sameInd).slice(0, 1),
+              ...shuffle(other),
+            ]).slice(0, 3);
+            const opts = shuffle([
+              [spec, ind],
+              ...wrong.map((r) => [r[0], r[1]]),
+            ]);
+            const ci = opts.findIndex((o) => o[0] === spec && o[1] === ind);
+            return { role, opts: opts.map((o) => `${o[0]} + ${o[1]}`), ci };
+          });
+      }
+
+      // ── PLAYERS DISPLAY ───────────────────────────────────────────────────────────
+      function renderPlayers(players) {
+        const entries = Object.entries(players || {});
+        const chips = entries
+          .map(
+            ([id, p], i) =>
+              `<div class="chip">${AVATARS[i % AVATARS.length]} ${p.name}${p.isHost ? " 👑" : ""}</div>`,
+          )
+          .join("");
+        const count = entries.length;
+
+        const pg = document.getElementById("p-grid");
+        if (pg) {
+          pg.innerHTML = chips;
+          document.getElementById("p-count").textContent = count;
+        }
+        const fg = document.getElementById("fellow-grid");
+        if (fg) fg.innerHTML = chips;
+
+        if (myRole === "host") {
+          document.getElementById("start-btn").disabled = count < 2;
+        }
+      }
+
+      // ── CREATE / JOIN ─────────────────────────────────────────────────────────────
+      function createGame() {
+        const name = document.getElementById("player-name").value.trim();
+        if (!name) {
+          err("home-err", "Enter your name");
+          return;
+        }
+        if (!initFB()) return;
+        myName = name;
+        myRole = "host";
+        roomCode = genCode();
+        questions = genQuestions(qCount);
+        roomRef = db.ref(`rooms/${roomCode}`);
+        roomRef
+          .set({
+            status: "lobby",
+            hostId: myId,
+            curQ: -1,
+            qStart: 0,
+            questions,
+            players: { [myId]: { name: myName, score: 0, isHost: true } },
+          })
+          .then(() => {
+            roomRef.onDisconnect().remove();
+            document.getElementById("disp-code").textContent = roomCode;
+            show("screen-host-lobby");
+            listenRoom();
+          })
+          .catch((e) => err("home-err", e.message));
+      }
+
+      function joinGame() {
+        const name = document.getElementById("player-name").value.trim();
+        const code = document
+          .getElementById("code-input")
+          .value.trim()
+          .toUpperCase();
+        if (!name) {
+          err("home-err", "Enter your name");
+          return;
+        }
+        if (code.length < 4) {
+          err("home-err", "Enter a valid room code");
+          return;
+        }
+        if (!initFB()) return;
+        myName = name;
+        myRole = "player";
+        roomCode = code;
+        roomRef = db.ref(`rooms/${roomCode}`);
+        roomRef
+          .once("value")
+          .then((snap) => {
+            if (!snap.exists()) {
+              err("home-err", "Room not found");
+              return;
+            }
+            if (snap.val().status !== "lobby") {
+              err("home-err", "Game already started");
+              return;
+            }
+            roomRef
+              .child(`players/${myId}`)
+              .set({ name: myName, score: 0, isHost: false });
+            roomRef.child(`players/${myId}`).onDisconnect().remove();
+            document.getElementById("wait-name").textContent = myName;
+            show("screen-player-lobby");
+            listenRoom();
+          })
+          .catch(() => err("home-err", "Room not found"));
+      }
+
+      function genCode() {
+        const c = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        return Array.from(
+          { length: 6 },
+          () => c[Math.floor(Math.random() * c.length)],
+        ).join("");
+      }
+
+      function setQ(n, btn) {
+        qCount = n;
+        document
+          .querySelectorAll(".q-btn")
+          .forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        if (roomRef && myRole === "host") {
+          questions = genQuestions(n);
+          roomRef.child("questions").set(questions);
+        }
+      }
+
+      // ── ROOM LISTENER ─────────────────────────────────────────────────────────────
+      function listenRoom() {
+        roomRef.on("value", (snap) => {
+          if (!snap.exists()) {
+            goHome();
+            return;
+          }
+          const room = snap.val();
+          renderPlayers(room.players);
+
+          if (
+            room.status === "question" &&
+            (room.curQ !== curQ || curStatus !== "question")
+          ) {
+            curQ = room.curQ;
+            curStatus = "question";
+            myAnswer = null;
+            questions = room.questions;
+            startQuestion(
+              room.questions[room.curQ],
+              room.qStart,
+              room.questions.length,
+            );
+          } else if (room.status === "reveal" && curStatus !== "reveal") {
+            curStatus = "reveal";
+            showReveal(room);
+          } else if (room.status === "final" && curStatus !== "final") {
+            curStatus = "final";
+            showFinal(room.players);
+          }
+
+          if (room.status === "question" && myRole === "host") {
+            const answered = Object.values(room.players || {}).filter(
+              (p) => p.ans !== undefined,
+            ).length;
+            const total = Object.keys(room.players || {}).length;
+            document.getElementById("h-ans-count").textContent =
+              `${answered} / ${total} answered`;
+          }
+        });
+      }
+
+      // ── HOST START ────────────────────────────────────────────────────────────────
+      function hostStart() {
+        questions = genQuestions(qCount);
+        roomRef.update({
+          status: "question",
+          curQ: 0,
+          qStart: Date.now(),
+          questions,
+        });
+      }
+
+      // ── QUESTION ──────────────────────────────────────────────────────────────────
+      function startQuestion(q, startTs, total) {
+        clearInterval(timerInt);
+        qStartTime = startTs;
+        const qNum = curQ + 1;
+
+        if (myRole === "host") {
+          show("screen-question-host");
+          document.getElementById("h-prog").textContent =
+            `Question ${qNum} of ${total}`;
+          document.getElementById("h-role").textContent = q.role;
+          document.getElementById("h-ans-count").textContent = "0 answered";
+          document.getElementById("h-grid").innerHTML = q.opts
+            .map(
+              (o, i) =>
+                `<button class="ans-btn ${COLORS[i]}" disabled>
+              <span class="ans-icon">${ICONS[i]}</span>${o}
+            </button>`,
+            )
+            .join("");
+          startTimer("h-fill", "h-num", Q_SECS, () =>
+            roomRef.update({ status: "reveal" }),
+          );
+        } else {
+          show("screen-question-player");
+          document.getElementById("p-prog").textContent =
+            `Question ${qNum} of ${total}`;
+          document.getElementById("p-role").textContent = q.role;
+          document.getElementById("p-submitted").style.display = "none";
+          document.getElementById("p-grid-ans").innerHTML = q.opts
+            .map(
+              (o, i) =>
+                `<button class="ans-btn ${COLORS[i]}" onclick="submitAns(${i})">
+              <span class="ans-icon">${ICONS[i]}</span>${o}
+            </button>`,
+            )
+            .join("");
+          const elapsed = (Date.now() - startTs) / 1000;
+          startTimer("p-fill", "p-num", Math.max(0, Q_SECS - elapsed), () =>
+            disableAns(),
+          );
+        }
+      }
+
+      function startTimer(fillId, numId, secs, onDone) {
+        const total = secs;
+        let rem = secs;
+        const fillEl = document.getElementById(fillId);
+        const numEl = document.getElementById(numId);
+        if (fillEl) fillEl.style.width = "100%";
+        if (numEl) numEl.textContent = Math.ceil(rem);
+        timerInt = setInterval(() => {
+          rem--;
+          if (fillEl)
+            fillEl.style.width = Math.max(0, (rem / total) * 100) + "%";
+          if (numEl) numEl.textContent = Math.max(0, Math.ceil(rem));
+          if (rem <= 0) {
+            clearInterval(timerInt);
+            onDone();
+          }
+        }, 1000);
+      }
+
+      function submitAns(idx) {
+        if (myAnswer !== null) return;
+        clearInterval(timerInt);
+        const elapsed = (Date.now() - qStartTime) / 1000;
+        const q = questions[curQ];
+        const correct = idx === q.ci;
+        const pts = correct
+          ? Math.round(500 + 500 * Math.max(0, (Q_SECS - elapsed) / Q_SECS))
+          : 0;
+        myAnswer = { idx, correct, pts };
+
+        document.querySelectorAll("#p-grid-ans .ans-btn").forEach((b, i) => {
+          b.disabled = true;
+          if (i === idx) b.classList.add("picked");
+        });
+        const sub = document.getElementById("p-submitted");
+        sub.style.display = "block";
+        sub.textContent = correct ? "✓ Locked in!" : "✗ Locked in";
+        sub.style.color = correct ? "#5dcaa5" : "rgba(255,255,255,0.5)";
+
+        roomRef.child(`players/${myId}/ans`).set(idx);
+        roomRef
+          .child(`players/${myId}/score`)
+          .transaction((s) => (s || 0) + pts);
+      }
+
+      function disableAns() {
+        document
+          .querySelectorAll("#p-grid-ans .ans-btn")
+          .forEach((b) => (b.disabled = true));
+      }
+
+      // ── REVEAL ────────────────────────────────────────────────────────────────────
+      function showReveal(room) {
+        clearInterval(timerInt);
+        show("screen-reveal");
+        const q = room.questions[room.curQ];
+        document.getElementById("rev-ans").textContent = q.opts[q.ci];
+
+        const banner = document.getElementById("res-banner");
+        if (myRole === "player") {
+          if (!myAnswer) {
+            banner.innerHTML = `<div class="res-banner res-timeout"><h2>⏰ Time's up</h2><p>No answer submitted</p></div>`;
+          } else if (myAnswer.correct) {
+            banner.innerHTML = `<div class="res-banner res-correct"><h2>✓ Correct!</h2><p>+${myAnswer.pts} points</p></div>`;
+          } else {
+            banner.innerHTML = `<div class="res-banner res-wrong"><h2>✗ Incorrect</h2><p>Better luck next time</p></div>`;
+          }
+        } else {
+          banner.innerHTML = "";
+          document.getElementById("next-btn").style.display = "inline-flex";
+        }
+
+        const sorted = Object.entries(room.players || {})
+          .map(([, p]) => ({ name: p.name, score: p.score || 0 }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5);
+        document.getElementById("rev-lb").innerHTML = sorted
+          .map(
+            (p, i) =>
+              `<div class="lb-row">
+            <div class="lb-rank">${i < 3 ? MEDALS[i] : i + 1}</div>
+            <div class="lb-name">${p.name}</div>
+            <div class="lb-pts">${p.score}</div>
+          </div>`,
+          )
+          .join("");
+
+        // Clear per-question answer field
+        if (myRole === "player") roomRef.child(`players/${myId}/ans`).remove();
+      }
+
+      function hostNext() {
+        document.getElementById("next-btn").style.display = "none";
+        const next = curQ + 1;
+        if (next >= questions.length) roomRef.update({ status: "final" });
+        else
+          roomRef.update({
+            status: "question",
+            curQ: next,
+            qStart: Date.now(),
+          });
+      }
+
+      // ── FINAL ─────────────────────────────────────────────────────────────────────
+      function showFinal(playersObj) {
+        clearInterval(timerInt);
+        show("screen-final");
+        const sorted = Object.entries(playersObj || {})
+          .map(([, p]) => ({ name: p.name, score: p.score || 0 }))
+          .sort((a, b) => b.score - a.score);
+
+        // Podium
+        const order = [1, 0, 2],
+          cls = ["pod-2", "pod-1", "pod-3"];
+        document.getElementById("podium").innerHTML = order
+          .map((rank, i) => {
+            const p = sorted[rank];
+            if (!p) return "";
+            return `<div class="pod-col">
+            <div class="pod-name">${MEDALS[rank]} ${p.name}</div>
+            <div class="pod-blk ${cls[i]}">${MEDALS[rank]}</div>
+            <div class="pod-score">${p.score} pts</div>
+          </div>`;
+          })
+          .join("");
+
+        document.getElementById("full-lb").innerHTML = sorted
+          .map(
+            (p, i) =>
+              `<div class="lb-row">
+            <div class="lb-rank">${i < 3 ? MEDALS[i] : i + 1}</div>
+            <div class="lb-name">${p.name}</div>
+            <div class="lb-pts">${p.score} pts</div>
+          </div>`,
+          )
+          .join("");
+      }
+
+      // ── CLEANUP ───────────────────────────────────────────────────────────────────
+      function goHome() {
+        clearInterval(timerInt);
+        if (roomRef) {
+          roomRef.off();
+          roomRef = null;
+        }
+        myRole = null;
+        roomCode = null;
+        myAnswer = null;
+        curQ = -1;
+        curStatus = "";
+        questions = [];
+        show("screen-home");
+      }
+    </script>
+  </body>
+</html>

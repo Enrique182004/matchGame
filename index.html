@@ -131,10 +131,10 @@
       }
       .hero-cards {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 1.5rem;
       }
-      @media (max-width: 560px) {
+      @media (max-width: 720px) {
         .hero-cards {
           grid-template-columns: 1fr;
         }
@@ -164,6 +164,21 @@
       }
       .hero-card.careers-card {
         border-top: 4px solid var(--teal-600);
+      }
+      .hero-card.party-card {
+        border-top: 4px solid var(--coral-600);
+      }
+      .hero-card.party-card:hover {
+        border-color: var(--coral-200);
+        border-top-color: var(--coral-600);
+      }
+      .party-card .hero-icon {
+        background: var(--coral-50);
+        color: var(--coral-600);
+      }
+      .party-card .hero-btn {
+        background: var(--coral-600);
+        color: #fff;
       }
       .hero-card.game-card:hover {
         border-color: var(--purple-400);
@@ -283,10 +298,21 @@
           <div class="hero-icon"><i class="ti ti-id-badge-2"></i></div>
           <h2>Explore Careers</h2>
           <p>
-            Browse all 37 engineering roles with full descriptions, grouped by
+            Browse all engineering roles with full descriptions, grouped by
             discipline. See what each role does and what combination reveals it.
           </p>
           <span class="hero-btn"><i class="ti ti-book-open"></i> Explore</span>
+        </a>
+        <a href="party.html" class="hero-card party-card">
+          <div class="hero-icon"><i class="ti ti-confetti"></i></div>
+          <h2>Party Mode</h2>
+          <p>
+            Kahoot-style multiplayer! Create a room, share the code, and compete
+            with friends to identify engineering roles the fastest.
+          </p>
+          <span class="hero-btn"
+            ><i class="ti ti-users"></i> Play Together</span
+          >
         </a>
       </div>
       <div class="stats-row">
