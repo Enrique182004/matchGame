@@ -371,6 +371,89 @@
         }
       }
 
+      /* ── INSTRUCTIONS CARD ── */
+      .instructions-card {
+        background: #fff;
+        border: 1.5px solid #e0dfd8;
+        border-radius: 14px;
+        padding: 1.25rem 1.5rem;
+        width: 100%;
+        max-width: 560px;
+      }
+      .instructions-card h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--purple);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .instructions-card ol {
+        padding-left: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .instructions-card li {
+        font-size: 13px;
+        color: #444441;
+        line-height: 1.5;
+      }
+      .instructions-card li strong {
+        color: #2c2c2a;
+      }
+      .instructions-tip {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #888780;
+        background: #f5f4f0;
+        border-radius: 8px;
+        padding: 8px 12px;
+      }
+
+      /* ── COUNTDOWN OVERLAY ── */
+      #countdown-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        background: rgba(38, 33, 92, 0.95);
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      .countdown-num {
+        font-size: clamp(100px, 25vw, 180px);
+        font-weight: 900;
+        line-height: 1;
+        will-change: transform, opacity;
+      }
+      .countdown-sub {
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 500;
+      }
+      @keyframes countPop {
+        0% {
+          transform: scale(0.3);
+          opacity: 0;
+        }
+        25% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        65% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.4);
+          opacity: 0;
+        }
+      }
+
       /* ── HOST GAME SCREEN ── */
       #screen-game-host {
         background: var(--bg-dark);
