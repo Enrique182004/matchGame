@@ -1045,30 +1045,53 @@
 
     <!-- HOST LOBBY -->
     <div id="screen-host-lobby" class="screen">
-      <div class="code-banner">
-        <div class="code-label">Room Code</div>
-        <div class="code-big" id="disp-code">XXXXXX</div>
-        <div class="code-hint">
-          Players open this page and enter the code above
+      <header class="party-header">
+        <div class="header-badge"><i class="ti ti-crown"></i> Host Lobby</div>
+        <div class="code-display">
+          <div class="code-label">Room Code</div>
+          <div class="code-big" id="disp-code">XXXXXX</div>
+          <div class="code-hint">
+            Players open this page and enter the code above
+          </div>
         </div>
+      </header>
+      <div class="screen-body">
+        <div class="instructions-card">
+          <h3><i class="ti ti-help-circle"></i> How to Play</h3>
+          <ol>
+            <li>
+              Select one card from <strong>Engineering Specialty</strong> (Tab
+              1)
+            </li>
+            <li>Select one card from <strong>Industry</strong> (Tab 2)</li>
+            <li>Select one card from <strong>Work Focus</strong> (Tab 3)</li>
+            <li>
+              If all three match a real engineering career →
+              <strong>+1 point!</strong>
+            </li>
+          </ol>
+          <div class="instructions-tip">
+            🏆 Find as many combinations as you can before time runs out.
+            Fastest fingers win!
+          </div>
+        </div>
+        <div class="sec-lbl">Players joined (<span id="p-count">0</span>)</div>
+        <div class="chip-grid" id="p-grid"></div>
+        <div class="sec-lbl">Game duration</div>
+        <div class="dur-row">
+          <button class="dur-btn" onclick="setDur(60, this)">1 min</button>
+          <button class="dur-btn on" onclick="setDur(180, this)">3 min</button>
+          <button class="dur-btn" onclick="setDur(300, this)">5 min</button>
+        </div>
+        <button
+          class="btn btn-purple btn-lg"
+          id="start-btn"
+          onclick="hostStart()"
+          disabled
+        >
+          <i class="ti ti-player-play"></i> Start Game
+        </button>
       </div>
-      <div class="sec-lbl">Players joined (<span id="p-count">0</span>)</div>
-      <div class="chip-grid" id="p-grid"></div>
-      <div class="sec-lbl">Game duration</div>
-      <div class="dur-row">
-        <button class="dur-btn" onclick="setDur(60, this)">1 min</button>
-        <button class="dur-btn on" onclick="setDur(180, this)">3 min</button>
-        <button class="dur-btn" onclick="setDur(300, this)">5 min</button>
-      </div>
-      <button
-        class="btn btn-purple btn-lg"
-        id="start-btn"
-        onclick="hostStart()"
-        disabled
-        style="max-width: 400px"
-      >
-        <i class="ti ti-player-play"></i> Start Game
-      </button>
     </div>
 
     <!-- PLAYER LOBBY -->
