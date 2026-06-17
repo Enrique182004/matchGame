@@ -1008,31 +1008,38 @@
   <body>
     <!-- HOME -->
     <div id="screen-home" class="screen active">
-      <div class="home-wrap">
+      <header class="party-header">
+        <div class="header-badge"><i class="ti ti-users"></i> Party Mode</div>
         <div class="logo">🛠</div>
         <h1>Engineering Career Explorer</h1>
-        <h2>Party Mode</h2>
-        <input
-          class="field"
-          id="player-name"
-          placeholder="Your name"
-          maxlength="20"
-        />
-        <button class="btn btn-purple btn-lg" onclick="createGame()">
-          <i class="ti ti-plus"></i> Create Game
-        </button>
-        <div class="divider">or join with a code</div>
-        <input
-          class="field"
-          id="code-input"
-          placeholder="ROOM CODE"
-          maxlength="6"
-        />
-        <button class="btn btn-ghost" onclick="joinGame()">
-          <i class="ti ti-door-enter"></i> Join Game
-        </button>
-        <div class="toast" id="home-err"></div>
-        <a class="back-lnk" href="index.html">← Back to solo mode</a>
+        <h2>Compete with friends to find career combos</h2>
+      </header>
+      <div class="screen-body">
+        <div class="home-card">
+          <input
+            class="field"
+            id="player-name"
+            placeholder="Your name"
+            maxlength="20"
+            autocomplete="off"
+          />
+          <button class="btn btn-purple btn-lg" onclick="createGame()">
+            <i class="ti ti-plus"></i> Create Game
+          </button>
+          <div class="divider">or join with a code</div>
+          <input
+            class="field"
+            id="code-input"
+            placeholder="ROOM CODE"
+            maxlength="6"
+            autocomplete="off"
+          />
+          <button class="btn btn-ghost" onclick="joinGame()">
+            <i class="ti ti-door-enter"></i> Join Game
+          </button>
+          <div class="toast" id="home-err"></div>
+          <a class="back-lnk" href="index.html">← Back to solo mode</a>
+        </div>
       </div>
     </div>
 
