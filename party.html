@@ -1096,18 +1096,38 @@
 
     <!-- PLAYER LOBBY -->
     <div id="screen-player-lobby" class="screen">
-      <div class="wait-wrap">
+      <header class="party-header">
+        <div class="header-badge"><i class="ti ti-check"></i> You're In!</div>
         <div class="wait-icon">🎮</div>
         <div class="wait-name" id="wait-name">Player</div>
+        <h2>Get ready to play</h2>
+      </header>
+      <div class="screen-body">
+        <div class="instructions-card">
+          <h3><i class="ti ti-help-circle"></i> How to Play</h3>
+          <ol>
+            <li>
+              Select one card from <strong>Engineering Specialty</strong> (Tab
+              1)
+            </li>
+            <li>Select one card from <strong>Industry</strong> (Tab 2)</li>
+            <li>Select one card from <strong>Work Focus</strong> (Tab 3)</li>
+            <li>
+              If all three match a real engineering career →
+              <strong>+1 point!</strong>
+            </li>
+          </ol>
+          <div class="instructions-tip">
+            🏆 Find as many combinations as you can before time runs out.
+            Fastest fingers win!
+          </div>
+        </div>
+        <div class="sec-lbl">Players in this room</div>
+        <div class="chip-grid" id="fellow-grid"></div>
         <div class="wait-msg">
           Waiting for host to start<span class="dot">.</span
           ><span class="dot">.</span><span class="dot">.</span>
         </div>
-        <div
-          class="chip-grid"
-          id="fellow-grid"
-          style="justify-content: center; margin-top: 1rem"
-        ></div>
       </div>
     </div>
 
