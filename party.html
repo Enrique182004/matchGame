@@ -945,22 +945,33 @@
       .pod-blk {
         border-radius: 12px 12px 0 0;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 26px;
-        width: 80px;
+        gap: 3px;
+        width: 88px;
       }
       .pod-1 {
         background: #ffd700;
-        height: 100px;
+        height: 110px;
       }
       .pod-2 {
         background: #c0c0c0;
-        height: 70px;
+        height: 80px;
       }
       .pod-3 {
         background: #cd7f32;
-        height: 50px;
+        height: 58px;
+      }
+      .pod-medal {
+        font-size: 28px;
+        line-height: 1;
+      }
+      .pod-blk-score {
+        font-size: 11px;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.55);
+        line-height: 1;
       }
       .pod-score {
         font-size: 11px;
@@ -970,6 +981,14 @@
       .full-lb {
         width: 100%;
         max-width: 480px;
+      }
+      .other-places-lbl {
+        font-size: 11px;
+        font-weight: 600;
+        color: #888780;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin: 4px 0 10px;
       }
 
       @media (max-width: 520px) {
@@ -2260,9 +2279,12 @@
       function showFinal(playersObj) {
         clearInterval(timerInt);
         show("screen-final");
+        launchConfetti();
         const sorted = Object.entries(playersObj || {})
           .map(([, p]) => ({ name: p.name, score: p.score || 0 }))
           .sort((a, b) => b.score - a.score);
+
+        // Podium: 2nd left, 1st center, 3rd right
         const order = [1, 0, 2],
           cls = ["pod-2", "pod-1", "pod-3"];
         document.getElementById("podium").innerHTML = order
@@ -2270,22 +2292,30 @@
             const p = sorted[rank];
             if (!p) return "";
             return `<div class="pod-col">
-            <div class="pod-name">${MEDALS[rank]} ${p.name}</div>
-            <div class="pod-blk ${cls[i]}">${MEDALS[rank]}</div>
-            <div class="pod-score">${p.score} matches</div>
-          </div>`;
+              <div class="pod-name">${p.name}</div>
+              <div class="pod-blk ${cls[i]}">
+                <span class="pod-medal">${MEDALS[rank]}</span>
+                <span class="pod-blk-score">${p.score} pts</span>
+              </div>
+            </div>`;
           })
           .join("");
-        document.getElementById("full-lb").innerHTML = sorted
-          .map(
-            (p, i) => `
-          <div class="lb-row">
-            <div class="lb-rank">${i < 3 ? MEDALS[i] : i + 1}</div>
-            <div class="lb-name">${p.name}</div>
-            <div class="lb-score">${p.score} matches</div>
-          </div>`,
-          )
-          .join("");
+
+        // Remaining places (4th and below)
+        const rest = sorted.slice(3);
+        document.getElementById("full-lb").innerHTML = rest.length
+          ? `<div class="other-places-lbl">Other Places</div>` +
+            rest
+              .map(
+                (p, i) => `
+              <div class="lb-row">
+                <div class="lb-rank">${i + 4}</div>
+                <div class="lb-name">${p.name}</div>
+                <div class="lb-score">${p.score} pts</div>
+              </div>`,
+              )
+              .join("")
+          : "";
       }
 
       // ── CLEANUP ────────────────────────────────────────────────────────────────
