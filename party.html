@@ -1256,6 +1256,12 @@
       </div>
     </div>
 
+    <!-- COUNTDOWN OVERLAY -->
+    <div id="countdown-overlay">
+      <div id="countdown-num" class="countdown-num">3</div>
+      <div class="countdown-sub" id="countdown-sub">Get ready!</div>
+    </div>
+
     <script>
       // ── FIREBASE CONFIG ────────────────────────────────────────────────────────
       const FB = {
@@ -1964,11 +1970,15 @@
               gameStartTime = room.gameStart;
               gameDuration = room.duration;
               if (myRole === "host") {
-                show("screen-game-host");
-                startHostTimer(room.gameStart, room.duration);
+                startCountdown(() => {
+                  show("screen-game-host");
+                  startHostTimer(room.gameStart, room.duration);
+                });
               } else {
-                show("screen-game-player");
-                startPlayerTimer(room.gameStart, room.duration);
+                startCountdown(() => {
+                  show("screen-game-player");
+                  startPlayerTimer(room.gameStart, room.duration);
+                });
               }
             } else if (myRole === "host") {
               renderHostLeaderboard(players);
@@ -2034,6 +2044,43 @@
         document
           .querySelectorAll(".card")
           .forEach((c) => c.classList.add("disabled"));
+      }
+
+      // ── COUNTDOWN ─────────────────────────────────────────────────────────────
+      function startCountdown(cb) {
+        const overlay = document.getElementById("countdown-overlay");
+        const numEl = document.getElementById("countdown-num");
+        const subEl = document.getElementById("countdown-sub");
+        const colors = { 3: "#ffffff", 2: "#5dcaa5", 1: "#f09595" };
+
+        overlay.style.display = "flex";
+        let n = 3;
+
+        function step() {
+          if (n > 0) {
+            numEl.textContent = n;
+            numEl.style.color = colors[n];
+            subEl.textContent = "Get ready!";
+            numEl.style.animation = "none";
+            void numEl.offsetHeight;
+            numEl.style.animation = "countPop 0.9s ease forwards";
+            n--;
+            setTimeout(step, 900);
+          } else {
+            numEl.textContent = "GO!";
+            numEl.style.color = "#ffd700";
+            subEl.textContent = "Find the combos!";
+            numEl.style.animation = "none";
+            void numEl.offsetHeight;
+            numEl.style.animation = "countPop 0.7s ease forwards";
+            setTimeout(() => {
+              overlay.style.display = "none";
+              cb();
+            }, 700);
+          }
+        }
+
+        step();
       }
 
       // ── TAB SWITCHING ──────────────────────────────────────────────────────────
