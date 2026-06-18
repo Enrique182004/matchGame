@@ -1164,7 +1164,7 @@
           </div>
         </div>
         <div style="text-align: right">
-          <div class="host-meta-lbl">Matches found</div>
+          <div class="host-meta-lbl">Discoveries</div>
           <div class="host-meta-val" id="host-total-matches">0</div>
         </div>
       </div>
@@ -2295,7 +2295,7 @@
               <div class="pod-name">${p.name}</div>
               <div class="pod-blk ${cls[i]}">
                 <span class="pod-medal">${MEDALS[rank]}</span>
-                <span class="pod-blk-score">${p.score} pts</span>
+                <span class="pod-blk-score">${p.score}</span>
               </div>
             </div>`;
           })
@@ -2311,7 +2311,7 @@
               <div class="lb-row">
                 <div class="lb-rank">${i + 4}</div>
                 <div class="lb-name">${p.name}</div>
-                <div class="lb-score">${p.score} pts</div>
+                <div class="lb-score">${p.score} ${p.score === 1 ? "discovery" : "discoveries"}</div>
               </div>`,
               )
               .join("")
