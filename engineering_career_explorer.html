@@ -1,0 +1,1559 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Engineering Career Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --eng: #4f46e5;
+        --eng-50: #eeedfb;
+        --eng-200: #a5a0f4;
+        --eng-800: #2822a0;
+        --eng-900: #1a186b;
+        --ind: #059669;
+        --ind-50: #d1fae5;
+        --ind-200: #6ee7b7;
+        --ind-900: #064e3b;
+        --prod: #ea580c;
+        --prod-50: #fff0e8;
+        --prod-200: #fdba74;
+        --prod-900: #7c2d12;
+        --gray-50: #f9fafb;
+        --gray-100: #e5e7eb;
+        --gray-400: #9ca3af;
+        --gray-600: #6b7280;
+        --gray-800: #374151;
+        --red-50: #fef2f2;
+        --red-200: #fecaca;
+        --red-600: #dc2626;
+        --red-800: #991b1b;
+        --bg: #f5f4f0;
+      }
+
+      body {
+        font-family: "DM Sans", "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: #1f1f1f;
+        min-height: 100vh;
+      }
+
+      /* ── HEADER ── */
+      header {
+        background: linear-gradient(
+          140deg,
+          #111827 0%,
+          var(--eng-800) 55%,
+          #064e3b 100%
+        );
+        padding: 1.5rem 1rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 70% at 15% 50%,
+            rgba(79, 70, 229, 0.3) 0%,
+            transparent 65%
+          ),
+          radial-gradient(
+            ellipse 50% 60% at 85% 50%,
+            rgba(5, 150, 105, 0.25) 0%,
+            transparent 65%
+          );
+        pointer-events: none;
+      }
+      .header-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.13);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 100px;
+        padding: 4px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.88);
+        letter-spacing: 0.04em;
+        margin-bottom: 10px;
+      }
+      header h1 {
+        font-family: "Nunito", sans-serif;
+        font-size: clamp(20px, 5vw, 30px);
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      }
+      header p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      /* ── PROGRESS ── */
+      .progress-wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1rem 1rem 0;
+      }
+      .progress-track {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+      .progress-step {
+        flex: 1;
+        height: 5px;
+        border-radius: 5px;
+        background: var(--gray-100);
+        transition: background 0.3s ease;
+      }
+      .progress-step.done-eng {
+        background: var(--eng);
+      }
+      .progress-step.done-ind {
+        background: var(--ind);
+      }
+      .progress-step.done-prod {
+        background: var(--prod);
+      }
+      .counter {
+        text-align: right;
+        font-size: 12px;
+        color: var(--gray-400);
+        font-weight: 500;
+      }
+
+      /* ── MAIN ── */
+      .main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1rem 1rem 2.5rem;
+      }
+
+      /* ── STEP HEADER ── */
+      .step-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        margin-top: 2rem;
+      }
+      .step-num {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Nunito", sans-serif;
+        font-size: 14px;
+        font-weight: 900;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .step-eng .step-num {
+        background: var(--eng);
+      }
+      .step-ind .step-num {
+        background: var(--ind);
+      }
+      .step-prod .step-num {
+        background: var(--prod);
+      }
+      .step-header h2 {
+        font-family: "Nunito", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        color: #1f1f1f;
+        flex: 1;
+      }
+      .step-header h2 span {
+        font-size: 13px;
+        color: var(--gray-600);
+        font-weight: 400;
+      }
+
+      /* desktop: checkmark on far right */
+      .step-check {
+        font-size: 20px;
+        opacity: 0;
+        transform: scale(0.7);
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+        flex-shrink: 0;
+      }
+      .step-check.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .step-eng .step-check {
+        color: var(--eng);
+      }
+      .step-ind .step-check {
+        color: var(--ind);
+      }
+      .step-prod .step-check {
+        color: var(--prod);
+      }
+
+      /* mobile-only elements hidden on desktop */
+      .sel-badge,
+      .step-chevron {
+        display: none;
+      }
+
+      /* ── CARDS GRID ── */
+      .cards-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      /* ── CARD ── */
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 12px 8px;
+        width: 104px;
+        min-height: 90px;
+        background: #fff;
+        border: 1.5px solid var(--gray-100);
+        border-radius: 12px;
+        cursor: pointer;
+        user-select: none;
+        transition:
+          transform 0.12s ease,
+          box-shadow 0.12s ease,
+          border-color 0.12s ease,
+          background 0.12s ease;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      }
+      .card:active {
+        transform: scale(0.95);
+      }
+      .card:focus-visible {
+        outline: 2px solid var(--eng);
+        outline-offset: 2px;
+      }
+      .card i {
+        font-size: 24px;
+        transition: transform 0.15s;
+      }
+      .card:hover i {
+        transform: scale(1.1);
+      }
+      .card span {
+        font-size: 11px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.35;
+        color: #4b5563;
+      }
+      .card-eng i {
+        color: var(--eng);
+      }
+      .card-ind i {
+        color: var(--ind);
+      }
+      .card-prod i {
+        color: var(--prod);
+      }
+      .card.sel-eng::after,
+      .card.sel-ind::after,
+      .card.sel-prod::after {
+        content: "✓";
+        position: absolute;
+        top: 5px;
+        right: 7px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+      .card.sel-eng {
+        background: var(--eng-50);
+        border-color: var(--eng-200);
+        border-width: 2px;
+      }
+      .card.sel-eng i {
+        color: var(--eng);
+      }
+      .card.sel-eng span {
+        color: var(--eng-800);
+      }
+      .card.sel-eng::after {
+        color: var(--eng);
+      }
+      .card.sel-ind {
+        background: var(--ind-50);
+        border-color: var(--ind-200);
+        border-width: 2px;
+      }
+      .card.sel-ind i {
+        color: var(--ind);
+      }
+      .card.sel-ind span {
+        color: var(--ind-900);
+      }
+      .card.sel-ind::after {
+        color: var(--ind);
+      }
+      .card.sel-prod {
+        background: var(--prod-50);
+        border-color: var(--prod-200);
+        border-width: 2px;
+      }
+      .card.sel-prod i {
+        color: var(--prod);
+      }
+      .card.sel-prod span {
+        color: var(--prod-900);
+      }
+      .card.sel-prod::after {
+        color: var(--prod);
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: var(--gray-100);
+        margin: 2rem 0;
+      }
+      .divider-slots {
+        height: 1px;
+        background: var(--gray-100);
+        margin: 2rem 0;
+      }
+
+      /* ── SELECTION SLOTS ── */
+      .selection-label {
+        text-align: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-600);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .slots-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .slot {
+        flex: 1;
+        min-width: 200px;
+        max-width: 260px;
+        border: 2px dashed var(--gray-100);
+        border-radius: 14px;
+        padding: 16px 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 100px;
+        background: #fafaf8;
+        transition: all 0.2s ease;
+      }
+      .slot-lbl {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+      }
+      .slot i {
+        font-size: 26px;
+      }
+      .slot-eng-icon i {
+        color: var(--eng-200);
+      }
+      .slot-ind-icon i {
+        color: var(--ind-200);
+      }
+      .slot-prod-icon i {
+        color: var(--prod-200);
+      }
+      .slot-name {
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        color: var(--gray-600);
+      }
+      .slot-empty {
+        font-size: 12px;
+        color: var(--gray-400);
+        font-style: italic;
+      }
+      .slot.filled-eng {
+        background: var(--eng-50);
+        border-style: solid;
+        border-color: var(--eng-200);
+      }
+      .slot.filled-eng .slot-lbl {
+        color: var(--eng);
+      }
+      .slot.filled-eng .slot-name {
+        color: var(--eng-800);
+      }
+      .slot.filled-eng i {
+        color: var(--eng);
+      }
+      .slot.filled-ind {
+        background: var(--ind-50);
+        border-style: solid;
+        border-color: var(--ind-200);
+      }
+      .slot.filled-ind .slot-lbl {
+        color: var(--ind);
+      }
+      .slot.filled-ind .slot-name {
+        color: var(--ind-900);
+      }
+      .slot.filled-ind i {
+        color: var(--ind);
+      }
+      .slot.filled-prod {
+        background: var(--prod-50);
+        border-style: solid;
+        border-color: var(--prod-200);
+      }
+      .slot.filled-prod .slot-lbl {
+        color: var(--prod);
+      }
+      .slot.filled-prod .slot-name {
+        color: var(--prod-900);
+      }
+      .slot.filled-prod i {
+        color: var(--prod);
+      }
+      .plus {
+        font-size: 22px;
+        color: var(--gray-400);
+        flex-shrink: 0;
+        font-weight: 300;
+      }
+
+      /* ── RESULT ── */
+      .result-area {
+        display: none;
+        margin-top: 1.5rem;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .result-success {
+        background: linear-gradient(
+          135deg,
+          var(--eng-50) 0%,
+          var(--ind-50) 100%
+        );
+        border: 2px solid var(--eng-200);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .result-fail {
+        background: var(--red-50);
+        border: 2px solid var(--red-200);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        animation: popIn 0.3s ease;
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95) translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .card,
+        .step-check,
+        .result-area,
+        .result-success,
+        .result-fail {
+          transition: none;
+          animation: none;
+        }
+      }
+      .result-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--eng);
+        color: #fff;
+        border-radius: 100px;
+        padding: 5px 16px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        margin-bottom: 14px;
+      }
+      .result-role-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--eng);
+        margin-bottom: 8px;
+      }
+      .result-role {
+        font-family: "Nunito", sans-serif;
+        font-size: clamp(18px, 4vw, 24px);
+        font-weight: 900;
+        color: var(--eng-900);
+        margin-bottom: 12px;
+      }
+      .result-desc {
+        font-size: 14px;
+        color: var(--eng-800);
+        line-height: 1.75;
+        max-width: 540px;
+        margin: 0 auto;
+      }
+      .result-x {
+        font-size: 56px;
+        line-height: 1;
+        color: var(--red-600);
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .result-fail-msg {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--red-800);
+        margin-bottom: 6px;
+      }
+      .result-fail-sub {
+        font-size: 13px;
+        color: var(--red-600);
+      }
+
+      /* ── ACTIONS ── */
+      .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .btn-reset {
+        padding: 10px 24px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 8px;
+        border: 1.5px solid var(--gray-100);
+        background: #fff;
+        color: var(--gray-600);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "DM Sans", sans-serif;
+        min-height: 44px;
+        transition: background 0.12s;
+      }
+      .btn-reset:hover {
+        background: var(--gray-50);
+      }
+      .btn-reset:focus-visible {
+        outline: 2px solid var(--eng);
+        outline-offset: 2px;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 12px;
+        color: var(--gray-400);
+        border-top: 1px solid var(--gray-100);
+      }
+
+      /* ════════════════════════════════════
+         DESKTOP: 3-column with internal scroll
+         ════════════════════════════════════ */
+      @media (min-width: 769px) {
+        .sections-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 0;
+          margin: 1.25rem 0;
+        }
+        .col-divider {
+          display: none;
+        }
+        .section-col {
+          height: calc(100vh - 320px);
+          min-height: 360px;
+          overflow-y: auto;
+          padding: 0 1.5rem 1.5rem;
+          scrollbar-width: thin;
+          scrollbar-color: var(--gray-100) transparent;
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            black calc(100% - 28px),
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            to bottom,
+            black calc(100% - 28px),
+            transparent 100%
+          );
+        }
+        .section-col::-webkit-scrollbar {
+          width: 4px;
+        }
+        .section-col::-webkit-scrollbar-thumb {
+          background: var(--gray-100);
+          border-radius: 4px;
+        }
+        .section-col:first-child {
+          padding-left: 0;
+        }
+        .section-col:last-child {
+          padding-right: 0;
+        }
+        .section-col:not(:last-child) {
+          border-right: 1px solid var(--gray-100);
+        }
+        .section-col .step-header {
+          margin-top: 0;
+          position: sticky;
+          top: 0;
+          background: var(--bg);
+          padding-top: 0.25rem;
+          padding-bottom: 0.5rem;
+          z-index: 2;
+        }
+      }
+
+      /* ════════════════════════════════════
+         MOBILE: stepper accordion
+         ════════════════════════════════════ */
+      @media (max-width: 768px) {
+        .sections-grid {
+          display: block;
+          margin: 0.75rem 0 0;
+        }
+        .col-divider {
+          display: none;
+        }
+        .divider-slots {
+          display: none;
+        }
+        .selection-label {
+          display: none;
+        }
+        .slots-row {
+          display: none;
+        }
+
+        /* accordion card */
+        .section-col {
+          background: #fff;
+          border-radius: 14px;
+          border: 1.5px solid var(--gray-100);
+          margin-bottom: 10px;
+          overflow: hidden;
+          transition: border-color 0.2s;
+        }
+        .section-col.expanded {
+          border-color: var(--gray-100);
+        }
+        .sec-eng.expanded {
+          border-color: var(--eng-200);
+        }
+        .sec-ind.expanded {
+          border-color: var(--ind-200);
+        }
+        .sec-prod.expanded {
+          border-color: var(--prod-200);
+        }
+
+        /* tappable header */
+        .step-header {
+          margin: 0;
+          padding: 14px 14px;
+          cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+          min-height: 56px;
+        }
+        .step-header:focus-visible {
+          outline: 2px solid var(--eng);
+          outline-offset: -2px;
+        }
+
+        /* cards hidden when collapsed */
+        .section-col .cards-grid {
+          display: none;
+          padding: 0 12px 14px;
+          gap: 7px;
+        }
+        .section-col.expanded .cards-grid {
+          display: flex;
+        }
+
+        /* smaller cards on mobile to fit 3 per row */
+        .card {
+          width: calc(33.33% - 5px);
+          min-height: 88px;
+        }
+
+        /* selection badge in header */
+        .sel-badge {
+          display: none;
+          align-items: center;
+          gap: 5px;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 10px;
+          border-radius: 100px;
+          max-width: 130px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .sel-badge i {
+          font-size: 13px;
+          flex-shrink: 0;
+        }
+        .section-col.has-sel .sel-badge {
+          display: inline-flex;
+        }
+        .sec-eng .sel-badge {
+          background: var(--eng-50);
+          color: var(--eng-800);
+        }
+        .sec-ind .sel-badge {
+          background: var(--ind-50);
+          color: var(--ind-900);
+        }
+        .sec-prod .sel-badge {
+          background: var(--prod-50);
+          color: var(--prod-900);
+        }
+
+        /* hide desktop checkmark; show chevron */
+        .step-check {
+          display: none;
+        }
+        .step-chevron {
+          display: block;
+          font-size: 16px;
+          color: var(--gray-400);
+          flex-shrink: 0;
+          transition: transform 0.2s ease;
+        }
+        .section-col.expanded .step-chevron {
+          transform: rotate(180deg);
+        }
+
+        /* locked sections */
+        .section-col.locked {
+          opacity: 0.45;
+          pointer-events: none;
+        }
+
+        /* result on mobile */
+        .result-success,
+        .result-fail {
+          padding: 1.5rem 1.25rem;
+        }
+        .result-role {
+          font-size: clamp(17px, 5vw, 22px);
+        }
+      }
+
+      @media (max-width: 400px) {
+        .card {
+          width: calc(33.33% - 5px);
+          padding: 10px 4px;
+          gap: 5px;
+          min-height: 80px;
+        }
+        .card span {
+          font-size: 10px;
+        }
+        .card i {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <div class="header-badge">
+          <i class="ti ti-tool" aria-hidden="true"></i> UTEP · Engineering
+          Outreach
+        </div>
+        <h1>🛠 Engineering Career Explorer</h1>
+        <p>
+          Select one card from each section to discover your engineering role
+        </p>
+      </div>
+    </header>
+
+    <div class="progress-wrap">
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-valuenow="0"
+        aria-valuemin="0"
+        aria-valuemax="3"
+        aria-label="Selection progress"
+        id="progress-bar"
+      >
+        <div class="progress-step" id="p1"></div>
+        <div class="progress-step" id="p2"></div>
+        <div class="progress-step" id="p3"></div>
+      </div>
+      <div class="counter" id="counter" aria-live="polite">0 of 3 selected</div>
+    </div>
+
+    <main class="main">
+      <div class="sections-grid">
+        <!-- Section 1 – Engineering Type -->
+        <div class="section-col sec-eng expanded" id="sec-col-eng">
+          <div
+            class="step-header step-eng"
+            onclick="toggleSection('eng')"
+            role="button"
+            tabindex="0"
+            aria-expanded="true"
+            aria-controls="cards-eng"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ')
+                toggleSection('eng');
+            "
+          >
+            <div class="step-num" aria-hidden="true">1</div>
+            <h2>Type of Engineering <span>— Choose one</span></h2>
+            <span
+              class="sel-badge"
+              id="sel-badge-eng"
+              aria-hidden="true"
+            ></span>
+            <i
+              class="ti ti-circle-check step-check"
+              id="check-eng"
+              aria-hidden="true"
+            ></i>
+            <i class="ti ti-chevron-down step-chevron" aria-hidden="true"></i>
+          </div>
+          <div
+            class="cards-grid"
+            id="cards-eng"
+            role="group"
+            aria-label="Type of Engineering options"
+          ></div>
+        </div>
+
+        <div class="col-divider"></div>
+
+        <!-- Section 2 – Industry -->
+        <div class="section-col sec-ind locked" id="sec-col-ind">
+          <div
+            class="step-header step-ind"
+            onclick="toggleSection('ind')"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="cards-ind"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ')
+                toggleSection('ind');
+            "
+          >
+            <div class="step-num" aria-hidden="true">2</div>
+            <h2>Workforce / Industry <span>— Choose one</span></h2>
+            <span
+              class="sel-badge"
+              id="sel-badge-ind"
+              aria-hidden="true"
+            ></span>
+            <i
+              class="ti ti-circle-check step-check"
+              id="check-ind"
+              aria-hidden="true"
+            ></i>
+            <i class="ti ti-chevron-down step-chevron" aria-hidden="true"></i>
+          </div>
+          <div
+            class="cards-grid"
+            id="cards-ind"
+            role="group"
+            aria-label="Industry options"
+          ></div>
+        </div>
+
+        <div class="col-divider"></div>
+
+        <!-- Section 3 – Focus Area -->
+        <div class="section-col sec-prod locked" id="sec-col-prod">
+          <div
+            class="step-header step-prod"
+            onclick="toggleSection('prod')"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="cards-prod"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ')
+                toggleSection('prod');
+            "
+          >
+            <div class="step-num" aria-hidden="true">3</div>
+            <h2>Product / Problem to Solve <span>— Choose one</span></h2>
+            <span
+              class="sel-badge"
+              id="sel-badge-prod"
+              aria-hidden="true"
+            ></span>
+            <i
+              class="ti ti-circle-check step-check"
+              id="check-prod"
+              aria-hidden="true"
+            ></i>
+            <i class="ti ti-chevron-down step-chevron" aria-hidden="true"></i>
+          </div>
+          <div
+            class="cards-grid"
+            id="cards-prod"
+            role="group"
+            aria-label="Focus area options"
+          ></div>
+        </div>
+      </div>
+      <!-- /sections-grid -->
+
+      <!-- Desktop slots row (hidden on mobile) -->
+      <div class="divider-slots"></div>
+      <div class="selection-label">Your Selections</div>
+      <div class="slots-row">
+        <div class="slot" id="slot-eng">
+          <div class="slot-lbl">Engineering Type</div>
+          <div class="slot-eng-icon">
+            <i class="ti ti-settings" id="slot-eng-icon" aria-hidden="true"></i>
+          </div>
+          <div class="slot-empty" id="slot-eng-text">Select above ↑</div>
+        </div>
+        <div class="plus" aria-hidden="true">+</div>
+        <div class="slot" id="slot-ind">
+          <div class="slot-lbl">Industry</div>
+          <div class="slot-ind-icon">
+            <i
+              class="ti ti-building-factory"
+              id="slot-ind-icon"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div class="slot-empty" id="slot-ind-text">Select above ↑</div>
+        </div>
+        <div class="plus" aria-hidden="true">+</div>
+        <div class="slot" id="slot-prod">
+          <div class="slot-lbl">Product / Problem</div>
+          <div class="slot-prod-icon">
+            <i class="ti ti-bulb" id="slot-prod-icon" aria-hidden="true"></i>
+          </div>
+          <div class="slot-empty" id="slot-prod-text">Select above ↑</div>
+        </div>
+      </div>
+
+      <div class="result-area" id="result-area" aria-live="polite"></div>
+
+      <div class="actions">
+        <button class="btn-reset" onclick="clearAll()">
+          <i class="ti ti-refresh" aria-hidden="true"></i> Reset selections
+        </button>
+      </div>
+    </main>
+
+    <footer>
+      Engineering Career Explorer &nbsp;·&nbsp; Industrial, Manufacturing &amp;
+      Systems Engineering &nbsp;·&nbsp; UTEP
+    </footer>
+
+    <script>
+      /* ── DATA ── */
+      const engData = [
+        { id: "IE", label: "Industrial Engineering", icon: "ti-chart-arrows" },
+        { id: "ME", label: "Manufacturing Engineering", icon: "ti-assembly" },
+        { id: "SE", label: "Systems Engineering", icon: "ti-sitemap" },
+      ];
+      const indData = [
+        { id: "hospital", label: "Hospitals", icon: "ti-building-hospital" },
+        { id: "aerospace", label: "Aerospace & Defense", icon: "ti-rocket" },
+        { id: "bizops", label: "Business Operations", icon: "ti-briefcase" },
+        {
+          id: "supplychain",
+          label: "Supply Chain",
+          icon: "ti-arrows-exchange",
+        },
+        { id: "energy", label: "Energy", icon: "ti-bolt" },
+        { id: "construction", label: "Construction", icon: "ti-crane" },
+        { id: "airport", label: "Airports", icon: "ti-plane" },
+        {
+          id: "electronics",
+          label: "Electronics & Semiconductors",
+          icon: "ti-cpu",
+        },
+        {
+          id: "government",
+          label: "Government",
+          icon: "ti-building-community",
+        },
+        { id: "logistics", label: "Logistics", icon: "ti-truck" },
+        {
+          id: "healthcare",
+          label: "Healthcare",
+          icon: "ti-heart-rate-monitor",
+        },
+        {
+          id: "technology",
+          label: "Tech / E-Commerce",
+          icon: "ti-device-laptop",
+        },
+        { id: "automotive", label: "Automotive", icon: "ti-car" },
+        { id: "warehouse", label: "Warehouse", icon: "ti-building-warehouse" },
+        { id: "food", label: "Food Production", icon: "ti-salad" },
+        {
+          id: "consulting",
+          label: "Consulting",
+          icon: "ti-presentation-analytics",
+        },
+        { id: "factory", label: "Factories", icon: "ti-building-factory" },
+      ];
+      const prodData = [
+        { id: "computers", label: "Computers", icon: "ti-device-desktop" },
+        {
+          id: "floorlayout",
+          label: "Production Floor Layout",
+          icon: "ti-layout-dashboard",
+        },
+        { id: "quality", label: "Quality Control", icon: "ti-certificate" },
+        { id: "costs", label: "Reducing Costs", icon: "ti-coins" },
+        { id: "safety", label: "Improving Safety", icon: "ti-shield-check" },
+        {
+          id: "productivity",
+          label: "Increasing Productivity",
+          icon: "ti-trending-up",
+        },
+        { id: "data", label: "Data Analysis", icon: "ti-chart-bar" },
+        { id: "inventory", label: "Inventory Management", icon: "ti-package" },
+        { id: "process", label: "Process Improvement", icon: "ti-settings-2" },
+        { id: "medical", label: "Medical Devices", icon: "ti-stethoscope" },
+        { id: "delivery", label: "Faster Delivery", icon: "ti-clock-bolt" },
+        {
+          id: "customer",
+          label: "Better Customer Service",
+          icon: "ti-mood-happy",
+        },
+        { id: "robotics", label: "Robotics / Automation", icon: "ti-robot" },
+        { id: "waste", label: "Waste Reduction", icon: "ti-recycle" },
+        {
+          id: "scheduling",
+          label: "Scheduling Workers",
+          icon: "ti-calendar-time",
+        },
+        {
+          id: "patientflow",
+          label: "Improving Patient Flow",
+          icon: "ti-activity",
+        },
+      ];
+
+      /* ── ROLE MAP ── */
+      const roleMap = {
+        "IE|hospital|patientflow": {
+          role: "Healthcare Systems Engineer",
+          desc: "A Healthcare Systems Engineer applies industrial engineering methods to hospitals and clinics — improving patient flow, reducing wait times, and making care delivery safer and more efficient.",
+        },
+        "IE|hospital|costs": {
+          role: "Healthcare Operations Engineer",
+          desc: "A Healthcare Operations Engineer applies lean and industrial engineering principles to reduce costs in hospitals while maintaining high-quality patient care.",
+        },
+        "IE|healthcare|medical": {
+          role: "Biomedical & Industrial Engineer",
+          desc: "This engineer combines industrial engineering methods with healthcare expertise to optimize the deployment, maintenance, and workflow around medical devices and clinical equipment.",
+        },
+        "ME|healthcare|medical": {
+          role: "Medical Device Manufacturing Engineer",
+          desc: "A Medical Device Manufacturing Engineer designs and validates production processes for medical equipment, ensuring devices are safe, effective, and compliant with regulatory standards.",
+        },
+        "IE|factory|costs": {
+          role: "Process Improvement Engineer",
+          desc: "A Process Improvement Engineer identifies waste and inefficiencies in manufacturing or business operations and redesigns processes to cut costs and boost performance.",
+        },
+        "IE|factory|process": {
+          role: "Process Engineer",
+          desc: "A Process Engineer analyzes and redesigns manufacturing or business workflows to eliminate bottlenecks, reduce variation, and improve overall throughput and quality.",
+        },
+        "IE|factory|safety": {
+          role: "Safety & Industrial Engineer",
+          desc: "A Safety & Industrial Engineer combines ergonomics, process design, and risk analysis to build safer workplaces while maintaining productivity.",
+        },
+        "IE|factory|productivity": {
+          role: "Industrial Engineer",
+          desc: "An Industrial Engineer optimizes systems of people, machines, and materials to maximize productivity and eliminate waste across manufacturing and service environments.",
+        },
+        "IE|factory|scheduling": {
+          role: "Production Planning Engineer",
+          desc: "A Production Planning Engineer schedules workers, machines, and materials on the factory floor to meet demand, reduce downtime, and optimize shift efficiency.",
+        },
+        "ME|factory|floorlayout": {
+          role: "Manufacturing Engineer",
+          desc: "A Manufacturing Engineer designs and optimizes factory floor layouts, production lines, and assembly systems to maximize output and quality.",
+        },
+        "ME|factory|robotics": {
+          role: "Automation Engineer",
+          desc: "An Automation Engineer designs and implements robotic systems, automated machinery, and smart manufacturing solutions that increase speed, precision, and safety.",
+        },
+        "ME|factory|waste": {
+          role: "Lean Manufacturing Engineer",
+          desc: "A Lean Manufacturing Engineer applies lean and Six Sigma principles to eliminate waste — overproduction, idle time, defects — and create more value with fewer resources.",
+        },
+        "ME|food|quality": {
+          role: "Quality Engineer",
+          desc: "A Quality Engineer ensures products, processes, and systems meet strict standards — reducing defects, minimizing errors, and improving customer satisfaction.",
+        },
+        "ME|food|robotics": {
+          role: "Food Automation Engineer",
+          desc: "A Food Automation Engineer designs automated processing and packaging systems in food manufacturing to improve throughput, hygiene, and consistency.",
+        },
+        "IE|food|quality": {
+          role: "Food Quality & Industrial Engineer",
+          desc: "This engineer applies quality control methods and lean principles to food production lines, ensuring consistent product standards and regulatory compliance.",
+        },
+        "SE|aerospace|computers": {
+          role: "Aerospace Systems Engineer",
+          desc: "An Aerospace Systems Engineer integrates avionics, software, and hardware subsystems in aircraft or spacecraft to ensure mission success and system reliability.",
+        },
+        "SE|aerospace|safety": {
+          role: "Systems Safety Engineer",
+          desc: "A Systems Safety Engineer identifies and mitigates risks in complex aerospace and defense systems, ensuring every subsystem meets strict reliability and safety requirements.",
+        },
+        "IE|supplychain|delivery": {
+          role: "Supply Chain Engineer",
+          desc: "A Supply Chain Engineer designs and optimizes the flow of goods, information, and resources across a supply chain to ensure products arrive faster and at lower cost.",
+        },
+        "IE|supplychain|inventory": {
+          role: "Supply Chain & Inventory Engineer",
+          desc: "This engineer develops inventory management strategies and supply chain models that balance stock levels, reduce holding costs, and prevent stockouts across distribution networks.",
+        },
+        "IE|warehouse|inventory": {
+          role: "Logistics Engineer",
+          desc: "A Logistics Engineer plans and improves warehouse layouts, inventory systems, and distribution networks to move products efficiently and accurately.",
+        },
+        "IE|warehouse|scheduling": {
+          role: "Warehouse Operations Engineer",
+          desc: "A Warehouse Operations Engineer optimizes worker schedules, picking routes, and storage layouts to maximize throughput and minimize operational cost.",
+        },
+        "IE|logistics|delivery": {
+          role: "Logistics & Distribution Engineer",
+          desc: "A Logistics & Distribution Engineer designs transportation networks and fulfillment systems to ensure goods reach customers faster and at lower operational cost.",
+        },
+        "IE|bizops|data": {
+          role: "Operations Analyst",
+          desc: "An Operations Analyst uses data analysis, modeling, and optimization techniques to improve business processes, reduce costs, and support strategic decision-making.",
+        },
+        "IE|bizops|customer": {
+          role: "Customer Experience & Operations Engineer",
+          desc: "This engineer uses operations research and process improvement methods to redesign service systems, reduce friction, and elevate the customer experience.",
+        },
+        "SE|technology|computers": {
+          role: "Technology Systems Analyst",
+          desc: "A Technology Systems Analyst designs, integrates, and optimizes complex software and hardware systems to meet the evolving needs of tech-driven organizations.",
+        },
+        "SE|technology|data": {
+          role: "Data Systems Engineer",
+          desc: "A Data Systems Engineer architects and integrates large-scale data platforms, pipelines, and analytics infrastructure to support intelligent decision-making.",
+        },
+        "SE|technology|process": {
+          role: "IT Process Systems Engineer",
+          desc: "An IT Process Systems Engineer designs and integrates enterprise software workflows, ensuring that IT systems and business processes are aligned, scalable, and efficient.",
+        },
+        "SE|energy|computers": {
+          role: "Energy Systems Engineer",
+          desc: "An Energy Systems Engineer designs and manages integrated power systems — from smart grids to renewable energy infrastructure — ensuring reliable and efficient energy delivery.",
+        },
+        "SE|energy|data": {
+          role: "Energy Data Systems Engineer",
+          desc: "An Energy Data Systems Engineer builds integrated systems that collect, process, and visualize power grid and energy consumption data to drive smarter energy management decisions.",
+        },
+        "ME|energy|robotics": {
+          role: "Energy Automation Engineer",
+          desc: "An Energy Automation Engineer designs automated systems for power plants and renewable energy installations, improving efficiency, safety, and uptime.",
+        },
+        "ME|automotive|robotics": {
+          role: "Automotive Automation Engineer",
+          desc: "An Automotive Automation Engineer develops robotic assembly lines and smart manufacturing systems for vehicle production, improving speed, precision, and safety.",
+        },
+        "ME|automotive|quality": {
+          role: "Automotive Quality Engineer",
+          desc: "An Automotive Quality Engineer ensures vehicles and components meet rigorous safety and performance standards throughout design, production, and delivery.",
+        },
+        "IE|construction|safety": {
+          role: "Construction Safety Engineer",
+          desc: "This engineer designs safe construction workflows, site layouts, and worker scheduling systems to reduce accidents and keep projects on time and on budget.",
+        },
+        "SE|construction|safety": {
+          role: "Construction Systems Engineer",
+          desc: "A Construction Systems Engineer integrates project planning, safety systems, and structural requirements to ensure complex construction projects are delivered safely and on schedule.",
+        },
+        "ME|construction|floorlayout": {
+          role: "Construction Manufacturing Engineer",
+          desc: "A Construction Manufacturing Engineer designs prefabrication layouts and modular construction workflows, bringing manufacturing efficiency to building and infrastructure projects.",
+        },
+        "SE|airport|scheduling": {
+          role: "Airport Systems Engineer",
+          desc: "An Airport Systems Engineer plans and optimizes complex airport operations — from gate scheduling and baggage systems to security flow and control systems integration.",
+        },
+        "IE|airport|scheduling": {
+          role: "Airport Operations & Industrial Engineer",
+          desc: "This engineer uses industrial engineering tools to optimize staffing, gate assignments, and terminal flow at airports, reducing delays and improving passenger experience.",
+        },
+        "IE|electronics|process": {
+          role: "Electronics Process Engineer",
+          desc: "Applies process improvement and lean methods to semiconductor fabrication and electronics assembly lines, reducing defects, cycle time, and production costs.",
+        },
+        "ME|electronics|quality": {
+          role: "Semiconductor Quality Engineer",
+          desc: "Ensures electronic components and assemblies meet rigorous reliability standards through statistical process control, automated inspection, and failure analysis.",
+        },
+        "SE|electronics|computers": {
+          role: "Electronics Systems Engineer",
+          desc: "Designs and integrates complex electronic systems — from chip-level architectures to full device platforms — ensuring performance, reliability, and manufacturability.",
+        },
+        "IE|electronics|data": {
+          role: "Electronics Operations Analyst",
+          desc: "Uses data analytics and simulation tools to optimize operations within semiconductor manufacturing plants, reducing downtime and maximizing fab throughput.",
+        },
+        "ME|electronics|robotics": {
+          role: "Electronics Automation Engineer",
+          desc: "Designs precision robotic and automated inspection systems for electronics manufacturing, enabling high-accuracy assembly and rapid quality verification.",
+        },
+        "IE|electronics|productivity": {
+          role: "Semiconductor Industrial Engineer",
+          desc: "Applies lean and industrial engineering principles to semiconductor fabrication to maximize wafer throughput, reduce bottlenecks, and improve overall fab efficiency.",
+        },
+        "IE|electronics|costs": {
+          role: "Fab Cost Reduction Engineer",
+          desc: "Identifies and eliminates cost drivers in semiconductor manufacturing through process optimization, waste elimination, and supply chain improvements.",
+        },
+        "IE|government|process": {
+          role: "Government Operations Engineer",
+          desc: "Applies industrial engineering methods to government agencies and public services — streamlining processes, reducing waste, and improving service delivery to citizens.",
+        },
+        "SE|government|data": {
+          role: "Government Systems Engineer",
+          desc: "Designs and integrates complex government IT and operational systems, ensuring they meet performance, security, and interoperability requirements for public-sector missions.",
+        },
+        "IE|government|scheduling": {
+          role: "Public Workforce Planner",
+          desc: "Uses operations research and workforce optimization to schedule government employees and public service workers efficiently, improving coverage and reducing overtime costs.",
+        },
+        "IE|government|costs": {
+          role: "Government Efficiency Engineer",
+          desc: "Applies lean and industrial engineering principles to identify waste and reduce costs in public-sector operations while maintaining or improving service quality.",
+        },
+        "SE|government|safety": {
+          role: "Public Safety Systems Engineer",
+          desc: "Designs and integrates emergency response, public safety communications, and infrastructure monitoring systems to protect citizens and critical national assets.",
+        },
+        "IE|consulting|process": {
+          role: "Management & Process Consultant",
+          desc: "Works with client organizations to redesign workflows, eliminate inefficiencies, and implement continuous improvement programs that deliver measurable business impact.",
+        },
+        "IE|consulting|costs": {
+          role: "Cost Reduction Consultant",
+          desc: "Analyzes client operations using industrial engineering tools to identify savings opportunities and implement changes that significantly reduce operating costs.",
+        },
+        "SE|consulting|data": {
+          role: "Systems Consulting Engineer",
+          desc: "Helps organizations design, integrate, and optimize complex technology systems and enterprise platforms to achieve their strategic business objectives.",
+        },
+        "IE|consulting|data": {
+          role: "Operations Analytics Consultant",
+          desc: "Uses advanced data analysis, simulation, and operations research to solve complex client operational problems and support data-driven strategic decisions.",
+        },
+        "ME|consulting|quality": {
+          role: "Quality Systems Consultant",
+          desc: "Partners with manufacturing clients to design and implement quality management systems, reducing defects and achieving compliance with international standards like ISO 9001.",
+        },
+        "IE|consulting|productivity": {
+          role: "Productivity Consulting Engineer",
+          desc: "Diagnoses performance gaps in client operations and designs targeted interventions — process redesign, technology adoption, workforce training — that sustainably increase productivity.",
+        },
+      };
+
+      /* ── STATE ── */
+      let sel = { eng: null, ind: null, prod: null };
+
+      function isMobile() {
+        return window.innerWidth < 769;
+      }
+
+      /* ── RENDER CARDS ── */
+      function renderCards(data, containerId, type) {
+        const wrap = document.getElementById(containerId);
+        data.forEach((item) => {
+          const c = document.createElement("button");
+          c.type = "button";
+          c.className = `card card-${type}`;
+          c.dataset.id = item.id;
+          c.setAttribute("aria-label", item.label);
+          c.innerHTML = `<i class="ti ${item.icon}" aria-hidden="true"></i><span>${item.label}</span>`;
+          c.addEventListener("click", () => selectCard(type, item, c));
+          wrap.appendChild(c);
+        });
+      }
+
+      /* ── SELECT ── */
+      function selectCard(type, item, el) {
+        document
+          .querySelectorAll(`.card-${type}`)
+          .forEach((c) => c.classList.remove("sel-eng", "sel-ind", "sel-prod"));
+        el.classList.add(`sel-${type}`);
+        sel[type] = item;
+        updateSlot(type, item);
+        updateProgress();
+
+        const check = document.getElementById(`check-${type}`);
+        if (check) check.classList.add("visible");
+
+        if (isMobile()) {
+          mobileAfterSelect(type, item);
+        } else {
+          checkResult();
+        }
+      }
+
+      function mobileAfterSelect(type, item) {
+        const col = document.getElementById(`sec-col-${type}`);
+        col.classList.add("has-sel");
+        col.classList.remove("expanded");
+        updateHeaderAriaExpanded(type, false);
+
+        const badge = document.getElementById(`sel-badge-${type}`);
+        badge.innerHTML = `<i class="ti ${item.icon}" aria-hidden="true"></i>${item.label}`;
+
+        const order = ["eng", "ind", "prod"];
+        const nextType = order[order.indexOf(type) + 1] || null;
+
+        if (nextType) {
+          setTimeout(() => {
+            const nextCol = document.getElementById(`sec-col-${nextType}`);
+            nextCol.classList.remove("locked");
+            nextCol.classList.add("expanded");
+            updateHeaderAriaExpanded(nextType, true);
+            nextCol.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 180);
+        } else {
+          checkResult();
+          setTimeout(() => {
+            document
+              .getElementById("result-area")
+              .scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }, 200);
+        }
+      }
+
+      function toggleSection(type) {
+        if (!isMobile()) return;
+        const col = document.getElementById(`sec-col-${type}`);
+        if (col.classList.contains("locked")) return;
+        const isExpanded = col.classList.contains("expanded");
+        col.classList.toggle("expanded", !isExpanded);
+        updateHeaderAriaExpanded(type, !isExpanded);
+      }
+
+      function updateHeaderAriaExpanded(type, value) {
+        const hdr = document.querySelector(`#sec-col-${type} .step-header`);
+        if (hdr) hdr.setAttribute("aria-expanded", String(value));
+      }
+
+      /* ── UPDATE DESKTOP SLOT ── */
+      function updateSlot(type, item) {
+        const slot = document.getElementById(`slot-${type}`);
+        const iconEl = document.getElementById(`slot-${type}-icon`);
+        const textEl = document.getElementById(`slot-${type}-text`);
+        slot.className = `slot filled-${type}`;
+        iconEl.className = `ti ${item.icon}`;
+        textEl.className = "slot-name";
+        textEl.textContent = item.label;
+      }
+
+      /* ── PROGRESS ── */
+      function updateProgress() {
+        const count = [sel.eng, sel.ind, sel.prod].filter(Boolean).length;
+        const labels = ["done-eng", "done-ind", "done-prod"];
+        [1, 2, 3].forEach((n) => {
+          const el = document.getElementById(`p${n}`);
+          el.className = "progress-step";
+          if (n <= count) el.classList.add(labels[n - 1]);
+        });
+        document.getElementById("counter").textContent =
+          `${count} of 3 selected`;
+        document
+          .getElementById("progress-bar")
+          .setAttribute("aria-valuenow", count);
+      }
+
+      /* ── RESULT ── */
+      function checkResult() {
+        if (!sel.eng || !sel.ind || !sel.prod) return;
+        const key = `${sel.eng.id}|${sel.ind.id}|${sel.prod.id}`;
+        const area = document.getElementById("result-area");
+        const match = roleMap[key];
+        area.style.display = "block";
+        if (match) {
+          area.className = "result-area result-success";
+          area.innerHTML = `
+            <div class="result-badge"><i class="ti ti-trophy" aria-hidden="true"></i> Match found!</div>
+            <div class="result-role-label">Your Engineering Role Is</div>
+            <div class="result-role">${match.role}</div>
+            <div class="result-desc">${match.desc}</div>`;
+        } else {
+          area.className = "result-area result-fail";
+          area.innerHTML = `
+            <div class="result-x" aria-hidden="true">✗</div>
+            <div class="result-fail-msg">This combination doesn't match a real engineering role.</div>
+            <div class="result-fail-sub">Try a different combination — there are many paths to discover!</div>`;
+        }
+        if (!isMobile())
+          area.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      /* ── RESET ── */
+      function clearAll() {
+        sel = { eng: null, ind: null, prod: null };
+        document
+          .querySelectorAll(".card")
+          .forEach((c) => c.classList.remove("sel-eng", "sel-ind", "sel-prod"));
+
+        // reset desktop slots
+        const defaults = {
+          eng: { icon: "ti-settings", wrap: "slot-eng-icon" },
+          ind: { icon: "ti-building-factory", wrap: "slot-ind-icon" },
+          prod: { icon: "ti-bulb", wrap: "slot-prod-icon" },
+        };
+        ["eng", "ind", "prod"].forEach((t) => {
+          const slot = document.getElementById(`slot-${t}`);
+          const iconEl = document.getElementById(`slot-${t}-icon`);
+          const textEl = document.getElementById(`slot-${t}-text`);
+          slot.className = "slot";
+          iconEl.className = `ti ${defaults[t].icon}`;
+          iconEl.parentElement.className = defaults[t].wrap;
+          textEl.className = "slot-empty";
+          textEl.textContent = "Select above ↑";
+          const check = document.getElementById(`check-${t}`);
+          if (check) check.classList.remove("visible");
+        });
+
+        // reset mobile accordion
+        if (isMobile()) {
+          document.getElementById("sec-col-eng").classList.remove("has-sel");
+          document.getElementById("sec-col-eng").classList.add("expanded");
+          updateHeaderAriaExpanded("eng", true);
+          ["ind", "prod"].forEach((t) => {
+            const col = document.getElementById(`sec-col-${t}`);
+            col.classList.remove("has-sel", "expanded");
+            col.classList.add("locked");
+            updateHeaderAriaExpanded(t, false);
+            document.getElementById(`sel-badge-${t}`).innerHTML = "";
+          });
+          document.getElementById("sel-badge-eng").innerHTML = "";
+        }
+
+        const area = document.getElementById("result-area");
+        area.style.display = "none";
+        area.innerHTML = "";
+        updateProgress();
+      }
+
+      /* ── INIT ── */
+      renderCards(engData, "cards-eng", "eng");
+      renderCards(indData, "cards-ind", "ind");
+      renderCards(prodData, "cards-prod", "prod");
+
+      function initMobileAccordion() {
+        const order = ["eng", "ind", "prod"];
+        const firstUnsel = order.find((t) => sel[t] === null) || "eng";
+        order.forEach((type) => {
+          const col = document.getElementById(`sec-col-${type}`);
+          col.classList.remove("locked", "expanded");
+          if (sel[type] !== null) {
+            col.classList.add("has-sel");
+          } else if (type === firstUnsel) {
+            col.classList.add("expanded");
+            updateHeaderAriaExpanded(type, true);
+          } else {
+            col.classList.add("locked");
+            updateHeaderAriaExpanded(type, false);
+          }
+        });
+      }
+
+      function initDesktop() {
+        document.querySelectorAll(".section-col").forEach((c) => {
+          c.classList.remove("locked", "expanded");
+        });
+      }
+
+      const mq = window.matchMedia("(max-width: 768px)");
+      if (mq.matches) {
+        initMobileAccordion();
+      } else {
+        initDesktop();
+      }
+      mq.addEventListener("change", (e) => {
+        if (e.matches) initMobileAccordion();
+        else initDesktop();
+      });
+    </script>
+  </body>
+</html>
