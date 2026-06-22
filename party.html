@@ -6,6 +6,12 @@
     <title>Engineering Careers — Party Mode</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
@@ -40,7 +46,7 @@
       html,
       body {
         height: 100%;
-        font-family: "Segoe UI", system-ui, sans-serif;
+        font-family: "DM Sans", system-ui, sans-serif;
       }
       body {
         background: #f5f4f0;
@@ -104,7 +110,8 @@
       }
       .party-header h1 {
         font-size: clamp(16px, 4vw, 22px);
-        font-weight: 700;
+        font-weight: 900;
+        font-family: "Nunito", sans-serif;
         margin-bottom: 4px;
         position: relative;
         z-index: 1;
@@ -261,6 +268,7 @@
       .code-big {
         font-size: clamp(42px, 12vw, 58px);
         font-weight: 900;
+        font-family: "Nunito", sans-serif;
         letter-spacing: 0.18em;
         line-height: 1;
         color: #fff;
@@ -339,7 +347,8 @@
       }
       .wait-name {
         font-size: 24px;
-        font-weight: 800;
+        font-weight: 900;
+        font-family: "Nunito", sans-serif;
         color: #fff;
         position: relative;
         z-index: 1;
@@ -427,6 +436,7 @@
       .countdown-num {
         font-size: clamp(100px, 25vw, 180px);
         font-weight: 900;
+        font-family: "Nunito", sans-serif;
         line-height: 1;
         will-change: transform, opacity;
       }
@@ -470,6 +480,7 @@
       .host-timer {
         font-size: 42px;
         font-weight: 900;
+        font-family: "Nunito", sans-serif;
         color: var(--teal-200);
         letter-spacing: -0.04em;
         line-height: 1;
@@ -565,7 +576,8 @@
       }
       .topbar-timer {
         font-size: 22px;
-        font-weight: 800;
+        font-weight: 900;
+        font-family: "Nunito", sans-serif;
         color: var(--teal-200);
         min-width: 54px;
         text-align: center;
@@ -919,6 +931,7 @@
       .final-ttl {
         font-size: clamp(22px, 6vw, 32px);
         font-weight: 900;
+        font-family: "Nunito", sans-serif;
         color: #fff;
         position: relative;
         z-index: 1;
@@ -2132,6 +2145,9 @@
         fillSlot(type, item);
         clearResult();
         checkResult();
+        // Auto-advance to next tab after selection
+        if (type === "eng") setTimeout(() => switchTab("ind"), 180);
+        else if (type === "ind") setTimeout(() => switchTab("prod"), 180);
       }
 
       function resetSlot(type) {
@@ -2213,6 +2229,7 @@
           );
         ["eng", "ind", "prod"].forEach(resetSlot);
         clearResult();
+        switchTab("eng");
       }
 
       // ── CONFETTI ───────────────────────────────────────────────────────────────
