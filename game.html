@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Play — Engineering Career Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
@@ -16,60 +22,55 @@
         margin: 0;
         padding: 0;
       }
+
       :root {
-        --purple-50: #eeedfe;
+        --purple-50: #eeedfb;
         --purple-200: #afa9ec;
         --purple-400: #7f77dd;
         --purple-600: #534ab7;
         --purple-800: #3c3489;
         --purple-900: #26215c;
-        --teal-50: #e1f5ee;
-        --teal-200: #5dcaa5;
-        --teal-600: #0f6e56;
-        --teal-900: #04342c;
-        --coral-50: #faece7;
-        --coral-200: #f0997b;
-        --coral-600: #993c1d;
-        --coral-900: #4a1b0c;
-        --amber-50: #faeeda;
-        --amber-400: #ba7517;
-        --gray-50: #f1efe8;
-        --gray-100: #d3d1c7;
-        --gray-400: #888780;
-        --gray-600: #5f5e5a;
-        --gray-800: #444441;
-        --red-50: #fcebeb;
-        --red-200: #f09595;
-        --red-600: #a32d2d;
-        --red-800: #791f1f;
+        --teal-50: #d1fae5;
+        --teal-200: #6ee7b7;
+        --teal-600: #059669;
+        --teal-900: #064e3b;
+        --coral-50: #fff0e8;
+        --coral-200: #fdba74;
+        --coral-600: #ea580c;
+        --coral-900: #7c2d12;
+        --amber-50: #fffbeb;
+        --amber-400: #fbbf24;
+        --gray-50: #f9fafb;
+        --gray-100: #e5e7eb;
+        --gray-400: #9ca3af;
+        --gray-600: #6b7280;
+        --gray-800: #374151;
+        --red-50: #fef2f2;
+        --red-200: #fecaca;
+        --red-600: #dc2626;
+        --red-800: #991b1b;
         --green-50: #ecfdf5;
         --green-600: #059669;
+        --bg: #f5f4f0;
       }
 
       html {
         height: 100%;
       }
       body {
-        font-family:
-          "Segoe UI",
-          system-ui,
-          -apple-system,
-          sans-serif;
-        background: #f5f4f0;
-        color: #2c2c2a;
+        font-family: "DM Sans", "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: #1f1f1f;
         display: flex;
         flex-direction: column;
         height: 100dvh;
         overflow: hidden;
       }
 
-      /* ── Confetti ── */
+      /* ── CONFETTI ── */
       #confetti-container {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         pointer-events: none;
         overflow: hidden;
         z-index: 9999;
@@ -93,7 +94,7 @@
         }
       }
 
-      /* ── Nav ── */
+      /* ── NAV ── */
       .nav-bar {
         background: rgba(38, 33, 92, 0.97);
         padding: 8px 1.25rem;
@@ -118,6 +119,7 @@
         align-items: center;
         gap: 8px;
         justify-content: flex-end;
+        flex-wrap: wrap;
       }
       .back-link {
         display: inline-flex;
@@ -133,19 +135,20 @@
         color: #fff;
       }
       #countdown {
-        font-size: 24px;
-        font-weight: 800;
-        color: #5dcaa5;
+        font-family: "Nunito", sans-serif;
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--teal-200);
         letter-spacing: -0.02em;
-        min-width: 64px;
+        min-width: 60px;
         text-align: center;
         display: none;
       }
       #countdown.amber {
-        color: #f5c67a;
+        color: var(--amber-400);
       }
       #countdown.red {
-        color: #f09595;
+        color: var(--coral-200);
         animation: pulse 0.8s ease infinite;
       }
       @keyframes pulse {
@@ -169,17 +172,17 @@
       }
       .score-chip {
         background: rgba(83, 74, 183, 0.35);
-        color: #afa9ec;
+        color: var(--purple-200);
         border: 1px solid rgba(83, 74, 183, 0.5);
       }
       .streak-chip {
-        background: rgba(186, 117, 23, 0.25);
-        color: #f5c67a;
-        border: 1px solid rgba(186, 117, 23, 0.4);
+        background: rgba(251, 191, 36, 0.2);
+        color: var(--amber-400);
+        border: 1px solid rgba(251, 191, 36, 0.35);
       }
       .found-chip {
         background: rgba(5, 150, 105, 0.2);
-        color: #5dcaa5;
+        color: var(--teal-200);
         border: 1px solid rgba(5, 150, 105, 0.3);
       }
       .history-btn {
@@ -201,15 +204,15 @@
         color: #fff;
       }
 
-      /* ── Header ── */
+      /* ── HEADER ── */
       header {
         background: linear-gradient(
-          135deg,
-          #26215c 0%,
-          #534ab7 60%,
-          #0f6e56 100%
+          140deg,
+          #111827 0%,
+          var(--purple-800) 55%,
+          var(--teal-900) 100%
         );
-        padding: 1.25rem 1rem;
+        padding: 1rem 1rem;
         text-align: center;
         position: relative;
         overflow: hidden;
@@ -218,46 +221,52 @@
       header::before {
         content: "";
         position: absolute;
-        top: -40px;
-        right: -40px;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 80% at 15% 50%,
+            rgba(83, 74, 183, 0.3) 0%,
+            transparent 65%
+          ),
+          radial-gradient(
+            ellipse 50% 70% at 85% 50%,
+            rgba(5, 150, 105, 0.25) 0%,
+            transparent 65%
+          );
+        pointer-events: none;
+      }
+      .header-inner {
+        position: relative;
+        z-index: 1;
       }
       .header-badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.13);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 100px;
         padding: 3px 12px;
         font-size: 11px;
-        font-weight: 500;
+        font-weight: 600;
         color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         letter-spacing: 0.04em;
-        position: relative;
-        z-index: 1;
       }
       header h1 {
-        font-size: clamp(16px, 4vw, 24px);
-        font-weight: 700;
+        font-family: "Nunito", sans-serif;
+        font-size: clamp(16px, 4vw, 22px);
+        font-weight: 900;
         color: #fff;
         letter-spacing: -0.02em;
-        margin-bottom: 4px;
-        position: relative;
-        z-index: 1;
+        margin-bottom: 3px;
       }
       header p {
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.75);
-        position: relative;
-        z-index: 1;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.65);
       }
 
-      /* ── Lobby ── */
+      /* ── LOBBY ── */
       #lobby {
         flex: 1;
         display: flex;
@@ -272,7 +281,7 @@
       .lobby-card {
         background: #fff;
         border-radius: 20px;
-        border: 2px solid #e0dfd8;
+        border: 2px solid var(--gray-100);
         padding: 2.5rem 2rem;
         text-align: center;
         max-width: 440px;
@@ -280,9 +289,10 @@
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
       }
       .lobby-title {
+        font-family: "Nunito", sans-serif;
         font-size: 22px;
-        font-weight: 700;
-        color: #2c2c2a;
+        font-weight: 800;
+        color: #1f1f1f;
         margin-bottom: 6px;
       }
       .lobby-sub {
@@ -300,7 +310,7 @@
         flex: 1;
         max-width: 120px;
         padding: 14px 8px;
-        border: 2px solid #e0dfd8;
+        border: 2px solid var(--gray-100);
         border-radius: 14px;
         background: #fff;
         cursor: pointer;
@@ -308,8 +318,9 @@
         font-family: inherit;
       }
       .timer-opt .opt-mins {
+        font-family: "Nunito", sans-serif;
         font-size: 20px;
-        font-weight: 800;
+        font-weight: 900;
         color: var(--purple-600);
         display: block;
       }
@@ -337,11 +348,11 @@
         color: #fff;
         border: none;
         border-radius: 12px;
+        font-family: "Nunito", sans-serif;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 800;
         cursor: pointer;
         transition: background 0.12s;
-        font-family: inherit;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -391,7 +402,7 @@
         letter-spacing: 0.05em;
       }
 
-      /* ── Game ── */
+      /* ── GAME ── */
       #game {
         flex: 1;
         display: none;
@@ -403,6 +414,7 @@
         display: flex;
       }
 
+      /* ── DESKTOP 3-col layout ── */
       .columns-grid {
         display: grid;
         grid-template-columns: minmax(140px, 1fr) minmax(180px, 1.8fr) minmax(
@@ -424,7 +436,7 @@
       }
       .col-header {
         padding: 10px 12px;
-        background: #f5f4f0;
+        background: var(--bg);
         border-bottom: 2px solid;
         display: flex;
         align-items: center;
@@ -441,9 +453,10 @@
         border-bottom-color: var(--coral-200);
       }
       .col-header h2 {
+        font-family: "Nunito", sans-serif;
         font-size: 13px;
-        font-weight: 600;
-        color: #2c2c2a;
+        font-weight: 800;
+        color: #1f1f1f;
       }
       .col-header span {
         font-size: 11px;
@@ -458,8 +471,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        font-family: "Nunito", sans-serif;
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 900;
         flex-shrink: 0;
       }
       .step-num-eng {
@@ -487,7 +501,7 @@
         align-content: flex-start;
       }
 
-      /* ── Cards ── */
+      /* ── CARDS ── */
       .card {
         display: flex;
         flex-direction: column;
@@ -496,9 +510,9 @@
         gap: 5px;
         padding: 10px 6px;
         width: calc(50% - 3px);
-        min-height: 70px;
+        min-height: 72px;
         background: #fff;
-        border: 1.5px solid #e0dfd8;
+        border: 1.5px solid var(--gray-100);
         border-radius: 10px;
         cursor: pointer;
         transition:
@@ -507,8 +521,10 @@
           background 0.12s ease,
           box-shadow 0.12s ease;
         user-select: none;
+        position: relative;
         opacity: 0;
         animation: cardIn 0.3s ease forwards;
+        -webkit-tap-highlight-color: transparent;
       }
       .col-eng .card {
         width: 100%;
@@ -528,7 +544,7 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       }
       .card:active {
-        transform: translateY(0);
+        transform: scale(0.96);
       }
       .card:focus-visible {
         outline: 2px solid var(--purple-600);
@@ -544,10 +560,10 @@
       }
       .card span {
         font-size: 10px;
-        font-weight: 500;
+        font-weight: 600;
         text-align: center;
-        line-height: 1.3;
-        color: #444441;
+        line-height: 1.35;
+        color: #4b5563;
       }
       .card-eng i {
         color: var(--purple-600);
@@ -558,6 +574,7 @@
       .card-prod i {
         color: var(--coral-600);
       }
+
       .card.sel-eng {
         background: var(--purple-50);
         border-color: var(--purple-400);
@@ -572,7 +589,7 @@
         border-width: 2px;
       }
       .card.sel-ind span {
-        color: var(--teal-600);
+        color: var(--teal-900);
       }
       .card.sel-prod {
         background: var(--coral-50);
@@ -580,15 +597,34 @@
         border-width: 2px;
       }
       .card.sel-prod span {
+        color: var(--coral-900);
+      }
+      .card.sel-eng::after,
+      .card.sel-ind::after,
+      .card.sel-prod::after {
+        content: "✓";
+        position: absolute;
+        top: 4px;
+        right: 6px;
+        font-size: 9px;
+        font-weight: 700;
+      }
+      .card.sel-eng::after {
+        color: var(--purple-600);
+      }
+      .card.sel-ind::after {
+        color: var(--teal-600);
+      }
+      .card.sel-prod::after {
         color: var(--coral-600);
       }
       .card.disabled {
-        opacity: 0.45;
+        opacity: 0.4;
         cursor: not-allowed;
         pointer-events: none;
       }
 
-      /* ── Bottom bar ── */
+      /* ── BOTTOM BAR ── */
       #bottom-bar {
         display: none;
         background: #fff;
@@ -643,7 +679,7 @@
         padding: 6px 10px;
         border: 1.5px dashed var(--gray-100);
         border-radius: 8px;
-        background: #faf9f7;
+        background: #fafaf8;
         transition: all 0.2s;
       }
       .mini-slot i {
@@ -668,7 +704,7 @@
       }
       .mini-slot.filled-eng .mini-slot-lbl {
         color: var(--purple-800);
-        font-weight: 500;
+        font-weight: 600;
       }
       .mini-slot.filled-ind {
         background: var(--teal-50);
@@ -679,8 +715,8 @@
         color: var(--teal-600);
       }
       .mini-slot.filled-ind .mini-slot-lbl {
-        color: var(--teal-600);
-        font-weight: 500;
+        color: var(--teal-900);
+        font-weight: 600;
       }
       .mini-slot.filled-prod {
         background: var(--coral-50);
@@ -691,8 +727,8 @@
         color: var(--coral-600);
       }
       .mini-slot.filled-prod .mini-slot-lbl {
-        color: var(--coral-600);
-        font-weight: 500;
+        color: var(--coral-900);
+        font-weight: 600;
       }
       #btn-try {
         padding: 7px 16px;
@@ -765,7 +801,7 @@
         opacity: 0.85;
       }
 
-      /* ── End overlay ── */
+      /* ── END OVERLAY ── */
       #end-overlay {
         display: none;
         position: fixed;
@@ -793,8 +829,9 @@
         margin-bottom: 12px;
       }
       .end-title {
+        font-family: "Nunito", sans-serif;
         font-size: 26px;
-        font-weight: 800;
+        font-weight: 900;
         color: var(--purple-900);
         margin-bottom: 6px;
       }
@@ -815,8 +852,9 @@
         padding: 12px 8px;
       }
       .end-stat-num {
+        font-family: "Nunito", sans-serif;
         font-size: 28px;
-        font-weight: 800;
+        font-weight: 900;
         color: var(--purple-600);
         line-height: 1;
       }
@@ -836,11 +874,11 @@
         color: #fff;
         border: none;
         border-radius: 10px;
+        font-family: "Nunito", sans-serif;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 800;
         cursor: pointer;
         transition: background 0.12s;
-        font-family: inherit;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -870,7 +908,7 @@
         background: var(--gray-50);
       }
 
-      /* ── History drawer ── */
+      /* ── HISTORY DRAWER ── */
       #history-backdrop {
         display: none;
         position: fixed;
@@ -908,8 +946,9 @@
         flex-shrink: 0;
       }
       .drawer-title {
+        font-family: "Nunito", sans-serif;
         font-size: 18px;
-        font-weight: 700;
+        font-weight: 800;
       }
       #close-drawer {
         background: none;
@@ -1003,25 +1042,148 @@
         background: var(--red-50);
       }
 
-      /* ── Mobile ── */
+      /* ── MOBILE ACCORDION ── */
       @media (max-width: 640px) {
+        /* Hide desktop bar on mobile when in accordion mode */
+        #bottom-bar.active {
+          display: flex;
+        }
+
+        /* Replace 3-col grid with stacked accordion */
         .columns-grid {
-          grid-template-columns: 1fr;
+          display: block;
           overflow-y: auto;
+          flex: 1;
         }
         .col {
           border-right: none;
-          border-bottom: 1px solid var(--gray-100);
-          max-height: 36vh;
-        }
-        .col:last-child {
           border-bottom: none;
+          overflow: visible;
+          background: #fff;
+          border-radius: 14px;
+          border: 1.5px solid var(--gray-100);
+          margin: 6px 8px;
+        }
+        .col-eng.col-open {
+          border-color: var(--purple-200);
+        }
+        .col-ind.col-open {
+          border-color: var(--teal-200);
+        }
+        .col-prod.col-open {
+          border-color: var(--coral-200);
+        }
+        .col.col-locked {
+          opacity: 0.4;
+          pointer-events: none;
+        }
+
+        /* Tappable header */
+        .col-header {
+          cursor: pointer;
+          border-bottom-color: transparent;
+          border-radius: 14px;
+          padding: 12px 14px;
+          min-height: 52px;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .col-open .col-header {
+          border-radius: 14px 14px 0 0;
+          border-bottom-color: inherit;
+        }
+
+        /* Cards hidden when collapsed */
+        .col-body {
+          display: none;
+          padding: 6px 8px 10px;
+        }
+        .col-open .col-body {
+          display: block;
+        }
+
+        /* Smaller cards — 3 per row */
+        .card {
+          width: calc(33.33% - 4px);
+          min-height: 80px;
+          padding: 8px 4px;
+        }
+        .col-eng .card {
+          width: calc(33.33% - 4px);
+        }
+
+        /* Selection badge in header */
+        .sel-badge {
+          display: none;
+          align-items: center;
+          gap: 5px;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 3px 9px;
+          border-radius: 100px;
+          max-width: 130px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          flex-shrink: 0;
+          margin-left: auto;
+        }
+        .sel-badge i {
+          font-size: 12px;
+          flex-shrink: 0;
+        }
+        .col.col-has-sel .sel-badge {
+          display: inline-flex;
+        }
+        .col-eng .sel-badge {
+          background: var(--purple-50);
+          color: var(--purple-800);
+        }
+        .col-ind .sel-badge {
+          background: var(--teal-50);
+          color: var(--teal-900);
+        }
+        .col-prod .sel-badge {
+          background: var(--coral-50);
+          color: var(--coral-900);
+        }
+
+        /* Chevron */
+        .step-chevron {
+          display: block;
+          font-size: 15px;
+          color: var(--gray-400);
+          flex-shrink: 0;
+          transition: transform 0.2s ease;
+        }
+        .col-open .step-chevron {
+          transform: rotate(180deg);
+        }
+
+        /* Nav: compact on mobile */
+        .nav-bar {
+          grid-template-columns: auto 1fr auto;
         }
         #history-drawer {
           width: 100%;
         }
-        .nav-bar {
-          grid-template-columns: auto 1fr auto;
+      }
+
+      @media (min-width: 641px) {
+        /* Desktop: step-chevron and sel-badge hidden */
+        .step-chevron {
+          display: none;
+        }
+        .sel-badge {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card,
+        #inline-result,
+        .end-modal {
+          transition: none;
+          animation: none;
         }
       }
     </style>
@@ -1051,11 +1213,15 @@
     </nav>
 
     <header>
-      <div class="header-badge">
-        <i class="ti ti-tool"></i> Engineering Outreach
+      <div class="header-inner">
+        <div class="header-badge">
+          <i class="ti ti-tool" aria-hidden="true"></i> Engineering Outreach
+        </div>
+        <h1>🛠 Engineering Career Explorer</h1>
+        <p>
+          Select one card from each section to discover your engineering role
+        </p>
       </div>
-      <h1>🛠 Engineering Career Explorer</h1>
-      <p>Select one card from each section to discover your engineering role</p>
     </header>
 
     <!-- LOBBY -->
@@ -1091,9 +1257,8 @@
             openHistory();
             return false;
           "
+          ><i class="ti ti-history"></i> View History</a
         >
-          <i class="ti ti-history"></i> View History
-        </a>
         <div class="best-scores" id="best-scores-display" style="display: none">
           <span
             >🏆 Best: <strong id="best-matches-display">0</strong> matches</span
@@ -1108,39 +1273,89 @@
     <!-- GAME -->
     <div id="game">
       <div class="columns-grid">
-        <div class="col col-eng">
-          <div class="col-header">
-            <div class="step-num step-num-eng">1</div>
+        <div class="col col-eng col-open" id="col-eng">
+          <div
+            class="col-header"
+            onclick="toggleCol('eng')"
+            role="button"
+            tabindex="0"
+            aria-expanded="true"
+            aria-controls="col-body-eng"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ') toggleCol('eng');
+            "
+          >
+            <div class="step-num step-num-eng" aria-hidden="true">1</div>
             <div>
               <h2>Engineering / Specialization</h2>
               <span>Choose one</span>
             </div>
+            <span
+              class="sel-badge"
+              id="sel-badge-eng"
+              aria-hidden="true"
+            ></span>
+            <i class="ti ti-chevron-down step-chevron" aria-hidden="true"></i>
           </div>
-          <div class="col-body">
+          <div class="col-body" id="col-body-eng">
             <div class="cards-grid" id="eng-cards"></div>
           </div>
         </div>
-        <div class="col col-ind">
-          <div class="col-header">
-            <div class="step-num step-num-ind">2</div>
+
+        <div class="col col-ind col-locked" id="col-ind">
+          <div
+            class="col-header"
+            onclick="toggleCol('ind')"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="col-body-ind"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ') toggleCol('ind');
+            "
+          >
+            <div class="step-num step-num-ind" aria-hidden="true">2</div>
             <div>
               <h2>Industry</h2>
               <span>Choose one</span>
             </div>
+            <span
+              class="sel-badge"
+              id="sel-badge-ind"
+              aria-hidden="true"
+            ></span>
+            <i class="ti ti-chevron-down step-chevron" aria-hidden="true"></i>
           </div>
-          <div class="col-body">
+          <div class="col-body" id="col-body-ind">
             <div class="cards-grid" id="ind-cards"></div>
           </div>
         </div>
-        <div class="col col-prod">
-          <div class="col-header">
-            <div class="step-num step-num-prod">3</div>
+
+        <div class="col col-prod col-locked" id="col-prod">
+          <div
+            class="col-header"
+            onclick="toggleCol('prod')"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="col-body-prod"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ') toggleCol('prod');
+            "
+          >
+            <div class="step-num step-num-prod" aria-hidden="true">3</div>
             <div>
               <h2>Focus Area</h2>
               <span>Choose one</span>
             </div>
+            <span
+              class="sel-badge"
+              id="sel-badge-prod"
+              aria-hidden="true"
+            ></span>
+            <i class="ti ti-chevron-down step-chevron" aria-hidden="true"></i>
           </div>
-          <div class="col-body">
+          <div class="col-body" id="col-body-prod">
             <div class="cards-grid" id="prod-cards"></div>
           </div>
         </div>
@@ -1230,8 +1445,6 @@
 
     <script>
       // ── DATA ──────────────────────────────────────────────────────────────────────
-
-      // Column 1: original engineering disciplines + new IMSE specializations
       const engData = [
         { id: "IE", label: "Industrial Engineering", icon: "ti-chart-arrows" },
         { id: "ME", label: "Manufacturing Engineering", icon: "ti-assembly" },
@@ -1252,7 +1465,6 @@
         { id: "pm", label: "Project Management", icon: "ti-clipboard-list" },
       ];
 
-      // Column 2: original industries + 3 new ones from Excel
       const indData = [
         { id: "hospital", label: "Hospitals", icon: "ti-building-hospital" },
         {
@@ -1289,7 +1501,6 @@
         { id: "gov", label: "Government", icon: "ti-building-bank" },
       ];
 
-      // Column 3: focus area / problem to solve (unchanged)
       const prodData = [
         { id: "computers", label: "Computers", icon: "ti-device-desktop" },
         {
@@ -1330,7 +1541,6 @@
       ];
 
       const roleMap = {
-        // ── Original combinations ─────────────────────────────────────────────────
         "IE|hospital|patientflow": {
           role: "Healthcare Systems Engineer",
           desc: "Applies industrial engineering methods to hospitals and clinics — improving patient flow, reducing wait times, and making care delivery safer and more efficient.",
@@ -1479,9 +1689,7 @@
           role: "Construction Manufacturing Engineer",
           desc: "Designs prefabrication layouts and modular construction workflows, bringing manufacturing efficiency to building and infrastructure projects.",
         },
-
-        // ── New combinations from Excel (Specialization × Industry → Focus Area) ──
-        // proc + process card
+        // proc
         "proc|factory|process": {
           role: "Manufacturing Process Improvement Engineer",
           desc: "Identifies and eliminates waste on production lines using Lean and Six Sigma methods to increase output and reduce costs.",
@@ -1522,8 +1730,7 @@
           role: "Public Systems Process Improvement Engineer",
           desc: "Applies lean and process analysis to government agencies to improve service delivery and reduce taxpayer waste.",
         },
-
-        // supply + inventory card
+        // supply
         "supply|factory|inventory": {
           role: "Manufacturing Supply Chain Engineer",
           desc: "Designs and optimizes raw material flow and supplier networks to support lean, just-in-time production.",
@@ -1564,8 +1771,7 @@
           role: "Public Sector Supply Chain Engineer",
           desc: "Oversees government procurement and distribution systems to ensure efficient, transparent use of public resources.",
         },
-
-        // data + data card
+        // data
         "data|factory|data": {
           role: "Manufacturing Data Analytics Engineer",
           desc: "Uses sensor data and statistical analysis to identify production inefficiencies and predict equipment failures before they occur.",
@@ -1606,8 +1812,7 @@
           role: "Public Systems Data Analyst Engineer",
           desc: "Uses data analysis to evaluate government program performance, allocate resources, and improve policy outcomes.",
         },
-
-        // quality + quality card
+        // quality
         "quality|factory|quality": {
           role: "Manufacturing Quality Engineer",
           desc: "Designs inspection systems, statistical process controls, and testing protocols to ensure products meet specifications.",
@@ -1648,8 +1853,7 @@
           role: "Public Systems Quality Engineer",
           desc: "Implements quality assurance processes for government services and infrastructure to ensure compliance and citizen satisfaction.",
         },
-
-        // sysopt + productivity card
+        // sysopt
         "sysopt|factory|productivity": {
           role: "Manufacturing Systems Optimization Engineer",
           desc: "Models and optimizes the entire production system — machines, workers, and materials — to maximize efficiency and throughput.",
@@ -1690,8 +1894,7 @@
           role: "Public Systems Optimization Engineer",
           desc: "Uses modeling and data analysis to optimize the allocation of public resources and the delivery of government services.",
         },
-
-        // pm + scheduling card
+        // pm
         "pm|factory|scheduling": {
           role: "Manufacturing Project Engineer",
           desc: "Plans and manages capital projects — new lines, equipment upgrades, and facility expansions — on time and within budget.",
@@ -1739,15 +1942,84 @@
       let timeRemaining = 0;
       let timerInterval = null;
       let sel = { eng: null, ind: null, prod: null };
-      let score = 0;
-      let streak = 0;
-      let bestStreak = 0;
-      let resultShown = false;
-
+      let score = 0,
+        streak = 0,
+        bestStreak = 0,
+        resultShown = false;
       const HISTORY_KEY = "engineeringCareerHistory";
       const BEST_KEY = "engineeringCareerBest";
       let foundRoles = new Set();
       let _audioCtx = null;
+
+      // ── MOBILE HELPERS ────────────────────────────────────────────────────────────
+      function isMobile() {
+        return window.innerWidth <= 640;
+      }
+
+      function toggleCol(type) {
+        if (!isMobile()) return;
+        const col = document.getElementById(`col-${type}`);
+        if (col.classList.contains("col-locked")) return;
+        const isOpen = col.classList.contains("col-open");
+        col.classList.toggle("col-open", !isOpen);
+        const hdr = col.querySelector(".col-header");
+        if (hdr) hdr.setAttribute("aria-expanded", String(!isOpen));
+      }
+
+      function mobileAfterSelect(type, item) {
+        const col = document.getElementById(`col-${type}`);
+        col.classList.add("col-has-sel");
+        col.classList.remove("col-open");
+        const hdr = col.querySelector(".col-header");
+        if (hdr) hdr.setAttribute("aria-expanded", "false");
+
+        const badge = document.getElementById(`sel-badge-${type}`);
+        badge.innerHTML = `<i class="ti ${item.icon}" aria-hidden="true"></i>${item.label}`;
+
+        const order = ["eng", "ind", "prod"];
+        const next = order[order.indexOf(type) + 1] || null;
+        if (next) {
+          setTimeout(() => {
+            const nextCol = document.getElementById(`col-${next}`);
+            nextCol.classList.remove("col-locked");
+            nextCol.classList.add("col-open");
+            const nextHdr = nextCol.querySelector(".col-header");
+            if (nextHdr) nextHdr.setAttribute("aria-expanded", "true");
+            nextCol.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 150);
+        }
+      }
+
+      function resetMobileAccordion() {
+        if (!isMobile()) return;
+        ["eng", "ind", "prod"].forEach((t, i) => {
+          const col = document.getElementById(`col-${t}`);
+          col.classList.remove("col-has-sel", "col-open", "col-locked");
+          const badge = document.getElementById(`sel-badge-${t}`);
+          badge.innerHTML = "";
+          const hdr = col.querySelector(".col-header");
+          if (i === 0) {
+            col.classList.add("col-open");
+            if (hdr) hdr.setAttribute("aria-expanded", "true");
+          } else {
+            col.classList.add("col-locked");
+            if (hdr) hdr.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+
+      function initDesktop() {
+        ["eng", "ind", "prod"].forEach((t) => {
+          const col = document.getElementById(`col-${t}`);
+          col.classList.remove("col-locked", "col-open", "col-has-sel");
+        });
+      }
+
+      const mq = window.matchMedia("(max-width: 640px)");
+      mq.addEventListener("change", (e) => {
+        if (!e.matches) initDesktop();
+        else resetMobileAccordion();
+      });
 
       // ── AUDIO ─────────────────────────────────────────────────────────────────────
       function getAudioCtx() {
@@ -1818,11 +2090,11 @@
           return { bestMatches: 0, bestStreak: 0 };
         }
       }
-      function saveBest(matches, streak) {
+      function saveBest(matches, st) {
         const best = loadBest();
-        const isNew = matches > best.bestMatches || streak > best.bestStreak;
+        const isNew = matches > best.bestMatches || st > best.bestStreak;
         if (matches > best.bestMatches) best.bestMatches = matches;
-        if (streak > best.bestStreak) best.bestStreak = streak;
+        if (st > best.bestStreak) best.bestStreak = st;
         localStorage.setItem(BEST_KEY, JSON.stringify(best));
         return isNew;
       }
@@ -1856,9 +2128,7 @@
           clearInterval(timerInterval);
           timerInterval = null;
         }
-        score = 0;
-        streak = 0;
-        bestStreak = 0;
+        score = streak = bestStreak = 0;
         foundRoles = new Set();
         document.getElementById("score").textContent = "0";
         document.getElementById("streak").textContent = "0";
@@ -1877,6 +2147,8 @@
         document.getElementById("lobby").classList.add("hidden");
         document.getElementById("game").classList.add("active");
         document.getElementById("bottom-bar").classList.add("active");
+        if (isMobile()) resetMobileAccordion();
+        else initDesktop();
         const cd = document.getElementById("countdown");
         cd.style.display = "block";
         timeRemaining = selectedDuration * 60;
@@ -1895,11 +2167,10 @@
           endGame();
         }
       }
-
       function updateCountdownDisplay() {
         const el = document.getElementById("countdown");
-        const mins = Math.floor(timeRemaining / 60);
-        const secs = timeRemaining % 60;
+        const mins = Math.floor(timeRemaining / 60),
+          secs = timeRemaining % 60;
         el.textContent = `${mins}:${secs.toString().padStart(2, "0")}`;
         el.className = "";
         if (timeRemaining <= 15) el.classList.add("red");
@@ -1933,6 +2204,12 @@
           el.classList.remove(`sel-${type}`);
           resetMiniSlot(type);
           clearResultDisplay();
+          if (isMobile()) {
+            const col = document.getElementById(`col-${type}`);
+            col.classList.remove("col-has-sel");
+            const badge = document.getElementById(`sel-badge-${type}`);
+            badge.innerHTML = "";
+          }
           return;
         }
         document
@@ -1942,6 +2219,10 @@
         sel[type] = item;
         updateMiniSlot(type, item);
         clearResultDisplay();
+
+        if (isMobile()) {
+          mobileAfterSelect(type, item);
+        }
         checkResult();
       }
 
@@ -1957,22 +2238,20 @@
         document.getElementById(`mini-${type}-text`).textContent =
           defaults[type].text;
       }
-
       function clearResultDisplay() {
-        const resultEl = document.getElementById("inline-result");
-        resultEl.className = "";
-        resultEl.innerHTML = "";
+        const r = document.getElementById("inline-result");
+        r.className = "";
+        r.innerHTML = "";
         document.getElementById("btn-try").classList.remove("visible");
       }
-
       function updateMiniSlot(type, item) {
-        const filled = {
+        const cls = {
           eng: "filled-eng",
           ind: "filled-ind",
           prod: "filled-prod",
         };
         document.getElementById(`mini-${type}`).className =
-          `mini-slot ${filled[type]}`;
+          `mini-slot ${cls[type]}`;
         document.getElementById(`mini-${type}-icon`).className =
           `ti ${item.icon}`;
         document.getElementById(`mini-${type}-text`).textContent = item.label;
@@ -2032,6 +2311,7 @@
         resetMiniSlot("ind");
         resetMiniSlot("prod");
         clearResultDisplay();
+        if (isMobile()) resetMobileAccordion();
       }
 
       // ── HISTORY ───────────────────────────────────────────────────────────────────
@@ -2042,8 +2322,7 @@
           return [];
         }
       }
-
-      function saveRound(duration, matches, streak) {
+      function saveRound(duration, matches, st) {
         const history = loadHistory();
         history.unshift({
           date: new Date().toLocaleDateString("en-US", {
@@ -2053,13 +2332,12 @@
           }),
           duration,
           matches,
-          streak,
+          streak: st,
           timestamp: Date.now(),
         });
         if (history.length > 20) history.pop();
         localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
       }
-
       function openHistory() {
         renderHistory();
         document.getElementById("history-backdrop").classList.add("active");
@@ -2072,7 +2350,7 @@
       function renderHistory() {
         const history = loadHistory();
         const list = document.getElementById("history-list");
-        if (history.length === 0) {
+        if (!history.length) {
           list.innerHTML =
             '<div class="history-empty">No games played yet. Start a round!</div>';
           return;
@@ -2105,11 +2383,11 @@
       function launchConfetti() {
         const colors = [
           "#534AB7",
-          "#0F6E56",
-          "#993C1D",
-          "#BA7517",
-          "#5DCAA5",
-          "#F0997B",
+          "#059669",
+          "#EA580C",
+          "#FBBF24",
+          "#6EE7B7",
+          "#FDBA74",
           "#7F77DD",
           "#AFA9EC",
         ];
@@ -2119,14 +2397,7 @@
           const el = document.createElement("div");
           el.className = "confetti-piece";
           const size = 6 + Math.random() * 8;
-          el.style.cssText = `
-            left: ${10 + Math.random() * 80}%;
-            background: ${colors[Math.floor(Math.random() * colors.length)]};
-            animation-delay: ${Math.random() * 0.6}s;
-            animation-duration: ${0.9 + Math.random() * 0.8}s;
-            width: ${size}px; height: ${size}px;
-            border-radius: ${Math.random() > 0.5 ? "50%" : "3px"};
-          `;
+          el.style.cssText = `left:${10 + Math.random() * 80}%;background:${colors[Math.floor(Math.random() * colors.length)]};animation-delay:${Math.random() * 0.6}s;animation-duration:${0.9 + Math.random() * 0.8}s;width:${size}px;height:${size}px;border-radius:${Math.random() > 0.5 ? "50%" : "3px"}`;
           container.appendChild(el);
           setTimeout(() => el.remove(), 3000);
         }
@@ -2136,20 +2407,14 @@
       function renderCards(data, containerId, type) {
         const wrap = document.getElementById(containerId);
         data.forEach((item, i) => {
-          const c = document.createElement("div");
+          const c = document.createElement("button");
+          c.type = "button";
           c.className = `card card-${type}`;
           c.dataset.id = item.id;
           c.style.animationDelay = `${i * 40}ms`;
+          c.setAttribute("aria-label", item.label);
           c.innerHTML = `<i class="ti ${item.icon}" aria-hidden="true"></i><span>${item.label}</span>`;
-          c.setAttribute("role", "button");
-          c.setAttribute("tabindex", "0");
           c.addEventListener("click", () => selectCard(type, item, c));
-          c.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              selectCard(type, item, c);
-            }
-          });
           wrap.appendChild(c);
         });
       }
