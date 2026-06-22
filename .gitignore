@@ -1,0 +1,9 @@
+# Excel temp/lock files
+~$*.xlsx
+~$*.xls
+
+# Claude Code local settings (keep launch.json but not local overrides)
+.claude/settings.local.json
+
+# macOS
+.DS_Store
