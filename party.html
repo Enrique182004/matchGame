@@ -963,18 +963,36 @@
         justify-content: center;
         gap: 3px;
         width: 88px;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .pod-blk.revealed {
+        opacity: 1;
+      }
+      .pod-blk-inner {
+        opacity: 0;
+        transform: scale(0.6);
+        transition:
+          opacity 0.25s ease,
+          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+      }
+      .pod-blk.revealed .pod-blk-inner {
+        opacity: 1;
+        transform: scale(1);
       }
       .pod-1 {
         background: #ffd700;
-        height: 110px;
       }
       .pod-2 {
         background: #c0c0c0;
-        height: 80px;
       }
       .pod-3 {
         background: #cd7f32;
-        height: 58px;
       }
       .pod-medal {
         font-size: 28px;
@@ -991,9 +1009,25 @@
         color: #888780;
         margin-top: 4px;
       }
+      .pod-col {
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      .pod-col.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
       .full-lb {
         width: 100%;
         max-width: 480px;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .full-lb.revealed {
+        opacity: 1;
       }
       .other-places-lbl {
         font-size: 11px;
@@ -1002,6 +1036,132 @@
         text-transform: uppercase;
         letter-spacing: 0.08em;
         margin: 4px 0 10px;
+      }
+
+      /* ── PERSONAL FINAL (PLAYER RESULTS) ── */
+      #screen-final-player {
+        align-items: stretch;
+      }
+      .pfin-banner {
+        position: relative;
+        overflow: hidden;
+      }
+      .pfin-icon {
+        font-size: 52px;
+        margin-bottom: 6px;
+        position: relative;
+        z-index: 1;
+        animation: pfinPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+      @keyframes pfinPop {
+        0% {
+          transform: scale(0) rotate(-10deg);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
+        }
+      }
+      .pfin-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+        max-width: 420px;
+      }
+      .pfin-stat {
+        background: #fff;
+        border: 1.5px solid #e0dfd8;
+        border-radius: 14px;
+        padding: 14px 8px;
+        text-align: center;
+      }
+      .pfin-stat-num {
+        font-family: "Nunito", sans-serif;
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--purple);
+        line-height: 1;
+      }
+      .pfin-stat-lbl {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gray-400);
+        margin-top: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .pfin-found {
+        width: 100%;
+        max-width: 420px;
+        text-align: left;
+      }
+      .pfin-found-ttl {
+        font-family: "Nunito", sans-serif;
+        font-size: 13px;
+        font-weight: 900;
+        color: #2c2c2a;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .pfin-card {
+        background: var(--tile-bg, #f1efe8);
+        border-left: 5px solid var(--tile-accent, var(--purple));
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin-bottom: 8px;
+        animation: pfinTileIn 0.35s ease both;
+      }
+      @keyframes pfinTileIn {
+        from {
+          opacity: 0;
+          transform: translateX(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .pfin-card .role-name {
+        font-family: "Nunito", sans-serif;
+        font-size: 13.5px;
+        font-weight: 900;
+        color: var(--tile-accent, var(--purple));
+        margin-bottom: 3px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .pfin-card .role-name .ti-check {
+        background: var(--tile-accent, var(--purple));
+        color: #fff;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .pfin-card .role-desc {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.45;
+      }
+      .pfin-empty {
+        font-size: 13px;
+        color: var(--gray-400);
+        text-align: center;
+        padding: 8px 0;
+      }
+      .pfin-actions {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        max-width: 420px;
       }
 
       @media (max-width: 520px) {
@@ -1285,6 +1445,51 @@
         >
           <i class="ti ti-refresh"></i> Play Again
         </button>
+      </div>
+    </div>
+
+    <!-- PERSONAL FINAL RESULTS (PLAYERS ONLY) -->
+    <div id="screen-final-player" class="screen">
+      <header class="party-header pfin-banner">
+        <div class="pfin-icon" id="pfin-icon">🏆</div>
+        <div class="final-ttl" id="pfin-title">Nice Work!</div>
+        <div class="header-badge" id="pfin-subtitle" style="margin-top: 8px">
+          Round complete
+        </div>
+      </header>
+      <div class="screen-body">
+        <div class="pfin-stats">
+          <div class="pfin-stat">
+            <div class="pfin-stat-num" id="pfin-matches">0</div>
+            <div class="pfin-stat-lbl">Matches</div>
+          </div>
+          <div class="pfin-stat">
+            <div class="pfin-stat-num" id="pfin-streak">0</div>
+            <div class="pfin-stat-lbl">Best Streak</div>
+          </div>
+        </div>
+        <div class="pfin-found">
+          <div class="pfin-found-ttl">
+            <i class="ti ti-sparkles"></i> Careers You Discovered
+          </div>
+          <div id="pfin-found-list"></div>
+        </div>
+        <div class="pfin-actions">
+          <button
+            class="btn btn-ghost"
+            onclick="show('screen-final')"
+            style="margin-bottom: 0"
+          >
+            <i class="ti ti-trophy"></i> Leaderboard
+          </button>
+          <button
+            class="btn btn-purple"
+            onclick="goHome()"
+            style="margin-bottom: 0"
+          >
+            <i class="ti ti-refresh"></i> Play Again
+          </button>
+        </div>
       </div>
     </div>
 
@@ -2066,10 +2271,12 @@
       }
 
       // ── FINAL ──────────────────────────────────────────────────────────────────
+      let finalAnimated = false;
+      const POD_HEIGHTS = { "pod-1": 110, "pod-2": 80, "pod-3": 58 };
+
       function showFinal(playersObj) {
         clearInterval(timerInt);
-        show("screen-final");
-        launchConfetti();
+        if (!finalAnimated) show("screen-final");
         const sorted = Object.entries(playersObj || {})
           .map(([, p]) => ({ name: p.name, score: p.score || 0 }))
           .sort((a, b) => b.score - a.score);
@@ -2084,8 +2291,10 @@
             return `<div class="pod-col">
               <div class="pod-name">${p.name}</div>
               <div class="pod-blk ${cls[i]}">
-                <span class="pod-medal">${MEDALS[rank]}</span>
-                <span class="pod-blk-score">${p.score}</span>
+                <div class="pod-blk-inner">
+                  <span class="pod-medal">${MEDALS[rank]}</span>
+                  <span class="pod-blk-score">${p.score}</span>
+                </div>
               </div>
             </div>`;
           })
@@ -2106,6 +2315,114 @@
               )
               .join("")
           : "";
+
+        if (finalAnimated) return;
+        finalAnimated = true;
+        animatePodiumReveal();
+      }
+
+      // Reveals podium bars 3rd → 2nd → 1st with a confetti climax, then
+      // auto-advances players to their personal results screen.
+      function animatePodiumReveal() {
+        const cols = [...document.querySelectorAll("#podium .pod-col")];
+        const blocks = cols.map((c) => c.querySelector(".pod-blk"));
+        const order = [2, 0, 1]; // 3rd place, then 2nd, then 1st (center)
+        const stepDelay = 550;
+
+        order.forEach((idx, i) => {
+          const col = cols[idx],
+            blk = blocks[idx];
+          if (!col || !blk) return;
+          setTimeout(
+            () => {
+              col.classList.add("revealed");
+              const rankCls = [...blk.classList].find((c) => POD_HEIGHTS[c]);
+              blk.style.height = `${POD_HEIGHTS[rankCls] || 60}px`;
+              blk.classList.add("revealed");
+              if (idx === 0) launchConfetti();
+            },
+            i * stepDelay + 250,
+          );
+        });
+
+        const lbDelay = order.length * stepDelay + 700;
+        setTimeout(() => {
+          document.getElementById("full-lb").classList.add("revealed");
+        }, lbDelay);
+
+        if (myRole === "player") {
+          setTimeout(() => showFinalPlayer(), lbDelay + 900);
+        }
+      }
+
+      const PFIN_TILE_ACCENTS = [
+        { bg: "#eef6ff", accent: "#2f6fed" },
+        { bg: "#fff4e6", accent: "#e8730a" },
+        { bg: "#eefcf3", accent: "#16a34a" },
+        { bg: "#fdeef6", accent: "#db2777" },
+        { bg: "#f4eefd", accent: "#7c3aed" },
+        { bg: "#eefbfb", accent: "#0891b2" },
+      ];
+
+      function pfinPerformanceTier(matches) {
+        if (matches >= 10)
+          return {
+            icon: "🏆",
+            title: "Career Champion!",
+            message: "You crushed it",
+          };
+        if (matches >= 6)
+          return {
+            icon: "🌟",
+            title: "On a Roll!",
+            message: "Great matching streak",
+          };
+        if (matches >= 3)
+          return {
+            icon: "🎉",
+            title: "Nice Work!",
+            message: "Solid round of exploring",
+          };
+        if (matches >= 1)
+          return {
+            icon: "👏",
+            title: "Good Start!",
+            message: "You found your footing",
+          };
+        return {
+          icon: "⏰",
+          title: "Time's Up!",
+          message: "Give it another shot",
+        };
+      }
+
+      function showFinalPlayer() {
+        const perf = pfinPerformanceTier(score);
+        document.getElementById("pfin-icon").textContent = perf.icon;
+        document.getElementById("pfin-title").textContent = perf.title;
+        document.getElementById("pfin-subtitle").innerHTML =
+          `<i class="ti ti-sparkles"></i> ${perf.message}`;
+        document.getElementById("pfin-matches").textContent = score;
+        document.getElementById("pfin-streak").textContent = bestStreak;
+
+        const list = document.getElementById("pfin-found-list");
+        if (foundRoles.size === 0) {
+          list.innerHTML = `<div class="pfin-empty">No careers matched this round.</div>`;
+        } else {
+          list.innerHTML = [...foundRoles]
+            .map((key) => roleMap[key])
+            .filter(Boolean)
+            .map((match, i) => {
+              const c = PFIN_TILE_ACCENTS[i % PFIN_TILE_ACCENTS.length];
+              return `<div class="pfin-card" style="--tile-bg:${c.bg}; --tile-accent:${c.accent}; animation-delay:${i * 0.06}s">
+                <div class="role-name"><i class="ti ti-check"></i>${match.role}</div>
+                <div class="role-desc">${match.desc}</div>
+              </div>`;
+            })
+            .join("");
+        }
+        show("screen-final-player");
+        launchConfetti();
       }
 
       // ── CLEANUP ────────────────────────────────────────────────────────────────
@@ -2124,6 +2441,7 @@
         bestStreak = 0;
         foundRoles = new Set();
         resultShown = false;
+        finalAnimated = false;
         show("screen-home");
       }
 
