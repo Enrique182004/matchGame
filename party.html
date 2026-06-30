@@ -1965,7 +1965,9 @@
       function listenRoom() {
         roomRef.on("value", (snap) => {
           if (!snap.exists()) {
+            const wasInGame = myRole === "player";
             goHome();
+            if (wasInGame) err("home-err", "The host ended the game");
             return;
           }
           const room = snap.val();
@@ -2276,7 +2278,12 @@
 
       function showFinal(playersObj) {
         clearInterval(timerInt);
-        if (!finalAnimated) show("screen-final");
+        // Once the reveal has run, later Firebase snapshots (e.g. a late
+        // score transaction syncing in) must not rebuild the podium DOM —
+        // that would wipe the .revealed classes/heights set by the
+        // animation and visibly collapse the bars back to flat.
+        if (finalAnimated) return;
+        show("screen-final");
         const sorted = Object.entries(playersObj || {})
           .map(([, p]) => ({ name: p.name, score: p.score || 0 }))
           .sort((a, b) => b.score - a.score);
@@ -2316,10 +2323,14 @@
               .join("")
           : "";
 
-        if (finalAnimated) return;
         finalAnimated = true;
         animatePodiumReveal();
       }
+
+      // Timeout IDs from animatePodiumReveal, tracked so goHome() can cancel
+      // any still-pending reveal/auto-advance steps (e.g. a player clicking
+      // "Play Again" before the sequence finishes).
+      let podiumRevealTimeouts = [];
 
       // Reveals podium bars 3rd → 2nd → 1st with a confetti climax, then
       // auto-advances players to their personal results screen.
@@ -2333,25 +2344,31 @@
           const col = cols[idx],
             blk = blocks[idx];
           if (!col || !blk) return;
-          setTimeout(
-            () => {
-              col.classList.add("revealed");
-              const rankCls = [...blk.classList].find((c) => POD_HEIGHTS[c]);
-              blk.style.height = `${POD_HEIGHTS[rankCls] || 60}px`;
-              blk.classList.add("revealed");
-              if (idx === 0) launchConfetti();
-            },
-            i * stepDelay + 250,
+          podiumRevealTimeouts.push(
+            setTimeout(
+              () => {
+                col.classList.add("revealed");
+                const rankCls = [...blk.classList].find((c) => POD_HEIGHTS[c]);
+                blk.style.height = `${POD_HEIGHTS[rankCls] || 60}px`;
+                blk.classList.add("revealed");
+                if (idx === 0) launchConfetti();
+              },
+              i * stepDelay + 250,
+            ),
           );
         });
 
         const lbDelay = order.length * stepDelay + 700;
-        setTimeout(() => {
-          document.getElementById("full-lb").classList.add("revealed");
-        }, lbDelay);
+        podiumRevealTimeouts.push(
+          setTimeout(() => {
+            document.getElementById("full-lb").classList.add("revealed");
+          }, lbDelay),
+        );
 
         if (myRole === "player") {
-          setTimeout(() => showFinalPlayer(), lbDelay + 900);
+          podiumRevealTimeouts.push(
+            setTimeout(() => showFinalPlayer(), lbDelay + 900),
+          );
         }
       }
 
@@ -2428,6 +2445,8 @@
       // ── CLEANUP ────────────────────────────────────────────────────────────────
       function goHome() {
         clearInterval(timerInt);
+        podiumRevealTimeouts.forEach(clearTimeout);
+        podiumRevealTimeouts = [];
         if (roomRef) {
           roomRef.off();
           roomRef = null;

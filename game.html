@@ -718,28 +718,6 @@
         color: var(--coral-900);
         font-weight: 600;
       }
-      #btn-try {
-        padding: 7px 16px;
-        font-size: 12px;
-        font-weight: 600;
-        border-radius: 8px;
-        border: none;
-        background: var(--purple-600);
-        color: #fff;
-        cursor: pointer;
-        transition: background 0.12s;
-        display: none;
-        align-items: center;
-        gap: 5px;
-        font-family: inherit;
-        flex-shrink: 0;
-      }
-      #btn-try.visible {
-        display: inline-flex;
-      }
-      #btn-try:hover {
-        background: var(--purple-800);
-      }
       #inline-result {
         display: none;
         align-items: center;
@@ -1546,9 +1524,6 @@
           <i class="ti ti-bulb" id="mini-prod-icon"></i>
           <span class="mini-slot-lbl" id="mini-prod-text">Focus area…</span>
         </div>
-        <button id="btn-try" onclick="clearSelections()">
-          <i class="ti ti-refresh"></i> Try Another
-        </button>
       </div>
       <div id="inline-result"></div>
     </div>
@@ -1898,6 +1873,7 @@
       const BEST_KEY = "engineeringCareerBest";
       let foundRoles = new Set();
       let _audioCtx = null;
+      let pendingClearTimeout = null;
 
       // ── MOBILE HELPERS ────────────────────────────────────────────────────────────
       function isMobile() {
@@ -1940,18 +1916,31 @@
 
       function resetMobileAccordion() {
         if (!isMobile()) return;
-        ["eng", "ind", "prod"].forEach((t, i) => {
+        // Reconcile accordion lock/open state against the current selections
+        // (sel) rather than blindly reopening column 1 — otherwise switching
+        // from desktop to mobile mid-round desyncs the UI from actual state.
+        const order = ["eng", "ind", "prod"];
+        const firstUnselected = order.findIndex((t) => !sel[t]);
+        order.forEach((t, i) => {
           const col = document.getElementById(`col-${t}`);
           col.classList.remove("col-has-sel", "col-open", "col-locked");
           const badge = document.getElementById(`sel-badge-${t}`);
-          badge.innerHTML = "";
           const hdr = col.querySelector(".col-header");
-          if (i === 0) {
-            col.classList.add("col-open");
-            if (hdr) hdr.setAttribute("aria-expanded", "true");
-          } else {
-            col.classList.add("col-locked");
+          if (sel[t]) {
+            col.classList.add("col-has-sel");
+            badge.innerHTML = `<i class="ti ${sel[t].icon}" aria-hidden="true"></i>${sel[t].label}`;
             if (hdr) hdr.setAttribute("aria-expanded", "false");
+          } else {
+            badge.innerHTML = "";
+            const isNext =
+              firstUnselected === -1 ? i === 0 : i === firstUnselected;
+            if (isNext) {
+              col.classList.add("col-open");
+              if (hdr) hdr.setAttribute("aria-expanded", "true");
+            } else {
+              col.classList.add("col-locked");
+              if (hdr) hdr.setAttribute("aria-expanded", "false");
+            }
           }
         });
       }
@@ -2127,6 +2116,7 @@
 
       // ── END GAME ──────────────────────────────────────────────────────────────────
       function endGame() {
+        clearTimeout(pendingClearTimeout);
         resultShown = true;
         document
           .querySelectorAll(".card")
@@ -2256,7 +2246,6 @@
         const r = document.getElementById("inline-result");
         r.className = "";
         r.innerHTML = "";
-        document.getElementById("btn-try").classList.remove("visible");
       }
       function updateMiniSlot(type, item) {
         const cls = {
@@ -2299,7 +2288,8 @@
           </div>`;
           playMatchSound();
           launchConfetti();
-          setTimeout(() => clearSelections(), 2000);
+          clearTimeout(pendingClearTimeout);
+          pendingClearTimeout = setTimeout(() => clearSelections(), 2000);
         } else {
           streak = 0;
           document.getElementById("streak").textContent = "0";
@@ -2309,7 +2299,8 @@
           const bar = document.getElementById("bottom-bar");
           bar.classList.add("shaking");
           setTimeout(() => bar.classList.remove("shaking"), 500);
-          setTimeout(() => clearSelections(), 900);
+          clearTimeout(pendingClearTimeout);
+          pendingClearTimeout = setTimeout(() => clearSelections(), 900);
         }
       }
 
