@@ -1518,77 +1518,28 @@
         { id: "SE", label: "Systems Engineering", icon: "ti-sitemap" },
       ];
       const indData = [
-        { id: "hospital", label: "Hospitals", icon: "ti-building-hospital" },
-        {
-          id: "factory",
-          label: "Manufacturing / Factories",
-          icon: "ti-building-factory",
-        },
-        { id: "aerospace", label: "Aerospace & Defense", icon: "ti-rocket" },
         { id: "logistics", label: "Logistics", icon: "ti-truck" },
-        { id: "bizops", label: "Business Operations", icon: "ti-briefcase" },
-        {
-          id: "healthcare",
-          label: "Healthcare",
-          icon: "ti-heart-rate-monitor",
-        },
         {
           id: "supplychain",
           label: "Supply Chain",
           icon: "ti-arrows-exchange",
         },
-        { id: "technology", label: "Tech / E-commerce", icon: "ti-cpu" },
-        { id: "energy", label: "Energy", icon: "ti-bolt" },
         { id: "automotive", label: "Automotive", icon: "ti-car" },
         { id: "construction", label: "Construction", icon: "ti-crane" },
-        { id: "warehouse", label: "Warehouses", icon: "ti-building-warehouse" },
-        { id: "airport", label: "Airports", icon: "ti-plane" },
-        { id: "food", label: "Food Production", icon: "ti-salad" },
-        {
-          id: "semi",
-          label: "Electronics & Semiconductors",
-          icon: "ti-circuit-board",
-        },
-        { id: "consult", label: "Consulting", icon: "ti-chart-line" },
+        { id: "semi", label: "Semiconductor/Tech", icon: "ti-circuit-board" },
         { id: "gov", label: "Government", icon: "ti-building-bank" },
       ];
       const prodData = [
-        { id: "computers", label: "Computers", icon: "ti-device-desktop" },
+        { id: "software", label: "Software/Programming", icon: "ti-code" },
         {
           id: "floorlayout",
           label: "Production Floor Layout",
           icon: "ti-layout-dashboard",
         },
         { id: "quality", label: "Quality Control", icon: "ti-certificate" },
-        { id: "costs", label: "Reducing Costs", icon: "ti-coins" },
         { id: "safety", label: "Improving Safety", icon: "ti-shield-check" },
-        {
-          id: "productivity",
-          label: "Increasing Productivity",
-          icon: "ti-trending-up",
-        },
+        { id: "assembly", label: "Assembly Devices", icon: "ti-tools" },
         { id: "data", label: "Data Analysis", icon: "ti-chart-bar" },
-        { id: "inventory", label: "Inventory Management", icon: "ti-package" },
-        { id: "process", label: "Process Improvement", icon: "ti-refresh" },
-        { id: "medical", label: "Medical Devices", icon: "ti-stethoscope" },
-        { id: "delivery", label: "Faster Delivery", icon: "ti-clock-bolt" },
-        {
-          id: "customer",
-          label: "Better Customer Service",
-          icon: "ti-mood-happy",
-        },
-        { id: "robotics", label: "Robotics / Automation", icon: "ti-robot" },
-        { id: "waste", label: "Waste Reduction", icon: "ti-recycle" },
-        {
-          id: "scheduling",
-          label: "Scheduling Workers",
-          icon: "ti-calendar-time",
-        },
-        {
-          id: "patientflow",
-          label: "Improving Patient Flow",
-          icon: "ti-activity",
-        },
       ];
       const roleMap = {
         // Original combinations
@@ -1767,6 +1718,356 @@
         "IE|aerospace|computers": {
           role: "Aerospace Systems Analysis Engineer",
           desc: "Applies model-based simulation and systems analysis to aerospace production — evaluating capacity, workflow efficiency, and resource constraints using digital tools alongside the design teams.",
+        },
+
+        // ── NEW COMBOS: Software/Programming focus ────────────────────────────
+        "IE|logistics|software": {
+          role: "Logistics Software Analyst",
+          desc: "Bridges IE and software to design transportation management systems and route-planning algorithms that keep goods moving efficiently.",
+        },
+        "IE|supplychain|software": {
+          role: "Supply Chain Software Engineer",
+          desc: "Builds and improves ERP and supply chain management tools that track inventory, automate purchasing, and give real-time network visibility.",
+        },
+        "IE|automotive|software": {
+          role: "Automotive Manufacturing Software Engineer",
+          desc: "Develops production scheduling and MES software for automotive assembly lines to coordinate robot tasks, track part genealogy, and flag quality anomalies in real time.",
+        },
+        "IE|construction|software": {
+          role: "Construction Technology Engineer",
+          desc: "Applies IE methods alongside BIM platforms, scheduling software, and IoT sensors to plan construction workflows and reduce project overruns.",
+        },
+        "IE|semi|software": {
+          role: "Semiconductor Yield Software Engineer",
+          desc: "Develops data pipelines and analytical tools that monitor fab process steps, detect yield loss patterns, and surface insights to process engineers faster than manual review.",
+        },
+        "IE|gov|software": {
+          role: "Government Operations Systems Analyst",
+          desc: "Applies IE and software development to modernize government workflows — automating paperwork, designing case-management tools, and improving digital citizen services.",
+        },
+        "ME|logistics|software": {
+          role: "Logistics Automation Engineer",
+          desc: "Programs and integrates automated material-handling equipment — conveyor controllers, AMRs, and sortation systems — writing the control logic that keeps distribution centers running 24/7.",
+        },
+        "ME|supplychain|software": {
+          role: "Supply Chain Controls Engineer",
+          desc: "Develops PLC and SCADA programs for automated warehouses, ensuring robotic picking, palletizing, and conveyor systems operate reliably and communicate with inventory databases.",
+        },
+        "ME|automotive|software": {
+          role: "Automotive Embedded Systems Engineer",
+          desc: "Writes and validates embedded firmware for automotive ECUs controlling braking, powertrain, and ADAS functions — balancing real-time performance with ISO 26262 safety requirements.",
+        },
+        "ME|construction|software": {
+          role: "Construction Equipment Software Engineer",
+          desc: "Develops control software for heavy construction machinery — grading automation, telematics, and remote monitoring systems that improve safety and utilization on job sites.",
+        },
+        "ME|semi|software": {
+          role: "Semiconductor Equipment Software Engineer",
+          desc: "Programs control systems for advanced fab equipment — lithography, etch, and deposition tools — translating process recipes into precise machine instructions and closed-loop feedback controllers.",
+        },
+        "ME|gov|software": {
+          role: "Defense Systems Software Engineer",
+          desc: "Develops embedded and real-time software for military hardware platforms, ensuring reliability, cybersecurity, and compliance with MIL-STD requirements.",
+        },
+        "SE|logistics|software": {
+          role: "Logistics Systems Engineer",
+          desc: "Architects end-to-end digital systems for logistics networks — defining how tracking sensors, routing software, and WMS interconnect to deliver packages on time at minimum cost.",
+        },
+        "SE|supplychain|software": {
+          role: "Supply Chain Systems Engineer",
+          desc: "Designs enterprise supply chain platform architecture, ensuring data flows correctly between suppliers, factories, distributors, and customers with the reliability global operations demand.",
+        },
+        "SE|automotive|software": {
+          role: "Automotive Systems Software Engineer",
+          desc: "Defines software architecture for vehicle systems — specifying communication protocols, software components, and integration requirements so sensors, actuators, and ECUs work as a coherent whole.",
+        },
+        "SE|construction|software": {
+          role: "Construction Digital Systems Engineer",
+          desc: "Architects digital-twin and site-management platforms integrating drone surveys, BIM models, IoT sensors, and project data into a unified engineering system.",
+        },
+        "SE|semi|software": {
+          role: "Semiconductor EDA Systems Engineer",
+          desc: "Develops and integrates EDA tool flows that chip designers rely on — from RTL synthesis to place-and-route — ensuring the toolchain is robust and produces correct-by-construction layouts.",
+        },
+        "SE|gov|software": {
+          role: "Government IT Systems Engineer",
+          desc: "Designs large-scale government information systems — citizen portals, secure databases, and inter-agency platforms — applying systems engineering discipline to meet security and compliance mandates.",
+        },
+
+        // ── NEW COMBOS: Assembly Devices focus ───────────────────────────────
+        "IE|logistics|assembly": {
+          role: "Logistics Assembly Planner",
+          desc: "Designs kitting and assembly workflows inside distribution centers — determining how products are configured or bundled to order while balancing labor, space, and throughput.",
+        },
+        "IE|supplychain|assembly": {
+          role: "Supply Chain Assembly Engineer",
+          desc: "Optimizes handoffs between suppliers and assembly lines — designing packaging, part presentation, and sequencing systems so components arrive at the assembly station exactly when needed.",
+        },
+        "IE|automotive|assembly": {
+          role: "Automotive Assembly Industrial Engineer",
+          desc: "Designs and balances automotive assembly lines — distributing tasks across stations, reducing ergonomic risk, and eliminating bottlenecks so vehicles roll off on takt time, every time.",
+        },
+        "IE|construction|assembly": {
+          role: "Prefab Construction Engineer",
+          desc: "Applies IE to prefabricated and modular construction — designing off-site assembly processes for wall panels, MEP racks, and structural modules shipped and erected on site.",
+        },
+        "IE|semi|assembly": {
+          role: "Semiconductor Packaging Engineer",
+          desc: "Designs and optimizes back-end assembly processes that package bare silicon dies into finished chips — wire bonding, flip-chip attach, molding, and test.",
+        },
+        "IE|gov|assembly": {
+          role: "Government Manufacturing & Assembly Engineer",
+          desc: "Supports defense and government manufacturing programs — designing assembly processes for military equipment and hardware to meet strict quality, traceability, and cost-control requirements.",
+        },
+        "ME|logistics|assembly": {
+          role: "Logistics Device Assembly Engineer",
+          desc: "Designs and maintains mechanical assembly equipment inside automated fulfillment centers — robot arms, grippers, and packaging machines — ensuring reliable handling of a wide variety of SKUs.",
+        },
+        "ME|supplychain|assembly": {
+          role: "Supply Chain Mechanical Assembly Engineer",
+          desc: "Develops fixtures, jigs, and tooling used on supplier and internal assembly lines — designing for repeatability and mistake-proofing so parts assemble correctly first time.",
+        },
+        "ME|automotive|assembly": {
+          role: "Automotive Assembly Engineer",
+          desc: "Designs mechanical systems, tooling, and fixtures used to assemble vehicles — from body-in-white welding fixtures to final-line torque tools — ensuring every component meets engineering specification.",
+        },
+        "ME|construction|assembly": {
+          role: "Construction Equipment Assembly Engineer",
+          desc: "Oversees mechanical assembly of heavy construction equipment — excavators, cranes, and loaders — designing assembly sequences and quality checks that ensure structural integrity and operator safety.",
+        },
+        "ME|semi|assembly": {
+          role: "Semiconductor Assembly Process Engineer",
+          desc: "Develops and qualifies mechanical assembly processes for semiconductor devices — die attach, wire bond, encapsulation — fine-tuning parameters to maximize yield and meet reliability standards.",
+        },
+        "ME|gov|assembly": {
+          role: "Defense Hardware Assembly Engineer",
+          desc: "Designs and validates assembly processes for military hardware — following strict government specifications, AS9100 quality standards, and traceability requirements.",
+        },
+        "SE|logistics|assembly": {
+          role: "Logistics Automation Systems Engineer",
+          desc: "Architects integrated systems orchestrating automated assembly and kitting in logistics hubs — defining how robotic cells, conveyors, vision systems, and WMS work together as a unified system.",
+        },
+        "SE|supplychain|assembly": {
+          role: "Supply Chain Systems Integration Engineer",
+          desc: "Defines system requirements and integration architecture for assembly operations across the supply chain — ensuring suppliers, contract manufacturers, and plants all assemble to the same verified standard.",
+        },
+        "SE|automotive|assembly": {
+          role: "Automotive Assembly Systems Engineer",
+          desc: "Architects vehicle assembly systems from a whole-vehicle perspective — specifying how body, powertrain, chassis, and interior stations interface, with requirements traceability from vehicle spec to assembly operation.",
+        },
+        "SE|construction|assembly": {
+          role: "Construction Systems Integration Engineer",
+          desc: "Manages system-level design and integration of complex construction assemblies — coordinating structural, MEP, and façade sub-systems so modular components fit together correctly on site.",
+        },
+        "SE|semi|assembly": {
+          role: "Semiconductor Package Systems Engineer",
+          desc: "Defines system requirements for advanced semiconductor packaging — 2.5D/3D IC stacking, chiplets, fan-out wafer-level packaging — ensuring electrical, thermal, and mechanical targets are met.",
+        },
+        "SE|gov|assembly": {
+          role: "Government Systems Integration Engineer",
+          desc: "Leads systems integration for complex government hardware programs — defining how subsystem assemblies interface mechanically and electrically, and verifying the integrated system meets all contract requirements.",
+        },
+
+        // ── GAP FILL: existing focus areas × new industries ──────────────────
+        "IE|logistics|quality": {
+          role: "Logistics Quality Engineer",
+          desc: "Develops quality control systems for logistics operations — inspection protocols, carrier scorecards, and damage-rate tracking — to ensure goods arrive on time and in perfect condition.",
+        },
+        "IE|supplychain|quality": {
+          role: "Supply Chain Quality Engineer",
+          desc: "Manages supplier quality programs — conducting audits, running PPAP/APQP processes, and resolving non-conformances so incoming parts meet specification before reaching the production floor.",
+        },
+        "IE|semi|quality": {
+          role: "Semiconductor Quality Engineer",
+          desc: "Applies SPC and failure analysis to semiconductor fabrication — monitoring critical process parameters, investigating yield excursions, and driving corrective actions to maintain world-class defect levels.",
+        },
+        "IE|gov|quality": {
+          role: "Government Quality Assurance Engineer",
+          desc: "Oversees quality assurance for government contracts — enforcing inspection plans, managing first article inspections, and ensuring suppliers comply with DCMA, AS9100, or ISO 9001 requirements.",
+        },
+        "ME|logistics|quality": {
+          role: "Logistics Equipment Quality Engineer",
+          desc: "Ensures mechanical reliability of logistics automation equipment through preventive maintenance programs, failure mode analysis, and acceptance testing protocols.",
+        },
+        "ME|supplychain|quality": {
+          role: "Manufacturing Quality Engineer",
+          desc: "Develops and validates manufacturing processes to achieve zero-defect goals — designing control plans, gauge R&R studies, and mistake-proofing devices that catch problems at the source.",
+        },
+        "ME|semi|quality": {
+          role: "Semiconductor Process Quality Engineer",
+          desc: "Monitors and improves mechanical and materials quality in semiconductor fabrication — characterizing film thickness, etch uniformity, and CMP results, implementing SPC controls to hold processes in spec.",
+        },
+        "ME|gov|quality": {
+          role: "Defense Manufacturing Quality Engineer",
+          desc: "Applies mechanical engineering expertise to government hardware quality — designing test fixtures, interpreting GD&T callouts, and managing nonconformance disposition on critical defense hardware.",
+        },
+        "SE|logistics|quality": {
+          role: "Logistics Systems Quality Engineer",
+          desc: "Applies systems engineering V&V methods to logistics technology platforms — defining test plans, executing integration tests, and certifying automated fulfillment systems perform to specification.",
+        },
+        "SE|supplychain|quality": {
+          role: "Supply Chain Systems Quality Engineer",
+          desc: "Develops quality management systems and digital audit tools for complex supply chains — tracing defects to their origin and deploying corrective-action tracking systems.",
+        },
+        "SE|semi|quality": {
+          role: "Semiconductor Systems Quality Engineer",
+          desc: "Manages system-level quality for advanced semiconductor products — defining reliability test plans and leading qualification programs to meet AEC-Q100 or industrial reliability standards.",
+        },
+        "SE|gov|quality": {
+          role: "Government Systems Verification Engineer",
+          desc: "Plans and executes formal V&V campaigns for government systems programs — writing test procedures and producing evidence packages needed to achieve program milestone approvals.",
+        },
+        "IE|logistics|safety": {
+          role: "Logistics Safety Engineer",
+          desc: "Identifies and eliminates safety hazards in warehouses and distribution centers — designing ergonomic workstations, vehicle traffic management, and emergency procedures to protect workers.",
+        },
+        "IE|supplychain|safety": {
+          role: "Supply Chain EHS Engineer",
+          desc: "Manages EHS programs across the supply chain — auditing supplier facilities, tracking hazardous materials compliance, and ensuring the network operates within regulatory and ethical safety standards.",
+        },
+        "IE|semi|safety": {
+          role: "Semiconductor Facilities Safety Engineer",
+          desc: "Manages safety programs for fabs that handle toxic and flammable chemicals — designing gas monitoring systems, spill containment, and emergency response procedures to protect fab workers.",
+        },
+        "IE|gov|safety": {
+          role: "Government Safety & Risk Engineer",
+          desc: "Applies IE and risk analysis to government facilities — conducting hazard analyses, managing safety cases, and ensuring federal facilities meet OSHA and agency-specific mandates.",
+        },
+        "ME|logistics|safety": {
+          role: "Logistics Mechanical Safety Engineer",
+          desc: "Ensures mechanical safety of logistics automation equipment — designing machine guards, safety interlocks, and emergency stop systems for conveyor lines, robotic palletizers, and AGVs.",
+        },
+        "ME|supplychain|safety": {
+          role: "Manufacturing Safety Systems Engineer",
+          desc: "Designs safety systems for production environments — pressure relief valves, machine guarding, lockout/tagout procedures, and safety-rated controls meeting ISO 13849 and IEC 62061 standards.",
+        },
+        "ME|semi|safety": {
+          role: "Semiconductor Equipment Safety Engineer",
+          desc: "Validates mechanical and chemical safety systems in semiconductor process equipment — interlocks, exhaust, chemical delivery safeguards — and qualifies equipment for cleanroom installation.",
+        },
+        "ME|gov|safety": {
+          role: "Defense Systems Safety Engineer",
+          desc: "Conducts system safety analysis (MIL-STD-882) for military hardware — identifying hazards, assessing mishap risk, and designing safety features into weapons systems and vehicles.",
+        },
+        "SE|logistics|safety": {
+          role: "Logistics Systems Safety Engineer",
+          desc: "Performs system-level safety analyses for automated logistics platforms — applying FMEA and functional safety methods to ensure autonomous vehicles and robots safely share space with workers.",
+        },
+        "SE|supplychain|safety": {
+          role: "Supply Chain Risk & Safety Systems Engineer",
+          desc: "Models and mitigates safety and disruption risks across supply networks — from geopolitical single-source dependencies to factory risks — using systems engineering to build resilient supply chains.",
+        },
+        "SE|semi|safety": {
+          role: "Semiconductor Safety Systems Engineer",
+          desc: "Leads system safety engineering for advanced fab equipment — developing safety requirement specifications, verification plans, and safety cases that satisfy regulatory bodies worldwide.",
+        },
+        "SE|gov|safety": {
+          role: "Government Systems Safety Engineer",
+          desc: "Applies MIL-STD-882 discipline to major government acquisition programs — identifying hazards, managing safety risk throughout the lifecycle, and producing safety documentation for milestone reviews.",
+        },
+        "IE|logistics|data": {
+          role: "Logistics Data Analyst",
+          desc: "Turns logistics operational data — shipment times, carrier performance, warehouse throughput — into actionable insights that help operations managers make faster, better decisions.",
+        },
+        "IE|supplychain|data": {
+          role: "Supply Chain Data Engineer",
+          desc: "Builds data infrastructure powering supply chain analytics — pipelines, master data management, and demand forecasting models that give leadership accurate visibility into inventory and spend.",
+        },
+        "IE|automotive|data": {
+          role: "Automotive Manufacturing Data Analyst",
+          desc: "Analyzes production data from automotive plants — torque audit results, cycle times, quality defect logs — to identify patterns, predict failures, and guide improvement projects on the shop floor.",
+        },
+        "IE|semi|data": {
+          role: "Semiconductor Manufacturing Data Scientist",
+          desc: "Applies machine learning and statistics to fab equipment datasets — identifying process drift, predicting yield loss, and enabling engineers to hit targets with fewer experiments.",
+        },
+        "IE|gov|data": {
+          role: "Government Operations Analyst",
+          desc: "Uses data analysis to improve government program efficiency — measuring performance metrics, identifying cost-saving opportunities, and supporting evidence-based policy decisions.",
+        },
+        "ME|logistics|data": {
+          role: "Logistics Equipment Data Engineer",
+          desc: "Designs sensor networks and data acquisition systems on logistics automation equipment, collecting machine health data and throughput metrics that feed predictive maintenance dashboards.",
+        },
+        "ME|supplychain|data": {
+          role: "Manufacturing Intelligence Engineer",
+          desc: "Implements smart manufacturing data systems — connecting machines and assembly stations to platforms that surface real-time OEE metrics and trigger alerts when processes drift.",
+        },
+        "ME|semi|data": {
+          role: "Semiconductor Equipment Data Engineer",
+          desc: "Develops data acquisition and process control systems embedded in fab equipment — capturing thousands of sensor signals per wafer and feeding them into advanced process control models.",
+        },
+        "ME|gov|data": {
+          role: "Defense Systems Data Engineer",
+          desc: "Designs embedded data recording and telemetry systems in military hardware — ensuring critical parameters are captured and stored in formats that support post-mission analysis and failure investigation.",
+        },
+        "SE|automotive|data": {
+          role: "Automotive Systems Data Engineer",
+          desc: "Architects data collection and analysis systems for connected vehicles — defining what telemetry vehicles transmit and how it's used to improve performance, safety, and OTA software updates.",
+        },
+        "SE|semi|data": {
+          role: "Semiconductor Systems Data Engineer",
+          desc: "Designs fab data platform architecture — integrating equipment interfaces, metrology streams, and yield management systems into a unified ecosystem supporting real-time process control.",
+        },
+        "SE|gov|data": {
+          role: "Government Data Systems Engineer",
+          desc: "Architects secure government data systems — designing classification schemes, access control architectures, and analytical platforms that meet FedRAMP and FISMA requirements.",
+        },
+        "IE|logistics|floorlayout": {
+          role: "Warehouse Layout Engineer",
+          desc: "Designs warehouse and distribution center layouts — positioning storage racks, pick stations, docks, and conveyors to minimize travel distance, maximize density, and hit throughput targets.",
+        },
+        "IE|supplychain|floorlayout": {
+          role: "Supply Chain Facility Engineer",
+          desc: "Plans and optimizes supply chain facility layouts — cross-docking terminals, manufacturing support warehouses, and consolidation centers — balancing material flow efficiency against real estate costs.",
+        },
+        "IE|semi|floorlayout": {
+          role: "Semiconductor Fab Layout Engineer",
+          desc: "Designs the physical layout of semiconductor fabs — positioning process equipment bays, cleanroom zones, chemical storage, and utility chases to minimize wafer travel time and contamination risk.",
+        },
+        "IE|gov|floorlayout": {
+          role: "Government Facility Layout Engineer",
+          desc: "Plans the layout of government production and maintenance facilities — depots, arsenals, and repair shops — applying IE methods to optimize workflow, improve safety, and reduce operating costs.",
+        },
+        "ME|logistics|floorlayout": {
+          role: "Logistics Automation Layout Engineer",
+          desc: "Designs physical integration of automation equipment into DC floor plans — placing robotic cells, conveyors, and pick-to-light systems in layouts that maximize throughput within building constraints.",
+        },
+        "ME|supplychain|floorlayout": {
+          role: "Manufacturing Plant Layout Engineer",
+          desc: "Develops detailed floor plans for manufacturing plants — positioning machine tools, assembly stations, and utilities, using simulation to validate the layout meets production rate and quality targets.",
+        },
+        "ME|automotive|floorlayout": {
+          role: "Automotive Plant Layout Engineer",
+          desc: "Designs automotive manufacturing plant layouts — positioning stamping presses, body shops, paint booths, and assembly lines — optimizing material flow and minimizing footprint for new model launches.",
+        },
+        "ME|semi|floorlayout": {
+          role: "Semiconductor Equipment Layout Engineer",
+          desc: "Designs the precise arrangement of semiconductor process equipment in cleanroom bays — accounting for tool footprint, service access, vibration isolation, and cleanroom airflow patterns.",
+        },
+        "ME|gov|floorlayout": {
+          role: "Defense Manufacturing Layout Engineer",
+          desc: "Designs government defense manufacturing and maintenance facility layouts — positioning specialized machine tools, test stands, and assembly areas to support efficient production of military hardware.",
+        },
+        "SE|logistics|floorlayout": {
+          role: "Logistics Systems Layout Engineer",
+          desc: "Applies systems engineering to logistics facility design — modeling functional architecture of automated DCs, defining system interfaces between equipment zones, and verifying the layout meets requirements.",
+        },
+        "SE|supplychain|floorlayout": {
+          role: "Supply Chain Facility Systems Engineer",
+          desc: "Architects supply chain facilities from a holistic perspective — defining how layout, automation, IT systems, and operational processes interact to deliver required throughput, accuracy, and resilience.",
+        },
+        "SE|construction|floorlayout": {
+          role: "Construction Site Systems Engineer",
+          desc: "Applies systems engineering to construction site planning — modeling material staging areas, crane reach envelopes, and access routes to optimize site logistics for large-scale projects.",
+        },
+        "SE|semi|floorlayout": {
+          role: "Semiconductor Fab Systems Engineer",
+          desc: "Leads systems engineering for new fab construction — defining requirements for process bays, utility systems, and material handling automation, and managing verification through facility qualification.",
+        },
+        "SE|gov|floorlayout": {
+          role: "Government Facility Systems Engineer",
+          desc: "Applies systems engineering to government facility design — translating mission requirements into facility specifications and verifying the final facility meets all operational, safety, and security requirements.",
         },
       };
 
